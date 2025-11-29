@@ -1,0 +1,42 @@
+
+---
+
+## 🔐 Accès & Sécurité
+
+🚫 **IMPORTANT : ne pas déployer la version opérationnelle en public.**
+
+Pourquoi ?
+- Les chauffeurs non validés pourraient accéder au panel
+- Un internaute pourrait accepter / refuser des courses
+- Le GPS enverrait de fausses positions dans Firebase
+- Cela fausserait tout le système de dispatch
+
+### ✔️ Recommandation DIGIY
+- Déployer une **page vitrine** publique (non connectée à Firebase)
+- Garder le **Panel Chauffeur** dans un dossier “garage”
+- Fournir l’accès uniquement aux chauffeurs validés
+
+---
+
+## 🚧 Roadmap (Évolution)
+
+- Mode Nuit optimisé mobile
+- SOS intégré
+- Validité du permis / contrôle sécurité
+- Remontée des incidents terrain
+- App chauffeur (PWA)
+- Connexion DIGIY HUB
+
+---
+
+## 👑 Licence & Usage
+
+Tous les droits appartiennent à **DIGIYLYFE**.  
+Aucune redistribution ni copie non autorisée hors écosystème DIGIY.
+
+---
+
+## ☎️ Contact DIGIY
+- Support WhatsApp : **+221 77 134 28 89**
+- Site officiel : https://digiylyfe.com
+- Page commande : https://digiylyfe.com/commande-payement/
