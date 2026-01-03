@@ -4,106 +4,163 @@
   <meta charset="utf-8">
   <title>DIGIY DRIVER — Devenir chauffeur 0% commission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Rejoins DIGIY DRIVER : VTC au Sénégal, 0% commission, paiement direct au chauffeur, accompagnement humain.">
+  <meta name="description" content="Rejoins DIGIY DRIVER : 0% commission, paiement direct au chauffeur, accompagnement humain.">
   <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#020617">
+
   <style>
     :root{
       --bg:#020617;
-      --bg-soft:#020617;
-      --card:#020617;
+      --card:#0B1120;
       --accent:#facc15;
       --accent2:#22c55e;
-      --accent-soft:#f97316;
-      --ink:#f9fafb;
-      --muted:#9ca3af;
-      --line:#1f2937;
+      --orange:#f97316;
+
+      /* ✅ LISIBILITÉ */
+      --ink:#F9FAFB;
+      --muted:#CBD5E1;        /* plus clair => plus lisible */
+      --line:#243041;
     }
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+
     body{
       min-height:100vh;
-      background:radial-gradient(circle at top,#0b1120 0,#020617 50%,#000 100%);
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,.10) 0, transparent 55%),
+        radial-gradient(circle at 25% 10%, rgba(34,197,94,.10) 0, transparent 55%),
+        radial-gradient(circle at top,#0b1120 0,#020617 50%,#000 100%);
       color:var(--ink);
       display:flex;
       flex-direction:column;
     }
+
     .page{
       max-width:1100px;
       width:100%;
       margin:0 auto;
-      padding:16px 16px 32px;
+      padding:18px 16px 42px;
     }
+
+    /* ✅ SCALE GLOBAL POUR QUE ÇA LECTURE TERRAIN */
+    :root{
+      --fs-hero: 40px;   /* titre */
+      --fs-sub: 18px;    /* sous-titre */
+      --fs-body: 16px;   /* texte normal */
+      --fs-small: 13px;  /* petits textes */
+      --lh: 1.55;
+    }
+
+    @media(max-width:860px){
+      :root{
+        --fs-hero: 34px;
+        --fs-sub: 17px;
+        --fs-body: 16px;
+        --fs-small: 13px;
+      }
+    }
+
+    @media(max-width:600px){
+      :root{
+        --fs-hero: 30px;
+        --fs-sub: 16px;
+        --fs-body: 16px;
+        --fs-small: 13px;
+      }
+      .page{ padding:16px 14px 40px; }
+    }
+
     /* NAV */
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:8px 0 12px;
+      gap:12px;
+      padding:10px 0 14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      margin-bottom:14px;
     }
     .nav-left{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:12px;
+      min-width:0;
     }
     .logo-badge{
-      width:34px;height:34px;
-      border-radius:14px;
+      width:40px;height:40px;
+      border-radius:16px;
       background:radial-gradient(circle at 30% 20%,#facc15,#f97316);
       display:flex;
       align-items:center;
       justify-content:center;
       color:#020617;
       font-weight:900;
-      font-size:18px;
-      box-shadow:0 8px 20px rgba(250,204,21,0.45);
+      font-size:20px;
+      box-shadow:0 10px 26px rgba(250,204,21,0.45);
+      flex:0 0 auto;
     }
+    .logo-text{ min-width:0; }
     .logo-text-title{
-      font-size:16px;
-      font-weight:750;
-      letter-spacing:0.12em;
+      font-size:17px;
+      font-weight:900;          /* ✅ plus gras */
+      letter-spacing:0.10em;
       text-transform:uppercase;
+      line-height:1.15;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
     .logo-text-sub{
-      font-size:11px;
+      font-size:13px;            /* ✅ plus gros */
       color:var(--muted);
+      font-weight:700;           /* ✅ gras lisible */
+      margin-top:2px;
     }
     .nav-right{
       display:flex;
       gap:10px;
       align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
+
     .pill{
       border-radius:999px;
-      padding:5px 10px;
-      font-size:10px;
-      border:1px solid rgba(148,163,184,0.5);
+      padding:8px 12px;          /* ✅ plus gros */
+      font-size:12px;
+      font-weight:900;           /* ✅ gras */
+      border:1px solid rgba(203,213,225,0.40);
       color:var(--muted);
       display:flex;
       align-items:center;
-      gap:6px;
+      gap:8px;
+      background:rgba(2,6,23,.35);
     }
     .pill span.dot{
-      width:6px;height:6px;border-radius:999px;background:var(--accent2);
+      width:8px;height:8px;border-radius:999px;background:var(--accent2);
+      box-shadow:0 0 0 4px rgba(34,197,94,.12);
     }
+
     .btn-small{
       border-radius:999px;
-      padding:6px 12px;
-      font-size:11px;
-      border:1px solid rgba(148,163,184,0.6);
-      background:transparent;
+      padding:10px 14px;         /* ✅ plus gros */
+      font-size:13px;            /* ✅ plus gros */
+      font-weight:900;           /* ✅ gras */
+      border:1px solid rgba(203,213,225,0.45);
+      background:rgba(15,23,42,0.55);
       color:var(--ink);
       text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      line-height:1;
+      white-space:nowrap;
     }
     .btn-small.primary{
       border:none;
       background:linear-gradient(135deg,#facc15,#f97316);
       color:#020617;
-      font-weight:650;
-      box-shadow:0 8px 20px rgba(250,204,21,0.4);
+      box-shadow:0 10px 26px rgba(250,204,21,0.45);
     }
 
     /* HERO */
@@ -111,336 +168,391 @@
       display:grid;
       grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
       gap:24px;
-      margin-top:18px;
+      margin-top:16px;
       align-items:center;
     }
-    @media(max-width:820px){
-      .hero{ grid-template-columns:1fr; }
-    }
+    @media(max-width:900px){ .hero{ grid-template-columns:1fr; } }
+
     .hero-title{
-      font-size:32px;
-      line-height:1.15;
-      font-weight:800;
-      margin-bottom:10px;
+      font-size:var(--fs-hero);
+      line-height:1.12;
+      font-weight:950;           /* ✅ ultra gras */
+      margin-bottom:12px;
+      letter-spacing:-0.01em;
     }
-    @media(max-width:600px){ .hero-title{font-size:26px;} }
-    .hero-title span.highlight{
+    .hero-title .highlight{
       background:linear-gradient(135deg,#facc15,#22c55e);
       -webkit-background-clip:text;
       color:transparent;
     }
+
     .hero-sub{
-      font-size:14px;
+      font-size:var(--fs-sub);   /* ✅ plus gros */
       color:var(--muted);
-      margin-bottom:14px;
+      margin-bottom:16px;
+      line-height:var(--lh);
+      font-weight:800;           /* ✅ gras */
+      max-width:62ch;
     }
+
     .hero-badges{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
+      gap:10px;
       margin-bottom:16px;
-      font-size:11px;
+      font-size:13px;
     }
     .hero-badge{
       border-radius:999px;
-      padding:4px 10px;
-      border:1px solid rgba(148,163,184,0.6);
+      padding:8px 12px;          /* ✅ plus gros */
+      border:1px solid rgba(203,213,225,0.38);
       color:var(--muted);
+      font-weight:900;           /* ✅ gras */
+      background:rgba(2,6,23,.35);
     }
     .hero-badge span{
       color:var(--accent2);
-      font-weight:600;
+      font-weight:950;
     }
+
     .hero-cta{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:14px;
+      gap:12px;
+      margin-bottom:12px;
     }
     .btn-hero-primary,
     .btn-hero-secondary{
       border-radius:999px;
-      padding:10px 16px;
-      font-size:13px;
+      padding:14px 18px;         /* ✅ gros boutons */
+      font-size:15px;            /* ✅ lisible */
+      font-weight:950;           /* ✅ gras */
       text-decoration:none;
       display:inline-flex;
       align-items:center;
-      gap:8px;
+      gap:10px;
       cursor:pointer;
+      line-height:1;
     }
     .btn-hero-primary{
       border:none;
       background:linear-gradient(135deg,#22c55e,#16a34a);
       color:#02120a;
-      font-weight:700;
-      box-shadow:0 10px 26px rgba(34,197,94,0.45);
+      box-shadow:0 14px 34px rgba(34,197,94,0.45);
     }
     .btn-hero-secondary{
-      border:1px solid rgba(148,163,184,0.6);
+      border:1px solid rgba(203,213,225,0.38);
       color:var(--ink);
-      background:rgba(15,23,42,0.8);
-    }
-    .hero-note{
-      font-size:11px;
-      color:var(--muted);
+      background:rgba(15,23,42,0.70);
     }
 
-    /* HERO CARD DROITE (FAKE PANEL) */
+    .hero-note{
+      font-size:var(--fs-small); /* ✅ plus gros */
+      color:var(--muted);
+      font-weight:800;           /* ✅ gras */
+      line-height:var(--lh);
+    }
+
+    /* HERO CARD DROITE */
     .hero-card{
-      border-radius:20px;
-      border:1px solid rgba(55,65,81,0.9);
-      background:radial-gradient(circle at top,#020617,#020617 60%,#020617);
-      padding:12px 12px 10px;
-      box-shadow:0 18px 45px rgba(15,23,42,0.9);
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(11,17,32,.55);
+      padding:14px;
+      box-shadow:0 18px 55px rgba(0,0,0,.55);
     }
     .hero-card-header{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      margin-bottom:8px;
-      font-size:11px;
+      margin-bottom:10px;
+      font-size:12px;
       color:var(--muted);
+      font-weight:900;           /* ✅ gras */
     }
     .chip-online{
       border-radius:999px;
-      padding:4px 9px;
-      border:1px solid rgba(148,163,184,0.7);
+      padding:6px 10px;
+      border:1px solid rgba(203,213,225,0.35);
       display:flex;
       align-items:center;
-      gap:6px;
-      font-size:10px;
+      gap:8px;
+      font-size:11px;
+      font-weight:900;
+      background:rgba(2,6,23,.35);
     }
-    .chip-online span.dot{
-      width:8px;height:8px;border-radius:999px;background:var(--accent2);
+    .chip-online .dot{
+      width:10px;height:10px;border-radius:999px;background:var(--accent2);
       box-shadow:0 0 0 0 rgba(34,197,94,0.5);
       animation:pulse 1.6s infinite;
     }
     @keyframes pulse{
       0%{box-shadow:0 0 0 0 rgba(34,197,94,0.45);}
-      70%{box-shadow:0 0 0 10px rgba(34,197,94,0);}
+      70%{box-shadow:0 0 0 12px rgba(34,197,94,0);}
       100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}
     }
-    .hero-card-body{ font-size:11px; }
+
     .fake-ride{
-      border-radius:12px;
-      border:1px solid rgba(75,85,99,0.9);
-      padding:8px 9px;
-      margin-bottom:6px;
-      background:rgba(15,23,42,0.95);
+      border-radius:14px;
+      border:1px solid rgba(203,213,225,0.14);
+      padding:10px 10px;
+      margin-bottom:8px;
+      background:rgba(2,6,23,0.55);
     }
     .fake-ride-top{
       display:flex;
       justify-content:space-between;
-      font-size:11px;
-      margin-bottom:4px;
+      align-items:center;
+      font-size:12px;
+      margin-bottom:8px;
+      font-weight:950;
+      color:var(--ink);
     }
     .fake-tag{
-      padding:2px 7px;
+      padding:4px 10px;
       border-radius:999px;
-      border:1px solid rgba(148,163,184,0.6);
+      border:1px solid rgba(203,213,225,0.28);
       text-transform:uppercase;
-      font-size:9px;
+      font-size:10px;
       letter-spacing:0.08em;
       color:var(--muted);
+      background:rgba(15,23,42,.6);
     }
     .fake-price{
       color:var(--accent);
-      font-weight:700;
-      font-size:13px;
+      font-weight:950;
+      font-size:16px;            /* ✅ plus gros */
     }
     .fake-line{
       display:flex;
-      gap:6px;
-      font-size:11px;
-      margin-bottom:2px;
+      gap:8px;
+      font-size:13px;            /* ✅ plus gros */
+      margin-bottom:6px;
       color:var(--muted);
+      font-weight:800;           /* ✅ gras */
+      line-height:1.35;
     }
     .fake-label{
-      width:16px;
+      width:18px;
       text-align:center;
       border-radius:999px;
-      font-size:9px;
-      padding:1px 0;
+      font-size:10px;
+      padding:2px 0;
+      font-weight:950;
+      flex:0 0 auto;
     }
-    .fake-label.a{
-      background:rgba(34,197,94,0.18);
-      color:var(--accent2);
-    }
-    .fake-label.b{
-      background:rgba(250,204,21,0.18);
-      color:var(--accent);
-    }
+    .fake-label.a{ background:rgba(34,197,94,0.18); color:var(--accent2); }
+    .fake-label.b{ background:rgba(250,204,21,0.18); color:var(--accent); }
+
     .fake-stats{
       display:flex;
-      gap:6px;
-      margin-top:6px;
+      gap:8px;
+      margin-top:10px;
+      flex-wrap:wrap;
     }
     .fake-stat-chip{
       flex:1;
+      min-width:150px;
       border-radius:999px;
-      border:1px solid rgba(55,65,81,0.9);
-      font-size:10px;
-      padding:4px 6px;
+      border:1px solid rgba(203,213,225,0.14);
+      font-size:12px;            /* ✅ plus gros */
+      padding:8px 10px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       color:var(--muted);
+      font-weight:900;
+      background:rgba(15,23,42,.55);
     }
-    .fake-stat-chip span.value{
+    .fake-stat-chip .value{
       color:var(--accent2);
-      font-weight:600;
+      font-weight:950;
     }
 
-    /* SECTIONS INFOS */
-    .section{ margin-top:32px; }
+    /* SECTIONS */
+    .section{ margin-top:36px; }
     .section-title{
-      font-size:18px;
-      font-weight:700;
-      margin-bottom:8px;
+      font-size:22px;            /* ✅ plus gros */
+      font-weight:950;
+      margin-bottom:10px;
+      letter-spacing:-0.01em;
     }
     .section-sub{
-      font-size:13px;
+      font-size:16px;            /* ✅ plus gros */
       color:var(--muted);
-      margin-bottom:16px;
+      margin-bottom:18px;
+      line-height:var(--lh);
+      font-weight:850;
+      max-width:75ch;
     }
+
     .grid-3{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:14px;
     }
-    @media(max-width:820px){ .grid-3{grid-template-columns:1fr;} }
+    @media(max-width:900px){ .grid-3{grid-template-columns:1fr;} }
+
     .card{
-      border-radius:16px;
-      border:1px solid rgba(55,65,81,0.9);
-      background:radial-gradient(circle at top,#020617,#020617 60%,#020617);
-      padding:12px 12px 10px;
-      font-size:13px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(11,17,32,.55);
+      padding:16px 14px 14px;
+      font-size:var(--fs-body);
+      box-shadow:0 14px 40px rgba(0,0,0,.35);
     }
-    .card h3{ font-size:14px; margin-bottom:4px; }
-    .card p{ font-size:12px; color:var(--muted); }
-    .card-emoji{ font-size:18px; margin-bottom:4px; }
-    .list{ margin-top:6px; font-size:12px; color:var(--muted); }
-    .list li{ margin-left:16px; margin-bottom:2px; }
+    .card-emoji{ font-size:22px; margin-bottom:6px; }
+    .card h3{
+      font-size:18px;            /* ✅ plus gros */
+      font-weight:950;
+      margin-bottom:8px;
+    }
+    .card p{
+      font-size:15px;            /* ✅ plus gros */
+      color:var(--muted);
+      font-weight:850;
+      line-height:var(--lh);
+    }
+    .list{
+      margin-top:10px;
+      font-size:14px;            /* ✅ plus gros */
+      color:var(--muted);
+      font-weight:850;
+      line-height:1.5;
+    }
+    .list li{ margin-left:18px; margin-bottom:6px; }
 
     /* CTA FINAL */
     .cta{
-      margin-top:28px;
-      border-radius:18px;
-      border:1px solid rgba(234,179,8,0.6);
-      background:radial-gradient(circle at top,#facc150d,#020617 65%);
-      padding:14px 14px 12px;
+      margin-top:30px;
+      border-radius:20px;
+      border:1px solid rgba(250,204,21,0.35);
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,0.10), transparent 60%),
+        rgba(2,6,23,.45);
+      padding:18px 14px 16px;
       text-align:center;
+      box-shadow:0 18px 55px rgba(0,0,0,.45);
     }
-    .cta h2{ font-size:17px; margin-bottom:6px; }
-    .cta p{ font-size:12px; color:var(--muted); margin-bottom:10px; }
+    .cta h2{
+      font-size:20px;            /* ✅ plus gros */
+      font-weight:950;
+      margin-bottom:10px;
+    }
+    .cta p{
+      font-size:15px;            /* ✅ plus gros */
+      color:var(--muted);
+      margin-bottom:14px;
+      font-weight:850;
+      line-height:var(--lh);
+    }
     .cta-buttons{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
+      gap:10px;
       justify-content:center;
-      margin-bottom:4px;
+      margin-bottom:8px;
     }
-    .cta-note{ font-size:11px; color:var(--muted); }
+    .cta-note{
+      font-size:13px;            /* ✅ plus gros */
+      color:var(--muted);
+      font-weight:850;
+    }
 
     .footer{
-      border-top:1px solid rgba(30,64,175,0.5);
-      padding:10px 16px 16px;
-      font-size:11px;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:14px 10px 0;
+      font-size:13px;            /* ✅ plus gros */
       color:var(--muted);
       text-align:center;
       margin-top:24px;
+      font-weight:850;
+      line-height:1.5;
     }
-    .footer span.brand{ color:var(--accent); font-weight:600; }
-    .footer span.zero{ color:var(--accent2); font-weight:600; }
+    .footer .brand{ color:var(--accent); font-weight:950; }
+    .footer .zero{ color:var(--accent2); font-weight:950; }
   </style>
 </head>
+
 <body>
-<div class="page">
-  <!-- NAV -->
-  <header class="nav">
-    <div class="nav-left">
-      <div class="logo-badge">D</div>
-      <div>
-        <div class="logo-text-title">DIGIY DRIVER</div>
-        <div class="logo-text-sub">VTC Sénégal • Paiement direct au chauffeur</div>
-      </div>
-    </div>
-    <div class="nav-right">
-      <div class="pill">
-        <span class="dot"></span> 0% commission
-      </div>
+  <div class="page">
 
-      <!-- ✅ NAV: voir les offres -->
-      <a href="https://beauville.github.io/digiy/?from=driver"
-         class="btn-small">
-        Voir les offres
-      </a>
-
-      <!-- ✅ NAV: payer -->
-      <a href="https://beauville.github.io/commencer-a-payer/?module=DRIVER&offre=DRIVER"
-         class="btn-small primary">
-        Commencer à payer
-      </a>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1 class="hero-title">
-        Deviens chauffeur<br>
-        <span class="highlight">DIGIY DRIVER</span><br>
-        et garde 100% de tes courses
-      </h1>
-      <p class="hero-sub">
-        Fini les 25% de commission. Avec DIGIY DRIVER, le client te paye directement (cash ou mobile money).
-        Toi, tu roules. Nous, on te donne la plateforme.
-      </p>
-
-      <div class="hero-badges">
-        <div class="hero-badge">💰 <span>0% commission</span> sur chaque course</div>
-        <div class="hero-badge">📍 GPS & suivi en temps réel</div>
-        <div class="hero-badge">🛡️ Sécurité & SOS intégrés</div>
-      </div>
-
-      <div class="hero-cta">
-        <!-- ✅ CTA principal = payer -->
-        <a href="https://beauville.github.io/commencer-a-payer/?module=DRIVER&offre=DRIVER"
-           class="btn-hero-primary">
-          💳 Commencer & payer
-        </a>
-
-        <!-- ✅ Offres -->
-        <a href="https://beauville.github.io/digiy/?from=driver"
-           class="btn-hero-secondary">
-          📦 Voir les offres DIGIY
-        </a>
-
-        <!-- ✅ Déjà payé => PIN -->
-        <a href="https://beauville.github.io/driver-auth/?v=20251222"
-           class="btn-hero-secondary">
-          🔑 Déjà payé ? Entrer mon PIN
-        </a>
-      </div>
-
-      <div class="hero-note">
-        Paiement d’abord → activation → PIN → accès au dashboard chauffeur.
-      </div>
-    </div>
-
-    <aside class="hero-card" aria-hidden="true">
-      <div class="hero-card-header">
-        <span>Panel chauffeur (aperçu)</span>
-        <div class="chip-online">
-          <span class="dot"></span> Mode démo
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-left">
+        <div class="logo-badge">D</div>
+        <div class="logo-text">
+          <div class="logo-text-title">DIGIY DRIVER</div>
+          <div class="logo-text-sub">VTC Sénégal • Paiement direct au chauffeur</div>
         </div>
       </div>
-      <div class="hero-card-body">
+
+      <div class="nav-right">
+        <div class="pill"><span class="dot"></span> 0% commission</div>
+
+        <a href="https://beauville.github.io/digiy/?from=driver" class="btn-small">
+          📦 Voir les offres
+        </a>
+
+        <a href="https://beauville.github.io/commencer-a-payer/?module=DRIVER&offre=DRIVER" class="btn-small primary">
+          💳 Commencer à payer
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">
+          Deviens chauffeur<br>
+          <span class="highlight">DIGIY DRIVER</span><br>
+          et garde <span class="highlight">100%</span> de tes courses
+        </h1>
+
+        <p class="hero-sub">
+          Fini les 25% de commission. Avec DIGIY DRIVER, le client te paye directement (cash ou mobile money).
+          Toi, tu roules. Nous, on te donne la plateforme.
+        </p>
+
+        <div class="hero-badges">
+          <div class="hero-badge">💰 <span>0% commission</span> sur chaque course</div>
+          <div class="hero-badge">📍 GPS & suivi en temps réel</div>
+          <div class="hero-badge">🛡️ Sécurité & SOS intégrés</div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="https://beauville.github.io/commencer-a-payer/?module=DRIVER&offre=DRIVER" class="btn-hero-primary">
+            💳 Commencer & payer
+          </a>
+
+          <a href="https://beauville.github.io/digiy/?from=driver" class="btn-hero-secondary">
+            📦 Voir les offres DIGIY
+          </a>
+
+          <a href="https://beauville.github.io/driver-auth/?v=20251222" class="btn-hero-secondary">
+            🔑 Déjà payé ? Entrer mon PIN
+          </a>
+        </div>
+
+        <div class="hero-note">
+          Paiement d’abord → activation → PIN → accès au dashboard chauffeur.
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-hidden="true">
+        <div class="hero-card-header">
+          <span>Panel chauffeur (aperçu)</span>
+          <div class="chip-online">
+            <span class="dot"></span> Mode démo
+          </div>
+        </div>
+
         <div class="fake-ride">
           <div class="fake-ride-top">
             <span class="fake-tag">Nouvelle course</span>
             <span class="fake-price">4 800 F</span>
           </div>
+
           <div class="fake-line">
             <span class="fake-label a">A</span>
             <span>Saly Koulang → AIBD</span>
@@ -451,99 +563,92 @@
           </div>
           <div class="fake-line">
             <span class="fake-label b">☎</span>
-            <span>Contact client direct (WhatsApp/téléphone)</span>
+            <span>Contact client direct (WhatsApp / téléphone)</span>
           </div>
+
           <div class="fake-stats">
-            <div class="fake-stat-chip">
-              <span>Courses jour</span>
-              <span class="value">8</span>
-            </div>
-            <div class="fake-stat-chip">
-              <span>Montant encaissé</span>
-              <span class="value">36 500 F</span>
-            </div>
-            <div class="fake-stat-chip">
-              <span>Commission DIGIY</span>
-              <span class="value">0 F</span>
-            </div>
+            <div class="fake-stat-chip"><span>Courses jour</span><span class="value">8</span></div>
+            <div class="fake-stat-chip"><span>Encaissé</span><span class="value">36 500 F</span></div>
+            <div class="fake-stat-chip"><span>Commission</span><span class="value">0 F</span></div>
           </div>
         </div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">
+
+        <div style="font-size:13px;color:var(--muted);font-weight:850;line-height:1.55;">
           Illustration d’interface. Le vrai panneau chauffeur est réservé aux chauffeurs activés.
         </div>
+      </aside>
+    </section>
+
+    <!-- AVANTAGES -->
+    <section class="section">
+      <h2 class="section-title">Pourquoi passer à DIGIY DRIVER ?</h2>
+      <p class="section-sub">
+        Tu ne travailles plus pour nourrir une plateforme. Tu travailles pour ta famille, tes projets, ton avenir.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-emoji">💸</div>
+          <h3>0% commission</h3>
+          <p>Sur une journée à 40 000 F de courses, tu gardes 40 000 F. Pas 28 000 F.</p>
+          <ul class="list">
+            <li>Tarif fixe DIGIY par mois</li>
+            <li>Tu encaisses directement</li>
+            <li>Tu vois tes stats jour par jour</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-emoji">📱</div>
+          <h3>Client ↔ Chauffeur direct</h3>
+          <p>Le client commande, tu reçois la demande avec son numéro (WhatsApp / téléphone).</p>
+          <ul class="list">
+            <li>Tu peux appeler le client</li>
+            <li>Tu as le GPS vers le point de départ</li>
+            <li>Tu gardes la relation avec le client</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-emoji">🛡️</div>
+          <h3>Sécurité & sérénité</h3>
+          <p>SOS, suivi, équipe DIGIY pour t’accompagner. Pas besoin d’être un geek.</p>
+          <ul class="list">
+            <li>Zone d’activité définie</li>
+            <li>Support humain quand tu bloques</li>
+            <li>Moins de stress, plus de route</li>
+          </ul>
+        </div>
       </div>
-    </aside>
-  </section>
+    </section>
 
-  <!-- AVANTAGES -->
-  <section class="section">
-    <h2 class="section-title">Pourquoi passer à DIGIY DRIVER ?</h2>
-    <p class="section-sub">Tu ne travailles plus pour nourrir une plateforme. Tu travailles pour ta famille, tes projets, ton avenir.</p>
+    <!-- CTA FINAL -->
+    <section class="cta">
+      <h2>Prêt à démarrer proprement ?</h2>
+      <p>Tu payes → on active → tu reçois ton PIN → tu entres dans ton panneau chauffeur.</p>
 
-    <div class="grid-3">
-      <div class="card">
-        <div class="card-emoji">💸</div>
-        <h3>0% commission</h3>
-        <p>Sur une journée à 40 000 F de courses, tu gardes 40 000 F. Pas 28 000 F.</p>
-        <ul class="list">
-          <li>Tarif fixe DIGIY par mois</li>
-          <li>Tu encaisses directement</li>
-          <li>Tu vois tes stats jour par jour</li>
-        </ul>
+      <div class="cta-buttons">
+        <a href="https://beauville.github.io/commencer-a-payer/?module=DRIVER&offre=DRIVER" class="btn-hero-primary">
+          💳 Commencer & payer
+        </a>
+
+        <a href="https://beauville.github.io/driver-auth/?v=20251222" class="btn-hero-secondary">
+          🔑 Entrer mon PIN
+        </a>
+
+        <a href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20j%27ai%20une%20question%20sur%20l%27abonnement%20chauffeur."
+           class="btn-hero-secondary">
+          💬 Support WhatsApp
+        </a>
       </div>
-      <div class="card">
-        <div class="card-emoji">📱</div>
-        <h3>Client ↔ Chauffeur direct</h3>
-        <p>Le client commande, tu reçois la demande avec son numéro (WhatsApp / téléphone).</p>
-        <ul class="list">
-          <li>Tu peux appeler le client</li>
-          <li>Tu as le GPS vers le point de départ</li>
-          <li>Tu gardes la relation avec le client</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-emoji">🛡️</div>
-        <h3>Sécurité & sérénité</h3>
-        <p>SOS, suivi, équipe DIGIY pour t’accompagner.</p>
-        <ul class="list">
-          <li>Zone d’activité définie</li>
-          <li>Support humain quand tu bloques</li>
-          <li>Pas besoin d’être un geek</li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
-  <!-- CTA FINALE -->
-  <section class="cta">
-    <h2>Prêt à démarrer proprement ?</h2>
-    <p>Tu payes → on active → tu reçois ton PIN → tu entres dans ton panneau chauffeur.</p>
+      <div class="cta-note">Astuce : “Voir les offres” te montre tous les packs DIGIY.</div>
+    </section>
 
-    <div class="cta-buttons">
-      <a href="https://beauville.github.io/commencer-a-payer/?module=DRIVER&offre=DRIVER"
-         class="btn-hero-primary">
-        💳 Commencer & payer
-      </a>
+    <footer class="footer">
+      DIGIY DRIVER • Sénégal • <span class="zero">0% commission</span> • <span class="brand">Paiement direct au pro</span>
+    </footer>
 
-      <a href="https://beauville.github.io/driver-auth/?v=20251222"
-         class="btn-hero-secondary">
-        🔑 Entrer mon PIN
-      </a>
-
-      <a href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20j%27ai%20une%20question%20sur%20l%27abonnement%20chauffeur."
-         class="btn-hero-secondary">
-        💬 Support WhatsApp
-      </a>
-    </div>
-
-    <div class="cta-note">
-      Astuce : “Voir les offres” te montre tous les packs DIGIY.
-    </div>
-  </section>
-
-  <footer class="footer">
-    DIGIY DRIVER • Sénégal • <span class="zero">0% commission</span> • <span class="brand">Paiement direct au pro</span>
-  </footer>
-</div>
+  </div>
 </body>
 </html>
