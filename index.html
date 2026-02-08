@@ -8,6 +8,9 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#020617">
 
+  <!-- ✅ Supabase (Listing chauffeurs) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     :root{
       --bg:#020617;
@@ -470,6 +473,103 @@
     }
     .footer .brand{ color:var(--accent); font-weight:950; }
     .footer .zero{ color:var(--accent2); font-weight:950; }
+
+    /* ==============================
+       LISTING CHAUFFEURS (Supabase)
+    ============================== */
+    .drivers{
+      margin-top:36px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(11,17,32,.45);
+      padding:18px 14px;
+      box-shadow:0 14px 40px rgba(0,0,0,.35);
+    }
+    .drivers-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .drivers-head h2{margin:0;font-size:22px;font-weight:950}
+    .drivers-head p{margin:0;color:var(--muted);font-weight:850}
+
+    .drivers-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 14px}
+    .driver-input{
+      flex:1; min-width:240px;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid rgba(203,213,225,0.20);
+      background:rgba(2,6,23,.45); color:var(--ink);
+      outline:none;
+    }
+    .driver-input::placeholder{color:rgba(203,213,225,.65);font-weight:800}
+
+    .drivers-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    @media(max-width:960px){.drivers-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){.drivers-grid{grid-template-columns:1fr}}
+
+    .dcard{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(2,6,23,.45);
+      padding:14px;
+    }
+    .dtop{display:flex;gap:12px;align-items:center}
+    .davatar{
+      width:44px;height:44px;border-radius:14px;
+      background:radial-gradient(circle at 30% 20%, rgba(250,204,21,.28), rgba(34,197,94,.10));
+      border:1px solid rgba(250,204,21,.22);
+      display:grid;place-items:center;
+      color:var(--ink);font-weight:950;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .davatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .dname{margin:0;font-size:16px;font-weight:950}
+    .dmeta{margin:2px 0 0;color:var(--muted);font-weight:850;font-size:13px}
+
+    .dbadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .dbadge{
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;font-weight:900;
+      border:1px solid rgba(203,213,225,0.18);
+      background:rgba(15,23,42,.55);
+      color:var(--muted);
+    }
+
+    .dbio{margin:10px 0 0;color:rgba(203,213,225,.95);font-weight:850;line-height:1.5;font-size:14px}
+
+    .dactions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .dbtn{
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:13px;font-weight:950;
+      text-decoration:none;
+      border:1px solid rgba(203,213,225,0.22);
+      background:rgba(15,23,42,.55);
+      color:var(--ink);
+      display:inline-flex;align-items:center;gap:8px;
+    }
+    .dbtn:hover{filter:brightness(1.05)}
+    .dbtn.primary{
+      border:none;
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#02120a;
+    }
+
+    .drivers-empty{
+      display:none;
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px dashed rgba(203,213,225,0.25);
+      color:var(--muted);
+      font-weight:900;
+    }
+
+    .drivers-hint{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:850;
+      line-height:1.55;
+    }
   </style>
 
   <script>
@@ -503,10 +603,10 @@
       <div class="nav-right">
         <div class="pill"><span class="dot"></span> 0% commission</div>
 
-        <!-- ✅ VITRINE -->
-        <a href="#" class="btn-small" id="btnVitrine">🌍 Vitrine chauffeurs</a>
+        <!-- ✅ VITRINE (scroll listing) -->
+        <a href="#chauffeurs" class="btn-small" id="btnVitrine">🌍 Vitrine chauffeurs</a>
 
-        <!-- ✅ OFFRES (tu peux remettre ton hub si tu veux) -->
+        <!-- ✅ OFFRES -->
         <a href="https://beauville.github.io/digiy/?from=driver" class="btn-small">
           📦 Voir les offres
         </a>
@@ -640,6 +740,29 @@
       </div>
     </section>
 
+    <!-- =========================================================
+         ✅ LISTING CHAUFFEURS (SUPABASE)
+    ========================================================== -->
+    <section class="drivers" id="chauffeurs">
+      <div class="drivers-head">
+        <div>
+          <h2>🚗 Chauffeurs disponibles</h2>
+          <p>Contact direct • Paiement direct • 0% commission DIGIY</p>
+        </div>
+      </div>
+
+      <div class="drivers-tools">
+        <input id="driverSearch" class="driver-input" type="search" placeholder="Rechercher: Saly, Dakar, AIBD, etc." />
+      </div>
+
+      <div id="driversGrid" class="drivers-grid"></div>
+      <div id="driversEmpty" class="drivers-empty">Aucun chauffeur publié pour le moment.</div>
+
+      <div class="drivers-hint">
+        Astuce : si tu ne vois personne ici, c’est que la table Supabase n’a pas encore de profils <strong>publiés</strong> (is_published=true & is_active=true).
+      </div>
+    </section>
+
     <!-- CTA FINAL -->
     <section class="cta">
       <h2>Prêt à démarrer proprement ?</h2>
@@ -674,7 +797,126 @@
     // ✅ brancher liens internes au repo
     document.getElementById("btnPin").href = digiyLocal("pin.html");
     document.getElementById("btnPin2").href = digiyLocal("pin.html");
-    document.getElementById("btnVitrine").href = digiyLocal("listing.html");
+
+    // bouton vitrine -> section
+    document.getElementById("btnVitrine").href = "#chauffeurs";
+  </script>
+
+  <script>
+  (async function(){
+    "use strict";
+
+    // ✅ TES VRAIES VALEURS
+    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+
+    if(!window.supabase?.createClient){
+      console.error("Supabase JS non chargé (cdn).");
+      return;
+    }
+
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const grid = document.getElementById("driversGrid");
+    const empty = document.getElementById("driversEmpty");
+    const search = document.getElementById("driverSearch");
+
+    function initials(name){
+      const s = (name||"").trim();
+      if(!s) return "DR";
+      const parts = s.split(/\s+/).slice(0,2);
+      return parts.map(p => (p[0]||"").toUpperCase()).join("");
+    }
+
+    function waLink(whatsapp, name){
+      if(!whatsapp) return "";
+      const msg = encodeURIComponent(`Salut ${name||""}, je viens de DIGIY DRIVER. Tu es dispo ?`);
+      return `https://wa.me/${whatsapp}?text=${msg}`;
+    }
+
+    function esc(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#39;");
+    }
+
+    function card(d){
+      const zones = Array.isArray(d.zones) ? d.zones.slice(0,3) : [];
+      const tags  = Array.isArray(d.tags) ? d.tags.slice(0,4) : [];
+
+      const badges = [
+        ...(d.city ? [`<span class="dbadge">${esc(d.city)}</span>`] : []),
+        ...zones.map(z => `<span class="dbadge">${esc(z)}</span>`),
+        ...tags.map(t => `<span class="dbadge">${esc(t)}</span>`)
+      ].slice(0,6).join("");
+
+      const avatar = d.photo_url
+        ? `<div class="davatar"><img src="${esc(d.photo_url)}" alt=""></div>`
+        : `<div class="davatar">${esc(initials(d.display_name))}</div>`;
+
+      const wa = waLink(d.whatsapp, d.display_name);
+
+      return `
+        <article class="dcard" data-search="${esc((d.display_name+" "+(d.city||"")+" "+(d.bio||"")+" "+zones.join(" ")+" "+tags.join(" ")).toLowerCase())}">
+          <div class="dtop">
+            ${avatar}
+            <div>
+              <p class="dname">${esc(d.display_name || "Chauffeur")}</p>
+              <p class="dmeta">${esc((d.city||"") + (zones.length ? (" • " + zones.join(" • ")) : ""))}</p>
+            </div>
+          </div>
+
+          <div class="dbadges">${badges}</div>
+          <p class="dbio">${esc(d.bio || "")}</p>
+
+          <div class="dactions">
+            ${wa
+              ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`
+              : `<span class="dbtn" style="opacity:.6;pointer-events:none">WhatsApp</span>`
+            }
+          </div>
+        </article>
+      `;
+    }
+
+    function render(list){
+      if(!grid) return;
+      grid.innerHTML = (list||[]).map(card).join("");
+      const has = (list||[]).length > 0;
+      if(empty) empty.style.display = has ? "none" : "block";
+    }
+
+    function applyFilter(){
+      const q = (search?.value || "").trim().toLowerCase();
+      document.querySelectorAll("#driversGrid .dcard").forEach(el=>{
+        const hay = (el.getAttribute("data-search") || "");
+        el.style.display = (!q || hay.includes(q)) ? "" : "none";
+      });
+    }
+
+    // ✅ IMPORTANT :
+    // Table attendue: digiy_driver_public_profiles
+    // RLS: SELECT anon autorisé uniquement sur (is_published=true AND is_active=true)
+    const { data, error } = await sb
+      .from("digiy_driver_public_profiles")
+      .select("slug, display_name, whatsapp, photo_url, bio, city, zones, tags, priority, updated_at")
+      .order("priority", { ascending: true })
+      .order("updated_at", { ascending: false })
+      .limit(60);
+
+    if(error){
+      console.error("[DIGIY DRIVER LIST] error:", error);
+      render([]);
+    } else {
+      render(data || []);
+    }
+
+    search?.addEventListener("input", applyFilter);
+  })();
   </script>
 </body>
 </html>
