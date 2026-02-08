@@ -603,10 +603,8 @@
       <div class="nav-right">
         <div class="pill"><span class="dot"></span> 0% commission</div>
 
-        <!-- ✅ VITRINE (scroll listing) -->
         <a href="#chauffeurs" class="btn-small" id="btnVitrine">🌍 Vitrine chauffeurs</a>
 
-        <!-- ✅ OFFRES -->
         <a href="https://beauville.github.io/digiy/?from=driver" class="btn-small">
           📦 Voir les offres
         </a>
@@ -646,7 +644,6 @@
             📦 Voir les offres DIGIY
           </a>
 
-          <!-- ✅ PIN LOCAL REPO -->
           <a href="#" class="btn-hero-secondary" id="btnPin">
             🔑 Déjà payé ? Entrer mon PIN
           </a>
@@ -740,9 +737,7 @@
       </div>
     </section>
 
-    <!-- =========================================================
-         ✅ LISTING CHAUFFEURS (SUPABASE)
-    ========================================================== -->
+    <!-- ✅ LISTING CHAUFFEURS -->
     <section class="drivers" id="chauffeurs">
       <div class="drivers-head">
         <div>
@@ -759,7 +754,8 @@
       <div id="driversEmpty" class="drivers-empty">Aucun chauffeur publié pour le moment.</div>
 
       <div class="drivers-hint">
-        Astuce : si tu ne vois personne ici, c’est que la table Supabase n’a pas encore de profils <strong>publiés</strong> (is_published=true & is_active=true).
+        Si tu veux voir <strong>Lamine</strong> ici : dans Supabase il doit être <strong>publié</strong> (is_published=true & is_active=true),
+        avec <strong>profile_url</strong> = sa carte partenaire, et <strong>whatsapp</strong> = 221784413680.
       </div>
     </section>
 
@@ -773,7 +769,6 @@
           💳 Commencer & payer
         </a>
 
-        <!-- ✅ PIN LOCAL REPO -->
         <a href="#" class="btn-hero-secondary" id="btnPin2">
           🔑 Entrer mon PIN
         </a>
@@ -794,11 +789,9 @@
   </div>
 
   <script>
-    // ✅ brancher liens internes au repo
+    // ✅ liens internes repo
     document.getElementById("btnPin").href = digiyLocal("pin.html");
     document.getElementById("btnPin2").href = digiyLocal("pin.html");
-
-    // bouton vitrine -> section
     document.getElementById("btnVitrine").href = "#chauffeurs";
   </script>
 
@@ -806,7 +799,7 @@
   (async function(){
     "use strict";
 
-    // ✅ TES VRAIES VALEURS
+    // ✅ TES VRAIES VALEURS SUPABASE
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
@@ -859,9 +852,12 @@
         : `<div class="davatar">${esc(initials(d.display_name))}</div>`;
 
       const wa = waLink(d.whatsapp, d.display_name);
+      const profileUrl = (d.profile_url || "").trim();
+
+      const searchHay = (d.display_name+" "+(d.city||"")+" "+(d.bio||"")+" "+zones.join(" ")+" "+tags.join(" ")).toLowerCase();
 
       return `
-        <article class="dcard" data-search="${esc((d.display_name+" "+(d.city||"")+" "+(d.bio||"")+" "+zones.join(" ")+" "+tags.join(" ")).toLowerCase())}">
+        <article class="dcard" data-search="${esc(searchHay)}">
           <div class="dtop">
             ${avatar}
             <div>
@@ -874,6 +870,10 @@
           <p class="dbio">${esc(d.bio || "")}</p>
 
           <div class="dactions">
+            ${profileUrl
+              ? `<a class="dbtn" href="${esc(profileUrl)}" target="_blank" rel="noopener">Voir la carte</a>`
+              : `<span class="dbtn" style="opacity:.6;pointer-events:none">Carte</span>`
+            }
             ${wa
               ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`
               : `<span class="dbtn" style="opacity:.6;pointer-events:none">WhatsApp</span>`
@@ -898,12 +898,11 @@
       });
     }
 
-    // ✅ IMPORTANT :
-    // Table attendue: digiy_driver_public_profiles
-    // RLS: SELECT anon autorisé uniquement sur (is_published=true AND is_active=true)
+    // ✅ Table attendue: digiy_driver_public_profiles
+    // ✅ Champs utilisés: display_name, whatsapp, profile_url, bio, city, zones, tags, photo_url, priority
     const { data, error } = await sb
       .from("digiy_driver_public_profiles")
-      .select("slug, display_name, whatsapp, photo_url, bio, city, zones, tags, priority, updated_at")
+      .select("slug, display_name, whatsapp, profile_url, photo_url, bio, city, zones, tags, priority, updated_at")
       .order("priority", { ascending: true })
       .order("updated_at", { ascending: false })
       .limit(60);
