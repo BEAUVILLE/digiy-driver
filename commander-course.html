@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>DIGIY DRIVER — Commander une course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Commander une course DIGIY DRIVER : WhatsApp direct chauffeur, paiement direct, 0% commission." />
+  <meta name="theme-color" content="#020617" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Supabase (optionnel: pour charger la liste des chauffeurs publiés) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#0B1120;
+      --ink:#F9FAFB;
+      --muted:#CBD5E1;
+      --line:rgba(203,213,225,0.18);
+      --accent:#facc15;
+      --green:#22c55e;
+      --orange:#f97316;
+
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --r-xl:24px;
+      --r-lg:18px;
+      --r-md:14px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,.10) 0, transparent 55%),
+        radial-gradient(circle at 25% 10%, rgba(34,197,94,.10) 0, transparent 55%),
+        radial-gradient(circle at top,#0b1120 0,#020617 55%,#000 100%);
+      color:var(--ink);
+      padding:14px;
+      display:flex;
+      justify-content:center;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .app{width:100%;max-width:980px}
+
+    .top{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+      padding:12px 0 14px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:14px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .logo{
+      width:44px;height:44px;border-radius:16px;
+      background:radial-gradient(circle at 30% 20%,#facc15,#f97316);
+      display:grid;place-items:center;color:#020617;font-weight:950;font-size:20px;
+      box-shadow:0 10px 26px rgba(250,204,21,0.45);
+      flex:0 0 auto;
+    }
+    .btxt{min-width:0}
+    .btxt b{display:block;font-size:14px;letter-spacing:.10em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .btxt small{display:block;color:var(--muted);font-weight:850;margin-top:2px}
+
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      border-radius:999px;padding:10px 14px;font-size:13px;font-weight:950;
+      border:1px solid rgba(203,213,225,0.25);
+      background:rgba(15,23,42,0.55);
+      color:var(--ink);
+      display:inline-flex;align-items:center;gap:8px;line-height:1;
+      cursor:pointer;
+    }
+    .btn.primary{
+      border:none;
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#02120a;
+      box-shadow:0 14px 34px rgba(34,197,94,0.35);
+    }
+    .btn.gold{
+      border:none;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      color:#111827;
+      box-shadow:0 14px 34px rgba(250,204,21,0.25);
+    }
+
+    .hero{
+      border-radius:var(--r-xl);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(11,17,32,.55);
+      box-shadow:var(--shadow);
+      padding:16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;inset:-30%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(250,204,21,.10), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(34,197,94,.10), transparent 55%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero > *{position:relative;z-index:1}
+
+    .h1{
+      font-size:28px;font-weight:1000;line-height:1.1;margin-bottom:10px;
+      letter-spacing:-.01em;
+    }
+    .h1 .hl{
+      background:linear-gradient(135deg,#facc15,#22c55e);
+      -webkit-background-clip:text;color:transparent;
+    }
+    .sub{
+      color:var(--muted);font-weight:850;line-height:1.55;
+      max-width:72ch;
+    }
+
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    .card{
+      border-radius:var(--r-xl);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(2,6,23,.45);
+      padding:16px;
+      box-shadow:0 14px 40px rgba(0,0,0,.35);
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    @media(max-width:860px){
+      .row{grid-template-columns:1fr}
+      .h1{font-size:24px}
+    }
+
+    label{display:block;font-weight:950;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(203,213,225,0.20);
+      background:rgba(2,6,23,.55);
+      color:var(--ink);
+      outline:none;
+      font-weight:850;
+    }
+    input::placeholder, textarea::placeholder{color:rgba(203,213,225,.65);font-weight:800}
+    textarea{min-height:98px;resize:vertical}
+
+    .hint{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+      line-height:1.55;
+    }
+
+    .pill{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:10px
+    }
+    .chip{
+      border-radius:999px;padding:8px 12px;font-size:12px;font-weight:950;
+      border:1px solid rgba(203,213,225,0.20);
+      background:rgba(15,23,42,.55);
+      color:var(--muted);
+    }
+    .chip strong{color:#bbf7d0}
+
+    .footer{
+      margin-top:12px;
+      text-align:center;
+      color:var(--muted);
+      font-weight:850;
+      font-size:13px;
+      line-height:1.55;
+      padding:12px 8px 0;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .footer b{color:var(--accent)}
+  </style>
+
+  <script>
+    // ✅ GitHub Pages safe base path
+    function digiyBasePath(){
+      const parts = location.pathname.split("/").filter(Boolean);
+      const isGh = /\.github\.io$/i.test(location.hostname);
+      if(isGh && parts.length > 0) return "/" + parts[0] + "/";
+      return "/";
+    }
+    function digiyLocal(path){
+      path = String(path||"").replace(/^\/+/,"");
+      return digiyBasePath() + path;
+    }
+
+    function qs(){
+      const p = new URLSearchParams(location.search);
+      const o = {};
+      for(const [k,v] of p.entries()) o[k]=v;
+      return o;
+    }
+
+    function digitsOnly(s){ return String(s||"").replace(/\D/g,""); }
+
+    function openWa(waDigits, text){
+      const wa = digitsOnly(waDigits);
+      if(!wa) return;
+      const msg = encodeURIComponent(text || "");
+      const url = "https://wa.me/" + wa + (msg ? "?text=" + msg : "");
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    function escapeHtml(str){
+      return String(str ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+  </script>
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="top">
+      <div class="brand">
+        <div class="logo">D</div>
+        <div class="btxt">
+          <b>DIGIY DRIVER</b>
+          <small>Commande rapide • WhatsApp direct • Paiement direct • 0% commission</small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="javascript:history.back()">← Retour</a>
+        <a class="btn gold" id="btnGalerie" href="#">🚗 Galerie chauffeurs</a>
+        <a class="btn" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20j%27ai%20une%20question%20sur%20une%20course." target="_blank" rel="noopener">💬 Support</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="h1">Commander une course <span class="hl">DIGIY DRIVER</span></div>
+      <p class="sub">
+        Remplis le mini-formulaire → on ouvre WhatsApp avec un message complet → le chauffeur répond vite.
+        <br><br>
+        <b>Important :</b> DIGIY ne prend pas l’argent. <span style="color:#bbf7d0;font-weight:950">Paiement direct au chauffeur</span>.
+      </p>
+
+      <div class="pill">
+        <div class="chip"><strong>0%</strong> commission</div>
+        <div class="chip">WhatsApp en 1 clic</div>
+        <div class="chip">Transfert <strong>AIBD</strong> • Courses locales • Journée</div>
+      </div>
+    </section>
+
+    <div class="grid">
+
+      <section class="card">
+        <div class="row">
+          <div>
+            <label for="driverSelect">Chauffeur</label>
+            <select id="driverSelect">
+              <option value="">Choisir un chauffeur…</option>
+            </select>
+            <div class="hint" id="driverHint">
+              Astuce : tu peux arriver ici avec un chauffeur pré-sélectionné via URL :
+              <br><code style="color:#fde68a;font-weight:950">?driver=Lamine&wa=221784413680</code>
+            </div>
+          </div>
+
+          <div>
+            <label for="courseType">Type de course</label>
+            <select id="courseType">
+              <option value="Transfert AIBD">✈️ Transfert AIBD</option>
+              <option value="Course locale">🏙️ Course locale (Saly / Mbour)</option>
+              <option value="Journée / Longue distance">🌴 Journée / Longue distance</option>
+            </select>
+            <div class="hint">
+              Zone habituelle : <b>Saly • Mbour • AIBD</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label for="date">Date</label>
+            <input id="date" type="date" />
+          </div>
+          <div>
+            <label for="time">Heure</label>
+            <input id="time" type="time" />
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label for="pickup">Départ</label>
+            <input id="pickup" type="text" placeholder="Ex: Saly Koulang, hôtel…, quartier…" />
+          </div>
+          <div>
+            <label for="dropoff">Arrivée</label>
+            <input id="dropoff" type="text" placeholder="Ex: AIBD / Mbour / Dakar / adresse…" />
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <div>
+            <label for="people">Nombre de personnes</label>
+            <input id="people" type="number" min="1" placeholder="Ex: 2" />
+          </div>
+          <div>
+            <label for="bags">Bagages</label>
+            <select id="bags">
+              <option value="">Choisir…</option>
+              <option value="Léger">Léger</option>
+              <option value="Moyen">Moyen</option>
+              <option value="Lourd">Lourd</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="notes">Infos utiles (facultatif)</label>
+          <textarea id="notes" placeholder="Ex: vol à 07h10, besoin siège enfant, arrêt marché, etc."></textarea>
+        </div>
+
+        <div class="actions" style="margin-top:14px">
+          <button class="btn primary" id="btnSend">💬 Ouvrir WhatsApp (commande prête)</button>
+          <button class="btn" id="btnCopy">🔗 Copier le lien (chauffeur pré-sélectionné)</button>
+        </div>
+
+        <div class="hint" id="status" style="margin-top:10px"></div>
+      </section>
+
+      <div class="footer">
+        DIGIY DRIVER • <b>0% commission</b> • Paiement direct au chauffeur • Sénégal → Afrique ∞
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ✅ Lien galerie (si tu mets ce fichier dans le repo digiy-driver)
+    document.getElementById("btnGalerie").href = digiyLocal("index.html#chauffeurs");
+  </script>
+
+  <script>
+  (async function(){
+    "use strict";
+
+    // ✅ Supabase (pour charger la liste depuis digiy_driver_public_profiles)
+    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+
+    const driverSelect = document.getElementById("driverSelect");
+    const status = document.getElementById("status");
+
+    const q = qs();
+    const preName = (q.driver || "").trim();
+    const preWa   = digitsOnly(q.wa || "");
+    const preUrl  = (q.profile || "").trim();
+
+    function setStatus(msg, ok=true){
+      status.innerHTML = ok
+        ? `<span style="color:#bbf7d0;font-weight:950">✅ ${escapeHtml(msg)}</span>`
+        : `<span style="color:#fecaca;font-weight:950">⛔ ${escapeHtml(msg)}</span>`;
+    }
+
+    function addOption(name, wa, profile){
+      const opt = document.createElement("option");
+      opt.value = JSON.stringify({ name, wa, profile });
+      opt.textContent = `${name} — ${wa ? ("WhatsApp " + wa) : "WhatsApp ?"}`;
+      driverSelect.appendChild(opt);
+    }
+
+    // 1) Si URL fournie => on injecte en premier
+    if(preName && preWa){
+      addOption(preName, preWa, preUrl);
+      driverSelect.selectedIndex = 1; // 0 = placeholder
+      setStatus(`Chauffeur pré-sélectionné : ${preName}`);
+    }
+
+    // 2) Charger depuis Supabase (si dispo)
+    if(window.supabase?.createClient){
+      try{
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const { data, error } = await sb
+          .from("digiy_driver_public_profiles")
+          .select("display_name, whatsapp, profile_url, is_published, is_active, priority")
+          .eq("is_published", true)
+          .eq("is_active", true)
+          .order("priority", { ascending: true })
+          .limit(80);
+
+        if(error){
+          console.warn("[COURSE] Supabase error:", error);
+        } else {
+          (data || []).forEach(d=>{
+            const name = (d.display_name || "Chauffeur").trim();
+            const wa   = digitsOnly(d.whatsapp || "");
+            const url  = (d.profile_url || "").trim();
+            // Evite doublon si déjà pré-injecté
+            if(preName && preWa && name.toLowerCase() === preName.toLowerCase() && wa === preWa) return;
+            addOption(name, wa, url);
+          });
+
+          // Si pas pré-sélectionné, on peut sélectionner le premier dispo
+          if(!(preName && preWa) && driverSelect.options.length > 1){
+            driverSelect.selectedIndex = 1;
+          }
+        }
+      }catch(e){
+        console.warn("[COURSE] Supabase init fail:", e?.message || e);
+      }
+    }
+
+    function buildMessage(driverName){
+      const type = (document.getElementById("courseType").value || "").trim();
+      const date = (document.getElementById("date").value || "").trim();
+      const time = (document.getElementById("time").value || "").trim();
+      const pickup = (document.getElementById("pickup").value || "").trim();
+      const dropoff = (document.getElementById("dropoff").value || "").trim();
+      const people = (document.getElementById("people").value || "").trim();
+      const bags = (document.getElementById("bags").value || "").trim();
+      const notes = (document.getElementById("notes").value || "").trim();
+
+      const lines = [];
+      lines.push(`Salam ${driverName || ""}, je viens de DIGIY DRIVER.`);
+      lines.push(`Je souhaite réserver : ${type}`);
+      lines.push("");
+      if(date) lines.push(`Date : ${date}`);
+      if(time) lines.push(`Heure : ${time}`);
+      if(pickup) lines.push(`Départ : ${pickup}`);
+      if(dropoff) lines.push(`Arrivée : ${dropoff}`);
+      if(people) lines.push(`Personnes : ${people}`);
+      if(bags) lines.push(`Bagages : ${bags}`);
+      if(notes) { lines.push(""); lines.push(`Infos : ${notes}`); }
+      lines.push("");
+      lines.push("Merci 🙏");
+      return lines.join("\n");
+    }
+
+    function getSelected(){
+      const raw = driverSelect.value;
+      if(!raw) return null;
+      try{ return JSON.parse(raw); }catch(_){ return null; }
+    }
+
+    document.getElementById("btnSend").addEventListener("click", ()=>{
+      const d = getSelected();
+      if(!d || !d.wa){
+        setStatus("Choisis un chauffeur (WhatsApp manquant).", false);
+        return;
+      }
+
+      // Champs minimum (départ+arrivée recommandés)
+      const pickup = (document.getElementById("pickup").value || "").trim();
+      const dropoff = (document.getElementById("dropoff").value || "").trim();
+      if(!pickup || !dropoff){
+        setStatus("Ajoute au moins Départ + Arrivée (sinon le chauffeur doit deviner).", false);
+        return;
+      }
+
+      const msg = buildMessage(d.name || "Chauffeur");
+      openWa(d.wa, msg);
+      setStatus("WhatsApp ouvert avec commande complète ✅");
+    });
+
+    document.getElementById("btnCopy").addEventListener("click", async ()=>{
+      const d = getSelected();
+      if(!d || !d.wa){
+        setStatus("Choisis un chauffeur avant de copier le lien.", false);
+        return;
+      }
+      const url = new URL(location.href);
+      url.searchParams.set("driver", d.name || "Chauffeur");
+      url.searchParams.set("wa", digitsOnly(d.wa));
+      if(d.profile) url.searchParams.set("profile", d.profile);
+
+      try{
+        await navigator.clipboard.writeText(url.toString());
+        setStatus("Lien copié ✅ (chauffeur pré-sélectionné)");
+      }catch(_){
+        // fallback prompt
+        window.prompt("Copie le lien :", url.toString());
+        setStatus("Copie manuelle OK ✅");
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>
