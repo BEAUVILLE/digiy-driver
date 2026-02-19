@@ -871,11 +871,12 @@
 
           <div class="dactions">
             ${profileUrl
-              ? `<a class="dbtn" href="${esc(profileUrl)}" target="_blank" rel="noopener">Voir la carte</a>`
+              ? `<a class="dbtn" href="${esc(profileUrl)}" target="_blank" rel="noopener noreferrer">👤 Voir la fiche</a>`
               : `<span class="dbtn" style="opacity:.6;pointer-events:none">Carte</span>`
             }
             ${wa
-              ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`
+             ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`
+
               : `<span class="dbtn" style="opacity:.6;pointer-events:none">WhatsApp</span>`
             }
           </div>
