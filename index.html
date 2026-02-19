@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preconnect" href="https://wesqmwjjtsefyjnluosj.supabase.co" crossorigin>
   <meta charset="utf-8">
   <title>DIGIY DRIVER — Devenir chauffeur 0% commission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -10,8 +8,12 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#020617">
 
-  <!-- ✅ Supabase (Listing chauffeurs) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- ✅ Perf: preconnect -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://wesqmwjjtsefyjnluosj.supabase.co" crossorigin>
+
+  <!-- ✅ Supabase (Listing chauffeurs) — non bloquant -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root{
@@ -740,26 +742,36 @@
     </section>
 
     <!-- ✅ LISTING CHAUFFEURS -->
-    <section class="drivers" id="chauffeurs">
-      <div class="drivers-head">
-        <div>
-          <h2>🚗 Chauffeurs disponibles</h2>
-          <p>Contact direct • Paiement direct • 0% commission DIGIY</p>
-        </div>
-      </div>
+<section class="drivers" id="chauffeurs">
+  <div class="drivers-head">
+    <div>
+      <h2>🚗 Chauffeurs disponibles</h2>
+      <p>Contact direct • Paiement direct • 0% commission DIGIY</p>
+    </div>
+  </div>
 
-      <div class="drivers-tools">
-        <input id="driverSearch" class="driver-input" type="search" placeholder="Rechercher: Saly, Dakar, AIBD, etc." />
-      </div>
+  <div class="drivers-tools">
+    <input id="driverSearch" class="driver-input" type="search" placeholder="Rechercher: Saly, Dakar, AIBD, etc." />
+  </div>
 
-      <div id="driversGrid" class="drivers-grid"></div>
-      <div id="driversEmpty" class="drivers-empty">Aucun chauffeur publié pour le moment.</div>
+  <!-- ✅ Bouton commande (fix) -->
+  <div class="drivers-cta" style="margin:12px 0 6px;">
+    <a class="dbtn primary"
+       href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20je%20veux%20commander%20un%20chauffeur."
+       target="_blank" rel="noopener noreferrer">
+      🚗 Commander un chauffeur
+    </a>
+  </div>
 
-      <div class="drivers-hint">
-        Si tu veux voir <strong>Lamine</strong> ici : dans Supabase il doit être <strong>publié</strong> (is_published=true & is_active=true),
-        avec <strong>profile_url</strong> = sa carte partenaire, et <strong>whatsapp</strong> = 221784413680.
-      </div>
-    </section>
+  <div id="driversGrid" class="drivers-grid"></div>
+  <div id="driversEmpty" class="drivers-empty">Aucun chauffeur publié pour le moment.</div>
+
+  <div class="drivers-hint">
+    Si tu veux voir <strong>Lamine</strong> ici : dans Supabase il doit être <strong>publié</strong> (is_published=true & is_active=true),
+    avec <strong>profile_url</strong> = sa carte partenaire, et <strong>whatsapp</strong> = 221784413680.
+  </div>
+</section>
+
 
     <!-- CTA FINAL -->
     <section class="cta">
@@ -874,7 +886,8 @@
           <div class="dactions">
             ${profileUrl
               ? `<a class="dbtn" href="${esc(profileUrl)}" target="_blank" rel="noopener noreferrer">👤 Voir la fiche</a>`
-              : `<span class="dbtn" style="opacity:.6;pointer-events:none">Carte</span>`
+              : `<span class="dbtn" style="opacity:.6;pointer-events:none">Fiche bientôt</span>`
+
             }
             ${wa
              ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`
