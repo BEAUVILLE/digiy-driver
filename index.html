@@ -903,7 +903,7 @@
     }
 
     const { data, error } = await sb
-      .from("digiy_driver_public_profiles")
+      .from("digiy_driver_public_profiles_v2")
       .select("slug, display_name, whatsapp, profile_url, photo_url, bio, city, zones, tags, priority, updated_at, is_active, is_published")
       .eq("is_active", true)
       .eq("is_published", true)
