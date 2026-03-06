@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>DIGIY DRIVER — Chauffeur</title>
+  <meta name="theme-color" content="#061b14"/>
+  <meta name="description" content="Profil public chauffeur DIGIY DRIVER."/>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root{
+      --bg:#061b14;
+      --card:#0b2a1f;
+      --line:rgba(255,255,255,.12);
+      --text:#eafff1;
+      --muted:rgba(234,255,241,.72);
+      --primary:#22c55e;
+      --gold:#facc15;
+      --shadow:0 18px 55px rgba(0,0,0,.42);
+      --r:20px;
+      --max:980px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      padding:16px;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:auto}
+    .hero,.card{
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      background:rgba(255,255,255,.05);
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      padding:20px;
+      display:grid;
+      gap:16px;
+    }
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .row>*{flex:1}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      font-weight:900;
+      width:max-content;
+      max-width:100%;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      border:1px solid rgba(34,197,94,.3);
+      background:rgba(34,197,94,.12);
+      color:#bbf7d0;
+      width:max-content;
+    }
+    h1,h2,h3,p{margin:0}
+    h1{font-size:30px}
+    h2{font-size:20px;margin-bottom:10px}
+    .muted{color:var(--muted);font-weight:800;font-size:14px}
+    .grid{display:grid;gap:14px;margin-top:14px}
+    @media(min-width:900px){
+      .grid{grid-template-columns:1.1fr .9fr}
+    }
+    .card{padding:16px}
+    .facts{display:grid;gap:10px}
+    .fact{
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16);
+    }
+    .fact .k{font-size:12px;color:var(--muted);font-weight:800;margin-bottom:4px}
+    .fact .v{font-size:15px;font-weight:900}
+    .rates{display:grid;gap:10px}
+    .rate{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:46px;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:900;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.07);
+      cursor:pointer;
+    }
+    .btn.primary{
+      background:var(--primary);
+      color:#042012;
+      border-color:transparent;
+    }
+    .empty,.msg{
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16);
+      font-weight:800;
+    }
+    .footer{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="row">
+        <div>
+          <div class="badge" id="pubBadge">🟢 Chauffeur publié</div>
+          <h1 id="name">Chargement…</h1>
+          <div class="muted" id="subtitle">Profil public DIGIY DRIVER</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;align-items:flex-start">
+          <div class="pill" id="slugPill">slug : —</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter sur WhatsApp</a>
+        <a class="btn" href="./index.html">🏠 Retour DIGIY DRIVER</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Présentation</h2>
+        <div class="facts">
+          <div class="fact">
+            <div class="k">Bio</div>
+            <div class="v" id="bio">—</div>
+          </div>
+          <div class="fact">
+            <div class="k">Note contact</div>
+            <div class="v" id="contactNote">—</div>
+          </div>
+          <div class="fact">
+            <div class="k">Zones couvertes</div>
+            <div class="v" id="zonesText">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Véhicule & service</h2>
+        <div class="facts">
+          <div class="fact">
+            <div class="k">Ville principale</div>
+            <div class="v" id="city">—</div>
+          </div>
+          <div class="fact">
+            <div class="k">Véhicule</div>
+            <div class="v" id="vehicle">—</div>
+          </div>
+          <div class="fact">
+            <div class="k">Confort</div>
+            <div class="v" id="comfort">—</div>
+          </div>
+          <div class="fact">
+            <div class="k">Services</div>
+            <div class="v" id="services">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Tarifs indicatifs</h2>
+      <div class="muted" style="margin-bottom:12px">Tarifs terrain publiés par le chauffeur.</div>
+      <div class="rates" id="ratesList">
+        <div class="empty">Chargement…</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      DIGIY DRIVER • Profil public chauffeur
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const qs = new URLSearchParams(location.search);
+    const slug = (qs.get("slug") || "").trim();
+
+    function money(n){
+      return Number(n || 0).toLocaleString("fr-FR") + " FCFA";
+    }
+
+    function safe(v, fallback="—"){
+      const s = String(v || "").trim();
+      return s || fallback;
+    }
+
+    function waLink(phone, name){
+      const clean = String(phone || "").replace(/[^\d]/g, "");
+      const msg = `Bonjour, je vous contacte via votre profil DIGIY DRIVER${name ? " : " + name : ""}.`;
+      return "https://wa.me/" + clean + "?text=" + encodeURIComponent(msg);
+    }
+
+    function renderRates(rates){
+      const box = document.getElementById("ratesList");
+      if (!rates || !rates.length){
+        box.innerHTML = `<div class="empty">Aucun tarif publié</div>`;
+        return;
+      }
+
+      box.innerHTML = rates.map(r => `
+        <div class="rate">
+          <div><b>${safe(r.route_label)}</b></div>
+          <div><b>${money(r.price_fcfa)}</b></div>
+        </div>
+      `).join("");
+    }
+
+    async function boot(){
+      document.getElementById("slugPill").textContent = "slug : " + (slug || "—");
+
+      if (!slug){
+        document.getElementById("name").textContent = "Slug manquant";
+        document.getElementById("ratesList").innerHTML = `<div class="empty">Cette vitrine ne peut pas s’ouvrir sans slug.</div>`;
+        return;
+      }
+
+      try{
+        const { data, error } = await sb.rpc("driver_public_profile_by_slug", { p_slug: slug });
+        if (error) throw error;
+        if (!data?.ok) throw new Error(data?.error || "not_found");
+
+        const p = data.profile || {};
+        const rates = data.rates || [];
+
+        const name = safe(p.display_name, "Chauffeur DIGIY");
+        const vehicle = [
+          p.vehicle_type,
+          p.vehicle_brand,
+          p.vehicle_model,
+          p.vehicle_year
+        ].filter(Boolean).join(" • ");
+
+        const comfort = p.has_ac ? "Climatisation disponible" : "Climatisation non précisée";
+
+        const services = [
+          p.airport_ok ? "Aéroport" : null,
+          p.long_distance_ok ? "Longues distances" : null
+        ].filter(Boolean).join(" • ") || "Service standard";
+
+        document.title = `${name} — DIGIY DRIVER`;
+        document.getElementById("name").textContent = name;
+        document.getElementById("subtitle").textContent = `${safe(p.city)} • ${safe(p.vehicle_type, "Chauffeur privé")}`;
+        document.getElementById("bio").textContent = safe(p.bio);
+        document.getElementById("contactNote").textContent = safe(p.contact_note);
+        document.getElementById("zonesText").textContent = safe(p.zones_text);
+        document.getElementById("city").textContent = safe(p.city);
+        document.getElementById("vehicle").textContent = safe(vehicle);
+        document.getElementById("comfort").textContent = comfort;
+        document.getElementById("services").textContent = services;
+
+        const wa = document.getElementById("btnWhatsApp");
+        if (p.whatsapp){
+          wa.href = waLink(p.whatsapp, name);
+        } else {
+          wa.removeAttribute("href");
+          wa.style.opacity = ".5";
+          wa.textContent = "WhatsApp indisponible";
+        }
+
+        renderRates(rates);
+      }catch(e){
+        console.error(e);
+        document.getElementById("name").textContent = "Chauffeur indisponible";
+        document.getElementById("subtitle").textContent = "Profil non trouvé ou non publié";
+        document.getElementById("ratesList").innerHTML = `<div class="empty">Ce profil n’est pas disponible publiquement.</div>`;
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>
