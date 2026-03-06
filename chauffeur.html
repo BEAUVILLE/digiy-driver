@@ -5,206 +5,389 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <title>DIGIY DRIVER — Chauffeur</title>
   <meta name="theme-color" content="#061b14"/>
-  <meta name="description" content="Profil public chauffeur DIGIY DRIVER."/>
+  <meta name="description" content="Fiche publique chauffeur DIGIY DRIVER. Contact direct, paiement direct, 0% commission."/>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root{
       --bg:#061b14;
+      --bg2:#0a2016;
       --card:#0b2a1f;
       --line:rgba(255,255,255,.12);
       --text:#eafff1;
       --muted:rgba(234,255,241,.72);
       --primary:#22c55e;
       --gold:#facc15;
+      --gold-soft:rgba(250,204,21,.12);
       --shadow:0 18px 55px rgba(0,0,0,.42);
-      --r:20px;
-      --max:980px;
+      --r:22px;
+      --max:1080px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
     body{
       margin:0;
-      background:var(--bg);
+      min-height:100vh;
+      background:
+        radial-gradient(900px 520px at 10% -10%, rgba(34,197,94,.14), transparent 60%),
+        radial-gradient(900px 520px at 110% 0%, rgba(250,204,21,.10), transparent 55%),
+        var(--bg);
       color:var(--text);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       padding:16px;
     }
+
     a{color:inherit;text-decoration:none}
+
     .wrap{max-width:var(--max);margin:auto}
+
     .hero,.card{
       border:1px solid var(--line);
       border-radius:var(--r);
       background:rgba(255,255,255,.05);
       box-shadow:var(--shadow);
     }
+
     .hero{
-      padding:20px;
+      padding:18px;
       display:grid;
       gap:16px;
     }
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .row>*{flex:1}
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.18);
-      font-weight:900;
-      width:max-content;
-      max-width:100%;
+
+    .hero-top{
+      display:flex;
+      gap:14px;
+      justify-content:space-between;
+      align-items:flex-start;
+      flex-wrap:wrap;
     }
+
+    .hero-main{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      min-width:0;
+    }
+
+    .avatar{
+      width:68px;
+      height:68px;
+      border-radius:20px;
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
+      font-size:24px;
+      font-weight:1000;
+      color:#041b12;
+      background:linear-gradient(135deg, var(--gold), var(--primary));
+      box-shadow:0 12px 28px rgba(34,197,94,.22);
+    }
+
     .badge{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:8px 12px;
+      padding:9px 13px;
       border-radius:999px;
-      font-weight:900;
-      border:1px solid rgba(34,197,94,.3);
+      border:1px solid rgba(34,197,94,.28);
       background:rgba(34,197,94,.12);
       color:#bbf7d0;
+      font-size:12px;
+      font-weight:950;
       width:max-content;
+      margin-bottom:10px;
     }
-    h1,h2,h3,p{margin:0}
-    h1{font-size:30px}
-    h2{font-size:20px;margin-bottom:10px}
-    .muted{color:var(--muted);font-weight:800;font-size:14px}
-    .grid{display:grid;gap:14px;margin-top:14px}
-    @media(min-width:900px){
-      .grid{grid-template-columns:1.1fr .9fr}
+
+    .badge .dot{
+      width:8px;height:8px;border-radius:999px;background:var(--primary);
+      box-shadow:0 0 0 4px rgba(34,197,94,.14);
     }
-    .card{padding:16px}
-    .facts{display:grid;gap:10px}
-    .fact{
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.16);
+
+    h1{
+      margin:0;
+      font-size:clamp(28px, 4vw, 40px);
+      line-height:1.05;
+      letter-spacing:-.02em;
     }
-    .fact .k{font-size:12px;color:var(--muted);font-weight:800;margin-bottom:4px}
-    .fact .v{font-size:15px;font-weight:900}
-    .rates{display:grid;gap:10px}
-    .rate{
+
+    .subtitle{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:16px;
+      font-weight:800;
+      line-height:1.5;
+    }
+
+    .hero-meta{
       display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.16);
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
     }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+      max-width:100%;
+    }
+
+    .slug-pill{
+      color:var(--gold);
+      border-color:rgba(250,204,21,.25);
+      background:var(--gold-soft);
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
     .btn{
+      min-height:46px;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:950;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.07);
+      color:var(--text);
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:8px;
-      min-height:46px;
-      padding:12px 16px;
-      border-radius:14px;
-      font-weight:900;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.07);
       cursor:pointer;
     }
+
     .btn.primary{
-      background:var(--primary);
-      color:#042012;
+      background:linear-gradient(135deg, var(--primary), #16a34a);
+      color:#041b12;
       border-color:transparent;
     }
-    .empty,.msg{
-      padding:14px;
-      border-radius:14px;
+
+    .btn.gold{
+      background:rgba(250,204,21,.12);
+      color:var(--gold);
+      border-color:rgba(250,204,21,.22);
+    }
+
+    .hero-grid{
+      display:grid;
+      gap:14px;
+    }
+
+    @media(min-width:920px){
+      .hero-grid{grid-template-columns:1.05fr .95fr;}
+    }
+
+    .facts{
+      display:grid;
+      gap:10px;
+    }
+
+    .fact{
+      padding:12px;
+      border-radius:16px;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(0,0,0,.16);
-      font-weight:800;
     }
-    .footer{
+
+    .fact .k{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:800;
+      margin-bottom:5px;
+    }
+
+    .fact .v{
+      font-size:15px;
+      font-weight:900;
+      line-height:1.45;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.16);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
       margin-top:14px;
+    }
+
+    @media(min-width:920px){
+      .grid{grid-template-columns:1.05fr .95fr;}
+    }
+
+    .card{
+      padding:16px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:20px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:14px;
+      font-weight:800;
+      line-height:1.55;
+    }
+
+    .rates{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .rate{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:13px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16);
+    }
+
+    .rate-name{
+      font-weight:950;
+      line-height:1.4;
+    }
+
+    .rate-price{
+      color:var(--gold);
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
+    .empty{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16);
+      font-weight:850;
+      color:var(--muted);
+    }
+
+    .footer{
+      margin-top:16px;
       text-align:center;
       color:var(--muted);
       font-size:12px;
       font-weight:800;
     }
+
+    .hidden{display:none !important}
   </style>
 </head>
 <body>
   <div class="wrap">
 
-    <div class="hero">
-      <div class="row">
-        <div>
-          <div class="badge" id="pubBadge">🟢 Chauffeur publié</div>
-          <h1 id="name">Chargement…</h1>
-          <div class="muted" id="subtitle">Profil public DIGIY DRIVER</div>
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-main">
+          <div class="avatar" id="avatar">DR</div>
+
+          <div>
+            <div class="badge" id="pubBadge"><span class="dot"></span> Chauffeur publié</div>
+            <h1 id="name">Chargement…</h1>
+            <div class="subtitle" id="subtitle">Profil public DIGIY DRIVER</div>
+
+            <div class="hero-meta">
+              <div class="pill" id="cityPill">Ville : —</div>
+              <div class="pill" id="vehiclePill">Véhicule : —</div>
+              <div class="pill slug-pill" id="slugPill">slug : —</div>
+            </div>
+          </div>
         </div>
-        <div style="display:flex;justify-content:flex-end;align-items:flex-start">
-          <div class="pill" id="slugPill">slug : —</div>
+
+        <div class="hero-actions">
+          <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter</a>
+          <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Commander</a>
+          <a class="btn" href="./index.html">🏠 Retour vitrine</a>
         </div>
       </div>
 
-      <div class="row">
-        <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter sur WhatsApp</a>
-        <a class="btn" href="./index.html">🏠 Retour DIGIY DRIVER</a>
-      </div>
-    </div>
+      <div class="hero-grid">
+        <div class="fact">
+          <div class="k">Présentation</div>
+          <div class="v" id="bio">—</div>
+        </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2>Présentation</h2>
         <div class="facts">
           <div class="fact">
-            <div class="k">Bio</div>
-            <div class="v" id="bio">—</div>
+            <div class="k">Services</div>
+            <div class="v" id="services">—</div>
           </div>
           <div class="fact">
             <div class="k">Note contact</div>
             <div class="v" id="contactNote">—</div>
           </div>
-          <div class="fact">
-            <div class="k">Zones couvertes</div>
-            <div class="v" id="zonesText">—</div>
-          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Zone de service</h2>
+        <div class="muted" style="margin-bottom:12px">Territoires couverts par le chauffeur.</div>
+        <div class="chips" id="zonesChips">
+          <div class="chip">Aucune zone</div>
         </div>
       </div>
 
       <div class="card">
-        <h2>Véhicule & service</h2>
+        <h2>Véhicule & confort</h2>
         <div class="facts">
           <div class="fact">
-            <div class="k">Ville principale</div>
-            <div class="v" id="city">—</div>
-          </div>
-          <div class="fact">
             <div class="k">Véhicule</div>
-            <div class="v" id="vehicle">—</div>
+            <div class="v" id="vehicleFull">—</div>
           </div>
           <div class="fact">
             <div class="k">Confort</div>
             <div class="v" id="comfort">—</div>
           </div>
-          <div class="fact">
-            <div class="k">Services</div>
-            <div class="v" id="services">—</div>
-          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="card" style="margin-top:14px">
+    <section class="card" style="margin-top:14px">
       <h2>Tarifs indicatifs</h2>
-      <div class="muted" style="margin-bottom:12px">Tarifs terrain publiés par le chauffeur.</div>
+      <div class="muted">Tarifs publiés par le chauffeur. Paiement direct au pro.</div>
       <div class="rates" id="ratesList">
         <div class="empty">Chargement…</div>
       </div>
-    </div>
+    </section>
 
     <div class="footer">
-      DIGIY DRIVER • Profil public chauffeur
+      DIGIY DRIVER • Contact direct • 0% commission
     </div>
   </div>
 
@@ -225,85 +408,109 @@
       return s || fallback;
     }
 
+    function initials(name){
+      const s = safe(name, "DR");
+      return s.split(/\s+/).slice(0,2).map(x => (x[0] || "").toUpperCase()).join("") || "DR";
+    }
+
     function waLink(phone, name){
       const clean = String(phone || "").replace(/[^\d]/g, "");
-      const msg = `Bonjour, je vous contacte via votre profil DIGIY DRIVER${name ? " : " + name : ""}.`;
+      if(!clean) return "";
+      const msg = `Bonjour ${name || ""}, je vous contacte via votre fiche DIGIY DRIVER.`;
       return "https://wa.me/" + clean + "?text=" + encodeURIComponent(msg);
+    }
+
+    function commanderLink(slug){
+      const u = new URL("./commander-course.html", location.href);
+      if (slug) u.searchParams.set("slug", slug);
+      return u.pathname + u.search;
+    }
+
+    function renderZones(zones){
+      const box = document.getElementById("zonesChips");
+      if(!zones || !zones.length){
+        box.innerHTML = `<div class="chip">Zone non précisée</div>`;
+        return;
+      }
+      box.innerHTML = zones.map(z => `<div class="chip">${z}</div>`).join("");
     }
 
     function renderRates(rates){
       const box = document.getElementById("ratesList");
-      if (!rates || !rates.length){
+      if(!rates || !rates.length){
         box.innerHTML = `<div class="empty">Aucun tarif publié</div>`;
         return;
       }
 
       box.innerHTML = rates.map(r => `
         <div class="rate">
-          <div><b>${safe(r.route_label)}</b></div>
-          <div><b>${money(r.price_fcfa)}</b></div>
+          <div class="rate-name">${safe(r.route_label)}</div>
+          <div class="rate-price">${money(r.price_fcfa)}</div>
         </div>
       `).join("");
     }
 
     async function boot(){
       document.getElementById("slugPill").textContent = "slug : " + (slug || "—");
+      document.getElementById("btnCommander").href = commanderLink(slug);
 
-      if (!slug){
+      if(!slug){
         document.getElementById("name").textContent = "Slug manquant";
-        document.getElementById("ratesList").innerHTML = `<div class="empty">Cette vitrine ne peut pas s’ouvrir sans slug.</div>`;
+        document.getElementById("subtitle").textContent = "Impossible d’ouvrir cette fiche sans identifiant chauffeur.";
+        document.getElementById("ratesList").innerHTML = `<div class="empty">Cette fiche ne peut pas s’ouvrir sans slug.</div>`;
         return;
       }
 
       try{
         const { data, error } = await sb.rpc("driver_public_profile_by_slug", { p_slug: slug });
-        if (error) throw error;
-        if (!data?.ok) throw new Error(data?.error || "not_found");
+        if(error) throw error;
+        if(!data?.ok) throw new Error(data?.error || "not_found");
 
         const p = data.profile || {};
         const rates = data.rates || [];
 
         const name = safe(p.display_name, "Chauffeur DIGIY");
-        const vehicle = [
-          p.vehicle_type,
-          p.vehicle_brand,
-          p.vehicle_model,
-          p.vehicle_year
-        ].filter(Boolean).join(" • ");
-
-        const comfort = p.has_ac ? "Climatisation disponible" : "Climatisation non précisée";
-
+        const vehicleBits = [p.vehicle_type, p.vehicle_brand, p.vehicle_model, p.vehicle_year].filter(Boolean);
+        const vehicleShort = [p.vehicle_type, p.vehicle_brand].filter(Boolean).join(" • ");
+        const vehicleFull = vehicleBits.join(" • ");
         const services = [
-          p.airport_ok ? "Aéroport" : null,
+          p.airport_ok ? "Transferts aéroport" : null,
           p.long_distance_ok ? "Longues distances" : null
         ].filter(Boolean).join(" • ") || "Service standard";
+        const comfort = p.has_ac ? "Climatisation disponible" : "Confort standard";
 
         document.title = `${name} — DIGIY DRIVER`;
+        document.getElementById("avatar").textContent = initials(name);
         document.getElementById("name").textContent = name;
         document.getElementById("subtitle").textContent = `${safe(p.city)} • ${safe(p.vehicle_type, "Chauffeur privé")}`;
+        document.getElementById("cityPill").textContent = "Ville : " + safe(p.city);
+        document.getElementById("vehiclePill").textContent = "Véhicule : " + safe(vehicleShort || vehicleFull);
         document.getElementById("bio").textContent = safe(p.bio);
-        document.getElementById("contactNote").textContent = safe(p.contact_note);
-        document.getElementById("zonesText").textContent = safe(p.zones_text);
-        document.getElementById("city").textContent = safe(p.city);
-        document.getElementById("vehicle").textContent = safe(vehicle);
-        document.getElementById("comfort").textContent = comfort;
         document.getElementById("services").textContent = services;
+        document.getElementById("contactNote").textContent = safe(p.contact_note);
+        document.getElementById("vehicleFull").textContent = safe(vehicleFull);
+        document.getElementById("comfort").textContent = comfort;
+
+        const zones = Array.isArray(p.zones_text) ? p.zones_text : String(p.zones_text || "").split(",").map(s => s.trim()).filter(Boolean);
+        renderZones(zones);
+        renderRates(rates);
 
         const wa = document.getElementById("btnWhatsApp");
-        if (p.whatsapp){
-          wa.href = waLink(p.whatsapp, name);
+        const waHref = waLink(p.whatsapp, name);
+        if(waHref){
+          wa.href = waHref;
         } else {
           wa.removeAttribute("href");
-          wa.style.opacity = ".5";
+          wa.classList.remove("primary");
           wa.textContent = "WhatsApp indisponible";
         }
-
-        renderRates(rates);
       }catch(e){
         console.error(e);
         document.getElementById("name").textContent = "Chauffeur indisponible";
-        document.getElementById("subtitle").textContent = "Profil non trouvé ou non publié";
-        document.getElementById("ratesList").innerHTML = `<div class="empty">Ce profil n’est pas disponible publiquement.</div>`;
+        document.getElementById("subtitle").textContent = "Cette fiche n’est pas disponible publiquement.";
+        document.getElementById("ratesList").innerHTML = `<div class="empty">Ce chauffeur est introuvable ou non publié.</div>`;
+        document.getElementById("btnWhatsApp").classList.add("hidden");
+        document.getElementById("btnCommander").classList.add("hidden");
       }
     }
 
