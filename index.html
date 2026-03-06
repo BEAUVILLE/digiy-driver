@@ -794,13 +794,14 @@
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+console.log("window.supabase =", window.supabase);   const supabaseLib = window.supabase;
 
-    if(!window.supabase?.createClient){
-      console.error("Supabase JS non chargé.");
-      return;
-    }
+if (!supabaseLib || typeof supabaseLib.createClient !== "function") {
+  console.error("Supabase JS non chargé.");
+  return;
+}
 
-    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const grid = document.getElementById("driversGrid");
     const empty = document.getElementById("driversEmpty");
