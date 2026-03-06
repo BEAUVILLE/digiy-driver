@@ -8,11 +8,9 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#020617">
 
-  <!-- ✅ Perf: preconnect -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://wesqmwjjtsefyjnluosj.supabase.co" crossorigin>
 
-  <!-- ✅ Supabase (Listing chauffeurs) — non bloquant -->
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -22,8 +20,6 @@
       --accent:#facc15;
       --accent2:#22c55e;
       --orange:#f97316;
-
-      /* ✅ LISIBILITÉ */
       --ink:#F9FAFB;
       --muted:#CBD5E1;
       --line:#243041;
@@ -76,7 +72,6 @@
       .page{ padding:16px 14px 40px; }
     }
 
-    /* NAV */
     .nav{
       display:flex;
       align-items:center;
@@ -169,7 +164,6 @@
       box-shadow:0 10px 26px rgba(250,204,21,0.45);
     }
 
-    /* HERO */
     .hero{
       display:grid;
       grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
@@ -259,7 +253,6 @@
       line-height:var(--lh);
     }
 
-    /* HERO CARD DROITE */
     .hero-card{
       border-radius:22px;
       border:1px solid rgba(255,255,255,.10);
@@ -375,7 +368,6 @@
       font-weight:950;
     }
 
-    /* SECTIONS */
     .section{ margin-top:36px; }
     .section-title{
       font-size:22px;
@@ -428,7 +420,6 @@
     }
     .list li{ margin-left:18px; margin-bottom:6px; }
 
-    /* CTA FINAL */
     .cta{
       margin-top:30px;
       border-radius:20px;
@@ -478,9 +469,6 @@
     .footer .brand{ color:var(--accent); font-weight:950; }
     .footer .zero{ color:var(--accent2); font-weight:950; }
 
-    /* ==============================
-       LISTING CHAUFFEURS (Supabase)
-    ============================== */
     .drivers{
       margin-top:36px;
       border-radius:20px;
@@ -577,7 +565,6 @@
   </style>
 
   <script>
-    // ✅ GitHub Pages safe base path
     function digiyBasePath(){
       const parts = location.pathname.split("/").filter(Boolean);
       const isGh = /\.github\.io$/i.test(location.hostname);
@@ -594,7 +581,6 @@
 <body>
   <div class="page">
 
-    <!-- NAV -->
     <header class="nav">
       <div class="nav-left">
         <div class="logo-badge">D</div>
@@ -619,7 +605,6 @@
       </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
       <div>
         <h1 class="hero-title">
@@ -698,7 +683,6 @@
       </aside>
     </section>
 
-    <!-- AVANTAGES -->
     <section class="section">
       <h2 class="section-title">Pourquoi passer à DIGIY DRIVER ?</h2>
       <p class="section-sub">
@@ -741,39 +725,34 @@
       </div>
     </section>
 
-    <!-- ✅ LISTING CHAUFFEURS -->
-<section class="drivers" id="chauffeurs">
-  <div class="drivers-head">
-    <div>
-      <h2>🚗 Chauffeurs disponibles</h2>
-      <p>Contact direct • Paiement direct • 0% commission DIGIY</p>
-    </div>
-  </div>
+    <section class="drivers" id="chauffeurs">
+      <div class="drivers-head">
+        <div>
+          <h2>🚗 Chauffeurs disponibles</h2>
+          <p>Contact direct • Paiement direct • 0% commission DIGIY</p>
+        </div>
+      </div>
 
-  <div class="drivers-tools">
-    <input id="driverSearch" class="driver-input" type="search" placeholder="Rechercher: Saly, Dakar, AIBD, etc." />
-  </div>
+      <div class="drivers-tools">
+        <input id="driverSearch" class="driver-input" type="search" placeholder="Rechercher: Saly, Dakar, AIBD, etc." />
+      </div>
 
-  <!-- ✅ Bouton commande (fix) -->
-  <div class="drivers-cta" style="margin:12px 0 6px;">
-    <a class="dbtn primary"
-       href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20je%20veux%20commander%20un%20chauffeur."
-       target="_blank" rel="noopener noreferrer">
-      🚗 Commander un chauffeur
-    </a>
-  </div>
+      <div class="drivers-cta" style="margin:12px 0 6px;">
+        <a class="dbtn primary"
+           href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20je%20veux%20commander%20un%20chauffeur."
+           target="_blank" rel="noopener noreferrer">
+          🚗 Commander un chauffeur
+        </a>
+      </div>
 
-  <div id="driversGrid" class="drivers-grid"></div>
-  <div id="driversEmpty" class="drivers-empty">Aucun chauffeur publié pour le moment.</div>
+      <div id="driversGrid" class="drivers-grid"></div>
+      <div id="driversEmpty" class="drivers-empty">Aucun chauffeur publié pour le moment.</div>
 
-  <div class="drivers-hint">
-    Si tu veux voir <strong>Lamine</strong> ici : dans Supabase il doit être <strong>publié</strong> (is_published=true & is_active=true),
-    avec <strong>profile_url</strong> = sa carte partenaire, et <strong>whatsapp</strong> = 221784413680.
-  </div>
-</section>
+      <div class="drivers-hint">
+        Un chauffeur apparaît ici dès qu’il a un <strong>slug</strong>, qu’il est <strong>actif</strong> et <strong>publié</strong>.
+      </div>
+    </section>
 
-
-    <!-- CTA FINAL -->
     <section class="cta">
       <h2>Prêt à démarrer proprement ?</h2>
       <p>Tu payes → on active → tu reçois ton PIN → tu entres dans ton panneau chauffeur.</p>
@@ -803,7 +782,6 @@
   </div>
 
   <script>
-    // ✅ liens internes repo
     document.getElementById("btnPin").href = digiyLocal("pin.html");
     document.getElementById("btnPin2").href = digiyLocal("pin.html");
     document.getElementById("btnVitrine").href = "#chauffeurs";
@@ -813,13 +791,12 @@
   (async function(){
     "use strict";
 
-    // ✅ TES VRAIES VALEURS SUPABASE
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
 
     if(!window.supabase?.createClient){
-      console.error("Supabase JS non chargé (cdn).");
+      console.error("Supabase JS non chargé.");
       return;
     }
 
@@ -830,16 +807,17 @@
     const search = document.getElementById("driverSearch");
 
     function initials(name){
-      const s = (name||"").trim();
+      const s = (name || "").trim();
       if(!s) return "DR";
       const parts = s.split(/\s+/).slice(0,2);
-      return parts.map(p => (p[0]||"").toUpperCase()).join("");
+      return parts.map(p => (p[0] || "").toUpperCase()).join("");
     }
 
     function waLink(whatsapp, name){
-      if(!whatsapp) return "";
-      const msg = encodeURIComponent(`Salut ${name||""}, je viens de DIGIY DRIVER. Tu es dispo ?`);
-      return `https://wa.me/${whatsapp}?text=${msg}`;
+      const w = String(whatsapp || "").replace(/[^\d]/g,"");
+      if(!w) return "";
+      const msg = encodeURIComponent(`Salut ${name || ""}, je viens de DIGIY DRIVER. Tu es dispo ?`);
+      return `https://wa.me/${w}?text=${msg}`;
     }
 
     function esc(s){
@@ -849,6 +827,11 @@
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#39;");
+    }
+
+    function fallbackProfileUrl(slug){
+      if(!slug) return "";
+      return `https://pro-driver.digiylyfe.com/dashboard-pro.html?slug=${encodeURIComponent(slug)}`;
     }
 
     function card(d){
@@ -866,9 +849,16 @@
         : `<div class="davatar">${esc(initials(d.display_name))}</div>`;
 
       const wa = waLink(d.whatsapp, d.display_name);
-      const profileUrl = (d.profile_url || "").trim();
+      const profileUrl = (d.profile_url || fallbackProfileUrl(d.slug) || "").trim();
 
-      const searchHay = (d.display_name+" "+(d.city||"")+" "+(d.bio||"")+" "+zones.join(" ")+" "+tags.join(" ")).toLowerCase();
+      const searchHay =
+        (
+          (d.display_name || "") + " " +
+          (d.city || "") + " " +
+          (d.bio || "") + " " +
+          zones.join(" ") + " " +
+          tags.join(" ")
+        ).toLowerCase();
 
       return `
         <article class="dcard" data-search="${esc(searchHay)}">
@@ -876,7 +866,7 @@
             ${avatar}
             <div>
               <p class="dname">${esc(d.display_name || "Chauffeur")}</p>
-              <p class="dmeta">${esc((d.city||"") + (zones.length ? (" • " + zones.join(" • ")) : ""))}</p>
+              <p class="dmeta">${esc((d.city || "") + (zones.length ? (" • " + zones.join(" • ")) : ""))}</p>
             </div>
           </div>
 
@@ -887,11 +877,9 @@
             ${profileUrl
               ? `<a class="dbtn" href="${esc(profileUrl)}" target="_blank" rel="noopener noreferrer">👤 Voir la fiche</a>`
               : `<span class="dbtn" style="opacity:.6;pointer-events:none">Fiche bientôt</span>`
-
             }
             ${wa
-             ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`
-
+              ? `<a class="dbtn primary" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`
               : `<span class="dbtn" style="opacity:.6;pointer-events:none">WhatsApp</span>`
             }
           </div>
@@ -901,24 +889,25 @@
 
     function render(list){
       if(!grid) return;
-      grid.innerHTML = (list||[]).map(card).join("");
-      const has = (list||[]).length > 0;
+      grid.innerHTML = (list || []).map(card).join("");
+      const has = (list || []).length > 0;
       if(empty) empty.style.display = has ? "none" : "block";
     }
 
     function applyFilter(){
       const q = (search?.value || "").trim().toLowerCase();
-      document.querySelectorAll("#driversGrid .dcard").forEach(el=>{
+      document.querySelectorAll("#driversGrid .dcard").forEach(el => {
         const hay = (el.getAttribute("data-search") || "");
         el.style.display = (!q || hay.includes(q)) ? "" : "none";
       });
     }
 
-    // ✅ Table attendue: digiy_driver_public_profiles
-    // ✅ Champs utilisés: display_name, whatsapp, profile_url, bio, city, zones, tags, photo_url, priority
     const { data, error } = await sb
       .from("digiy_driver_public_profiles")
-      .select("slug, display_name, whatsapp, profile_url, photo_url, bio, city, zones, tags, priority, updated_at")
+      .select("slug, display_name, whatsapp, profile_url, photo_url, bio, city, zones, tags, priority, updated_at, is_active, is_published")
+      .eq("is_active", true)
+      .eq("is_published", true)
+      .not("slug", "is", null)
       .order("priority", { ascending: true })
       .order("updated_at", { ascending: false })
       .limit(60);
