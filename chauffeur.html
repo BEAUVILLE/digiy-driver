@@ -11,18 +11,20 @@
 
   <style>
     :root{
-      --bg:#061b14;
-      --bg2:#0a2016;
-      --card:#0b2a1f;
-      --line:rgba(255,255,255,.12);
-      --text:#eafff1;
-      --muted:rgba(234,255,241,.72);
+      --bg:#07140f;
+      --bg2:#0b1d15;
+      --card:#10241b;
+      --card-2:#0d2018;
+      --line:rgba(255,255,255,.10);
+      --text:#ecfff4;
+      --muted:rgba(236,255,244,.72);
       --primary:#22c55e;
+      --primary-2:#16a34a;
       --gold:#facc15;
       --gold-soft:rgba(250,204,21,.12);
-      --shadow:0 18px 55px rgba(0,0,0,.42);
-      --r:22px;
-      --max:1080px;
+      --shadow:0 20px 60px rgba(0,0,0,.38);
+      --r:24px;
+      --max:1120px;
     }
 
     *{box-sizing:border-box}
@@ -34,7 +36,7 @@
       background:
         radial-gradient(900px 520px at 10% -10%, rgba(34,197,94,.14), transparent 60%),
         radial-gradient(900px 520px at 110% 0%, rgba(250,204,21,.10), transparent 55%),
-        var(--bg);
+        linear-gradient(180deg, #07140f, #05100c 55%, #040b08 100%);
       color:var(--text);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       padding:16px;
@@ -42,19 +44,103 @@
 
     a{color:inherit;text-decoration:none}
 
-    .wrap{max-width:var(--max);margin:auto}
+    .wrap{
+      max-width:var(--max);
+      margin:auto;
+    }
 
-    .hero,.card{
+    .hero,
+    .card{
       border:1px solid var(--line);
       border-radius:var(--r);
-      background:rgba(255,255,255,.05);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.018));
       box-shadow:var(--shadow);
     }
 
     .hero{
-      padding:18px;
+      overflow:hidden;
+    }
+
+    .hero-grid-main{
       display:grid;
-      gap:16px;
+      grid-template-columns:420px 1fr;
+      min-height:430px;
+    }
+
+    @media(max-width:940px){
+      .hero-grid-main{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .hero-media{
+      position:relative;
+      min-height:320px;
+      background:#0a1712;
+    }
+
+    .hero-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      background:#0f1d17;
+    }
+
+    .hero-media::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,.34), rgba(0,0,0,.08));
+      pointer-events:none;
+    }
+
+    .hero-media-fallback{
+      width:100%;
+      height:100%;
+      min-height:320px;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(250,204,21,.18), transparent 30%),
+        radial-gradient(circle at 75% 15%, rgba(34,197,94,.14), transparent 28%),
+        linear-gradient(180deg, #111827, #0b1120);
+      color:#fff;
+      font-size:54px;
+      font-weight:1000;
+    }
+
+    .hero-badge{
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      z-index:2;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(7,20,15,.72);
+      color:#fff6c9;
+      font-size:12px;
+      font-weight:950;
+      backdrop-filter:blur(8px);
+    }
+
+    .hero-badge .dot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--primary);
+      box-shadow:0 0 0 4px rgba(34,197,94,.14);
+    }
+
+    .hero-content{
+      padding:24px;
+      display:grid;
+      gap:18px;
+      align-content:start;
     }
 
     .hero-top{
@@ -73,8 +159,8 @@
     }
 
     .avatar{
-      width:68px;
-      height:68px;
+      width:72px;
+      height:72px;
       border-radius:20px;
       flex:0 0 auto;
       display:grid;
@@ -84,6 +170,14 @@
       color:#041b12;
       background:linear-gradient(135deg, var(--gold), var(--primary));
       box-shadow:0 12px 28px rgba(34,197,94,.22);
+      overflow:hidden;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
 
     .badge{
@@ -102,14 +196,17 @@
     }
 
     .badge .dot{
-      width:8px;height:8px;border-radius:999px;background:var(--primary);
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--primary);
       box-shadow:0 0 0 4px rgba(34,197,94,.14);
     }
 
     h1{
       margin:0;
-      font-size:clamp(28px, 4vw, 40px);
-      line-height:1.05;
+      font-size:clamp(30px, 4vw, 42px);
+      line-height:1.04;
       letter-spacing:-.02em;
     }
 
@@ -144,7 +241,7 @@
 
     .slug-pill{
       color:var(--gold);
-      border-color:rgba(250,204,21,.25);
+      border-color:rgba(250,204,21,.22);
       background:var(--gold-soft);
     }
 
@@ -157,24 +254,30 @@
     }
 
     .btn{
-      min-height:46px;
+      min-height:48px;
       padding:12px 16px;
       border-radius:14px;
       font-weight:950;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.07);
+      background:rgba(255,255,255,.06);
       color:var(--text);
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:8px;
       cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
     }
 
     .btn.primary{
-      background:linear-gradient(135deg, var(--primary), #16a34a);
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
       color:#041b12;
       border-color:transparent;
+      box-shadow:0 12px 28px rgba(34,197,94,.22);
     }
 
     .btn.gold{
@@ -183,24 +286,22 @@
       border-color:rgba(250,204,21,.22);
     }
 
-    .hero-grid{
+    .hero-info-grid{
       display:grid;
-      gap:14px;
+      gap:12px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
-    @media(min-width:920px){
-      .hero-grid{grid-template-columns:1.05fr .95fr;}
-    }
-
-    .facts{
-      display:grid;
-      gap:10px;
+    @media(max-width:700px){
+      .hero-info-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     .fact{
-      padding:12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.09);
       background:rgba(0,0,0,.16);
     }
 
@@ -208,19 +309,48 @@
       font-size:12px;
       color:var(--muted);
       font-weight:800;
-      margin-bottom:5px;
+      margin-bottom:6px;
     }
 
     .fact .v{
       font-size:15px;
       font-weight:900;
-      line-height:1.45;
+      line-height:1.5;
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    @media(min-width:920px){
+      .grid{
+        grid-template-columns:1.05fr .95fr;
+      }
+    }
+
+    .card{
+      padding:18px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:21px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:14px;
+      font-weight:800;
+      line-height:1.55;
     }
 
     .chips{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
+      margin-top:14px;
     }
 
     .chip{
@@ -233,36 +363,35 @@
       font-weight:900;
     }
 
-    .grid{
+    .rates-groups{
       display:grid;
-      gap:14px;
-      margin-top:14px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-top:16px;
     }
 
-    @media(min-width:920px){
-      .grid{grid-template-columns:1.05fr .95fr;}
+    @media(max-width:920px){
+      .rates-groups{
+        grid-template-columns:1fr;
+      }
     }
 
-    .card{
+    .rate-group{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.15);
+      border-radius:20px;
       padding:16px;
     }
 
-    h2{
-      margin:0 0 10px;
-      font-size:20px;
+    .rate-group h3{
+      margin:0 0 12px;
+      font-size:16px;
+      color:#fff1ad;
     }
 
-    .muted{
-      color:var(--muted);
-      font-size:14px;
-      font-weight:800;
-      line-height:1.55;
-    }
-
-    .rates{
+    .rate-list{
       display:grid;
       gap:10px;
-      margin-top:14px;
     }
 
     .rate{
@@ -270,10 +399,13 @@
       justify-content:space-between;
       align-items:center;
       gap:12px;
-      padding:13px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.16);
+      padding:12px 0;
+      border-bottom:1px dashed rgba(255,255,255,.10);
+    }
+
+    .rate:last-child{
+      border-bottom:none;
+      padding-bottom:0;
     }
 
     .rate-name{
@@ -311,44 +443,60 @@
   <div class="wrap">
 
     <section class="hero">
-      <div class="hero-top">
-        <div class="hero-main">
-          <div class="avatar" id="avatar">DR</div>
+      <div class="hero-grid-main">
+        <div class="hero-media" id="heroMedia">
+          <div class="hero-media-fallback">🚗</div>
+          <div class="hero-badge" id="heroBadge">
+            <span class="dot"></span>
+            Chauffeur privé
+          </div>
+        </div>
 
-          <div>
-            <div class="badge" id="pubBadge"><span class="dot"></span> Chauffeur publié</div>
-            <h1 id="name">Chargement…</h1>
-            <div class="subtitle" id="subtitle">Profil public DIGIY DRIVER</div>
+        <div class="hero-content">
+          <div class="hero-top">
+            <div class="hero-main">
+              <div class="avatar" id="avatar">DR</div>
 
-            <div class="hero-meta">
-              <div class="pill" id="cityPill">Ville : —</div>
-              <div class="pill" id="vehiclePill">Véhicule : —</div>
-              <div class="pill slug-pill" id="slugPill">slug : —</div>
+              <div>
+                <div class="badge" id="pubBadge"><span class="dot"></span> Chauffeur publié</div>
+                <h1 id="name">Chargement…</h1>
+                <div class="subtitle" id="subtitle">Profil public DIGIY DRIVER</div>
+
+                <div class="hero-meta">
+                  <div class="pill" id="cityPill">Ville : —</div>
+                  <div class="pill" id="vehiclePill">Véhicule : —</div>
+                  <div class="pill slug-pill" id="slugPill">slug : —</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter</a>
+              <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Commander</a>
+              <a class="btn" href="./index.html">🏠 Retour vitrine</a>
             </div>
           </div>
-        </div>
 
-        <div class="hero-actions">
-          <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter</a>
-          <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Commander</a>
-          <a class="btn" href="./index.html">🏠 Retour vitrine</a>
-        </div>
-      </div>
+          <div class="hero-info-grid">
+            <div class="fact">
+              <div class="k">Présentation</div>
+              <div class="v" id="bio">—</div>
+            </div>
 
-      <div class="hero-grid">
-        <div class="fact">
-          <div class="k">Présentation</div>
-          <div class="v" id="bio">—</div>
-        </div>
+            <div class="fact">
+              <div class="k">Services</div>
+              <div class="v" id="services">—</div>
+            </div>
 
-        <div class="facts">
-          <div class="fact">
-            <div class="k">Services</div>
-            <div class="v" id="services">—</div>
-          </div>
-          <div class="fact">
-            <div class="k">Note contact</div>
-            <div class="v" id="contactNote">—</div>
+            <div class="fact">
+              <div class="k">Note contact</div>
+              <div class="v" id="contactNote">—</div>
+            </div>
+
+            <div class="fact">
+              <div class="k">Contact direct</div>
+              <div class="v" id="contactDirect">—</div>
+            </div>
           </div>
         </div>
       </div>
@@ -357,7 +505,7 @@
     <section class="grid">
       <div class="card">
         <h2>Zone de service</h2>
-        <div class="muted" style="margin-bottom:12px">Territoires couverts par le chauffeur.</div>
+        <div class="muted">Territoires couverts par le chauffeur.</div>
         <div class="chips" id="zonesChips">
           <div class="chip">Aucune zone</div>
         </div>
@@ -365,7 +513,7 @@
 
       <div class="card">
         <h2>Véhicule & confort</h2>
-        <div class="facts">
+        <div class="hero-info-grid" style="margin-top:14px">
           <div class="fact">
             <div class="k">Véhicule</div>
             <div class="v" id="vehicleFull">—</div>
@@ -381,7 +529,7 @@
     <section class="card" style="margin-top:14px">
       <h2>Tarifs indicatifs</h2>
       <div class="muted">Tarifs publiés par le chauffeur. Paiement direct au pro.</div>
-      <div class="rates" id="ratesList">
+      <div id="ratesList" style="margin-top:16px">
         <div class="empty">Chargement…</div>
       </div>
     </section>
@@ -394,7 +542,12 @@
   <script>
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
-    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const supabaseLib = window.supabase;
+    if (!supabaseLib || typeof supabaseLib.createClient !== "function") {
+      console.error("Supabase JS non chargé.");
+    }
+    const sb = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const qs = new URLSearchParams(location.search);
     const slug = (qs.get("slug") || "").trim();
@@ -426,28 +579,128 @@
       return u.pathname + u.search;
     }
 
+    function escapeHtml(str){
+      return String(str ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#39;");
+    }
+
+    function pickMainImage(p){
+      const candidates = [
+        p?.vehicle_photo,
+        p?.vehicle_photo_url,
+        p?.photo_url,
+        p?.avatar_url,
+        p?.image_url
+      ].filter(Boolean);
+
+      if (candidates.length) return candidates[0];
+
+      const vehicleType = String(p?.vehicle_type || "").toLowerCase();
+
+      if (vehicleType.includes("suv")) {
+        return "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80";
+      }
+
+      if (vehicleType.includes("berline")) {
+        return "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80";
+      }
+
+      return "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80";
+    }
+
+    function setHeroImage(profile, displayName, city){
+      const heroMedia = document.getElementById("heroMedia");
+      const imageUrl = pickMainImage(profile);
+
+      heroMedia.innerHTML = `
+        <img
+          src="${escapeHtml(imageUrl)}"
+          alt="${escapeHtml(displayName)}"
+          loading="eager"
+          onerror="this.outerHTML='<div class=&quot;hero-media-fallback&quot;>🚗</div>';"
+        />
+        <div class="hero-badge" id="heroBadge">
+          <span class="dot"></span>
+          ${escapeHtml(city ? `Chauffeur privé • ${city}` : "Chauffeur privé")}
+        </div>
+      `;
+    }
+
+    function setAvatar(profile, displayName){
+      const avatar = document.getElementById("avatar");
+      const photo = profile?.photo_url || profile?.avatar_url || "";
+
+      if(photo){
+        avatar.innerHTML = `<img src="${escapeHtml(photo)}" alt="${escapeHtml(displayName)}" onerror="this.parentNode.textContent='${escapeHtml(initials(displayName))}'">`;
+      }else{
+        avatar.textContent = initials(displayName);
+      }
+    }
+
     function renderZones(zones){
       const box = document.getElementById("zonesChips");
       if(!zones || !zones.length){
         box.innerHTML = `<div class="chip">Zone non précisée</div>`;
         return;
       }
-      box.innerHTML = zones.map(z => `<div class="chip">${z}</div>`).join("");
+      box.innerHTML = zones.map(z => `<div class="chip">${escapeHtml(z)}</div>`).join("");
     }
 
-    function renderRates(rates){
+    function renderRatesGrouped(rates){
       const box = document.getElementById("ratesList");
+
       if(!rates || !rates.length){
         box.innerHTML = `<div class="empty">Aucun tarif publié</div>`;
         return;
       }
 
-      box.innerHTML = rates.map(r => `
-        <div class="rate">
-          <div class="rate-name">${safe(r.route_label)}</div>
-          <div class="rate-price">${money(r.price_fcfa)}</div>
-        </div>
-      `).join("");
+      const safeRates = rates.filter(r => r && r.is_active !== false);
+
+      const groups = {
+        interurbains: {
+          title: "Transferts interurbains",
+          items: safeRates.filter(r =>
+            /dakar|aibd|thi[eè]s|aeroport|airport/i.test(String(r.route_label || ""))
+          )
+        },
+        locaux: {
+          title: "Trajets locaux",
+          items: safeRates.filter(r =>
+            /ngaparou|somone|mbour|saly/i.test(String(r.route_label || "")) &&
+            !/dakar|aibd|thi[eè]s|aeroport|airport/i.test(String(r.route_label || ""))
+          )
+        },
+        dispo: {
+          title: "Mise à disposition",
+          items: safeRates.filter(r =>
+            /mise à dispo|mise a dispo|dispo|journ[eé]e|4h|soir[eé]e/i.test(String(r.route_label || ""))
+          )
+        }
+      };
+
+      const sections = Object.values(groups)
+        .filter(group => group.items.length > 0)
+        .map(group => `
+          <div class="rate-group">
+            <h3>${escapeHtml(group.title)}</h3>
+            <div class="rate-list">
+              ${group.items.map(r => `
+                <div class="rate">
+                  <div class="rate-name">${escapeHtml(safe(r.route_label))}</div>
+                  <div class="rate-price">${money(r.price_fcfa)}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `).join("");
+
+      box.innerHTML = sections
+        ? `<div class="rates-groups">${sections}</div>`
+        : `<div class="empty">Aucun tarif publié</div>`;
     }
 
     async function boot(){
@@ -467,36 +720,60 @@
         if(!data?.ok) throw new Error(data?.error || "not_found");
 
         const p = data.profile || {};
-        const rates = data.rates || [];
+        const rates = Array.isArray(data.rates) ? data.rates : [];
 
         const name = safe(p.display_name, "Chauffeur DIGIY");
-        const vehicleBits = [p.vehicle_type, p.vehicle_brand, p.vehicle_model, p.vehicle_year].filter(Boolean);
+        const city = safe(p.city);
+        const vehicleBits = [
+          p.vehicle_type,
+          p.vehicle_brand,
+          p.vehicle_model,
+          p.vehicle_year
+        ].filter(Boolean);
+
         const vehicleShort = [p.vehicle_type, p.vehicle_brand].filter(Boolean).join(" • ");
         const vehicleFull = vehicleBits.join(" • ");
+
         const services = [
           p.airport_ok ? "Transferts aéroport" : null,
-          p.long_distance_ok ? "Longues distances" : null
-        ].filter(Boolean).join(" • ") || "Service standard";
-        const comfort = p.has_ac ? "Climatisation disponible" : "Confort standard";
+          p.long_distance_ok ? "Longues distances" : null,
+          "Réservation directe"
+        ].filter(Boolean).join(" • ");
+
+        const comfort = [
+          p.has_ac ? "Climatisation disponible" : "Confort standard",
+          p.vehicle_color ? `Couleur ${p.vehicle_color}` : null
+        ].filter(Boolean).join(" • ");
+
+        const zones = Array.isArray(p.zones_text)
+          ? p.zones_text
+          : String(p.zones_text || "")
+              .split(",")
+              .map(s => s.trim())
+              .filter(Boolean);
 
         document.title = `${name} — DIGIY DRIVER`;
-        document.getElementById("avatar").textContent = initials(name);
+
+        setHeroImage(p, name, city);
+        setAvatar(p, name);
+
         document.getElementById("name").textContent = name;
-        document.getElementById("subtitle").textContent = `${safe(p.city)} • ${safe(p.vehicle_type, "Chauffeur privé")}`;
-        document.getElementById("cityPill").textContent = "Ville : " + safe(p.city);
+        document.getElementById("subtitle").textContent = `${city} • ${safe(p.vehicle_type, "Chauffeur privé")}`;
+        document.getElementById("cityPill").textContent = "Ville : " + city;
         document.getElementById("vehiclePill").textContent = "Véhicule : " + safe(vehicleShort || vehicleFull);
-        document.getElementById("bio").textContent = safe(p.bio);
-        document.getElementById("services").textContent = services;
-        document.getElementById("contactNote").textContent = safe(p.contact_note);
-        document.getElementById("vehicleFull").textContent = safe(vehicleFull);
+        document.getElementById("bio").textContent = safe(p.bio, "Service propre, ponctuel et confortable.");
+        document.getElementById("services").textContent = services || "Service standard";
+        document.getElementById("contactNote").textContent = safe(p.contact_note, "Disponible sur réservation");
+        document.getElementById("contactDirect").textContent = safe(p.whatsapp, "WhatsApp sur demande");
+        document.getElementById("vehicleFull").textContent = safe(vehicleFull, "Véhicule confortable");
         document.getElementById("comfort").textContent = comfort;
 
-        const zones = Array.isArray(p.zones_text) ? p.zones_text : String(p.zones_text || "").split(",").map(s => s.trim()).filter(Boolean);
         renderZones(zones);
-        renderRates(rates);
+        renderRatesGrouped(rates);
 
         const wa = document.getElementById("btnWhatsApp");
         const waHref = waLink(p.whatsapp, name);
+
         if(waHref){
           wa.href = waHref;
         } else {
@@ -511,6 +788,10 @@
         document.getElementById("ratesList").innerHTML = `<div class="empty">Ce chauffeur est introuvable ou non publié.</div>`;
         document.getElementById("btnWhatsApp").classList.add("hidden");
         document.getElementById("btnCommander").classList.add("hidden");
+        document.getElementById("heroMedia").innerHTML = `
+          <div class="hero-media-fallback">🚗</div>
+          <div class="hero-badge"><span class="dot"></span> Chauffeur privé</div>
+        `;
       }
     }
 
