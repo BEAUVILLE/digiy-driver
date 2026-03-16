@@ -356,11 +356,7 @@
   (async function(){
     "use strict";
 
-    // ✅ Supabase (pour charger la liste depuis digiy_driver_public_profiles)
-    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-    const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
-
+    
     const driverSelect = document.getElementById("driverSelect");
     const status = document.getElementById("status");
 
@@ -389,40 +385,6 @@
       setStatus(`Chauffeur pré-sélectionné : ${preName}`);
     }
 
-    // 2) Charger depuis Supabase (si dispo)
-    if(window.supabase?.createClient){
-      try{
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        const { data, error } = await sb
-          .from("digiy_driver_public_profiles")
-          .select("display_name, whatsapp, profile_url, is_published, is_active, priority")
-          .eq("is_published", true)
-          .eq("is_active", true)
-          .order("priority", { ascending: true })
-          .limit(80);
-
-        if(error){
-          console.warn("[COURSE] Supabase error:", error);
-        } else {
-          (data || []).forEach(d=>{
-            const name = (d.display_name || "Chauffeur").trim();
-            const wa   = digitsOnly(d.whatsapp || "");
-            const url  = (d.profile_url || "").trim();
-            // Evite doublon si déjà pré-injecté
-            if(preName && preWa && name.toLowerCase() === preName.toLowerCase() && wa === preWa) return;
-            addOption(name, wa, url);
-          });
-
-          // Si pas pré-sélectionné, on peut sélectionner le premier dispo
-          if(!(preName && preWa) && driverSelect.options.length > 1){
-            driverSelect.selectedIndex = 1;
-          }
-        }
-      }catch(e){
-        console.warn("[COURSE] Supabase init fail:", e?.message || e);
-      }
-    }
 
     function buildMessage(driverName){
       const type = (document.getElementById("courseType").value || "").trim();
