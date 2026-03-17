@@ -473,7 +473,7 @@
             <div class="hero-actions">
               <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter</a>
               <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Commander</a>
-              <a class="btn" href="./index.html">🏠 Retour vitrine</a>
+              <a class="btn" id="btnRetour" href="./index.html">🏠 Retour vitrine</a>
             </div>
           </div>
 
@@ -541,12 +541,20 @@
 
   <script>
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    if (!supabaseLib || typeof supabaseLib.createClient !== "function") {
-      console.error("Supabase JS non chargé.");
+    const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function digiyBasePath(){
+      const parts = location.pathname.split("/").filter(Boolean);
+      const isGh = /\.github\.io$/i.test(location.hostname);
+      if(isGh && parts.length > 0) return "/" + parts[0] + "/";
+      return "/";
     }
-    const sb = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function digiyLocal(path){
+      path = String(path || "").replace(/^\/+/, "");
+      return digiyBasePath() + path;
+    }
 
     const qs = new URLSearchParams(location.search);
     const slug = (qs.get("slug") || "").trim();
@@ -565,17 +573,26 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       return s.split(/\s+/).slice(0,2).map(x => (x[0] || "").toUpperCase()).join("") || "DR";
     }
 
+    function normalizeWa(phone){
+      let clean = String(phone || "").replace(/[^\d]/g, "");
+      if(clean.length === 9 && clean.startsWith("7")) clean = "221" + clean;
+      return clean;
+    }
+
     function waLink(phone, name){
-      const clean = String(phone || "").replace(/[^\d]/g, "");
+      const clean = normalizeWa(phone);
       if(!clean) return "";
       const msg = `Bonjour ${name || ""}, je vous contacte via votre fiche DIGIY DRIVER.`;
       return "https://wa.me/" + clean + "?text=" + encodeURIComponent(msg);
     }
 
-    function commanderLink(slug){
-      const u = new URL("./commander-course.html", location.href);
+    function commanderLink(slug, profile){
+      const u = new URL(digiyLocal("commander-course.html"), location.origin);
+      if (profile?.display_name) u.searchParams.set("driver", profile.display_name);
+      if (profile?.whatsapp) u.searchParams.set("wa", normalizeWa(profile.whatsapp));
       if (slug) u.searchParams.set("slug", slug);
-      return u.pathname + u.search;
+      u.searchParams.set("profile", location.href);
+      return u.toString();
     }
 
     function escapeHtml(str){
@@ -622,7 +639,7 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
           loading="eager"
           onerror="this.outerHTML='<div class=&quot;hero-media-fallback&quot;>🚗</div>';"
         />
-        <div class="hero-badge" id="heroBadge">
+        <div class="hero-badge">
           <span class="dot"></span>
           ${escapeHtml(city ? `Chauffeur privé • ${city}` : "Chauffeur privé")}
         </div>
@@ -704,12 +721,14 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function boot(){
       document.getElementById("slugPill").textContent = "slug : " + (slug || "—");
-      document.getElementById("btnCommander").href = commanderLink(slug);
+      document.getElementById("btnRetour").href = digiyLocal("index.html");
 
       if(!slug){
         document.getElementById("name").textContent = "Slug manquant";
         document.getElementById("subtitle").textContent = "Impossible d’ouvrir cette fiche sans identifiant chauffeur.";
         document.getElementById("ratesList").innerHTML = `<div class="empty">Cette fiche ne peut pas s’ouvrir sans slug.</div>`;
+        document.getElementById("btnWhatsApp").classList.add("hidden");
+        document.getElementById("btnCommander").classList.add("hidden");
         return;
       }
 
@@ -780,6 +799,8 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
           wa.classList.remove("primary");
           wa.textContent = "WhatsApp indisponible";
         }
+
+        document.getElementById("btnCommander").href = commanderLink(slug, p);
       }catch(e){
         console.error(e);
         document.getElementById("name").textContent = "Chauffeur indisponible";
