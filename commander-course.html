@@ -31,6 +31,7 @@
       background:
         radial-gradient(circle at top, rgba(250,204,21,.10) 0, transparent 55%),
         radial-gradient(circle at 25% 10%, rgba(34,197,94,.10) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(249,115,22,.08) 0, transparent 50%),
         radial-gradient(circle at top,#0b1120 0,#020617 55%,#000 100%);
       color:var(--ink);
       padding:14px;
@@ -65,7 +66,9 @@
       color:var(--ink);
       display:inline-flex;align-items:center;gap:8px;line-height:1;
       cursor:pointer;
+      transition:.18s ease;
     }
+    .btn:hover{transform:translateY(-1px)}
     .btn.primary{
       border:none;
       background:linear-gradient(135deg,#22c55e,#16a34a);
@@ -184,13 +187,13 @@
   </style>
 
   <script>
-    // ✅ GitHub Pages safe base path
     function digiyBasePath(){
       const parts = location.pathname.split("/").filter(Boolean);
       const isGh = /\.github\.io$/i.test(location.hostname);
       if(isGh && parts.length > 0) return "/" + parts[0] + "/";
       return "/";
     }
+
     function digiyLocal(path){
       path = String(path||"").replace(/^\/+/,"");
       return digiyBasePath() + path;
@@ -203,10 +206,19 @@
       return o;
     }
 
-    function digitsOnly(s){ return String(s||"").replace(/\D/g,""); }
+    function digitsOnly(s){
+      return String(s||"").replace(/\D/g,"");
+    }
+
+    function normalizePhone221(s){
+      let d = digitsOnly(s);
+      if(d.startsWith("221") && d.length === 12) return d;
+      if(d.length === 9 && d.startsWith("7")) return "221" + d;
+      return d;
+    }
 
     function openWa(waDigits, text){
-      const wa = digitsOnly(waDigits);
+      const wa = normalizePhone221(waDigits);
       if(!wa) return;
       const msg = encodeURIComponent(text || "");
       const url = "https://wa.me/" + wa + (msg ? "?text=" + msg : "");
@@ -268,7 +280,7 @@
               <option value="">Choisir un chauffeur…</option>
             </select>
             <div class="hint" id="driverHint">
-              Astuce : tu peux arriver ici avec un chauffeur pré-sélectionné via URL :
+              Tu peux aussi arriver ici avec un chauffeur pré-sélectionné via URL :
               <br><code style="color:#fde68a;font-weight:950">?driver=Lamine&wa=221784413680</code>
             </div>
           </div>
@@ -300,7 +312,7 @@
         <div class="row" style="margin-top:12px">
           <div>
             <label for="pickup">Départ</label>
-            <input id="pickup" type="text" placeholder="Ex: Saly Koulang, hôtel…, quartier…" />
+            <input id="pickup" type="text" placeholder="Ex: Saly Koulang, hôtel, quartier…" />
           </div>
           <div>
             <label for="dropoff">Arrivée</label>
@@ -345,22 +357,29 @@
   </div>
 
   <script>
-    // ✅ Lien galerie (si tu mets ce fichier dans le repo digiy-driver)
-    document.getElementById("btnGalerie").href = digiyLocal("index.html#chauffeurs");
+    document.getElementById("btnGalerie").href = "https://beauville.github.io/galerie-chauffeurs/";
   </script>
 
   <script>
-  (async function(){
+  (function(){
     "use strict";
 
-    
     const driverSelect = document.getElementById("driverSelect");
     const status = document.getElementById("status");
+    const driverHint = document.getElementById("driverHint");
 
     const q = qs();
     const preName = (q.driver || "").trim();
-    const preWa   = digitsOnly(q.wa || "");
+    const preWa   = normalizePhone221(q.wa || "");
     const preUrl  = (q.profile || "").trim();
+
+    const DEFAULT_DRIVERS = [
+      {
+        name: "Chauffeur DIGIY",
+        wa: "221771342889",
+        profile: "https://beauville.github.io/galerie-chauffeurs/"
+      }
+    ];
 
     function setStatus(msg, ok=true){
       status.innerHTML = ok
@@ -369,19 +388,26 @@
     }
 
     function addOption(name, wa, profile){
+      const cleanWa = normalizePhone221(wa);
       const opt = document.createElement("option");
-      opt.value = JSON.stringify({ name, wa, profile });
-      opt.textContent = `${name} — ${wa ? ("WhatsApp " + wa) : "WhatsApp ?"}`;
+      opt.value = JSON.stringify({ name, wa: cleanWa, profile });
+      opt.textContent = `${name} — ${cleanWa ? ("WhatsApp +" + cleanWa) : "WhatsApp ?"}`;
       driverSelect.appendChild(opt);
     }
 
-    // 1) Si URL fournie => on injecte en premier
-    if(preName && preWa){
-      addOption(preName, preWa, preUrl);
-      driverSelect.selectedIndex = 1; // 0 = placeholder
-      setStatus(`Chauffeur pré-sélectionné : ${preName}`);
-    }
+    function populateDrivers(){
+      DEFAULT_DRIVERS.forEach(d => addOption(d.name, d.wa, d.profile));
 
+      if(preName && preWa){
+        addOption(preName, preWa, preUrl);
+        driverSelect.selectedIndex = driverSelect.options.length - 1;
+        setStatus(`Chauffeur pré-sélectionné : ${preName}`);
+        driverHint.innerHTML = `Chauffeur reçu par lien direct : <b style="color:#fde68a">${escapeHtml(preName)}</b>`;
+      } else if (driverSelect.options.length > 1) {
+        driverSelect.selectedIndex = 1;
+        setStatus("Chauffeur par défaut prêt.");
+      }
+    }
 
     function buildMessage(driverName){
       const type = (document.getElementById("courseType").value || "").trim();
@@ -394,18 +420,28 @@
       const notes = (document.getElementById("notes").value || "").trim();
 
       const lines = [];
-      lines.push(`Salam ${driverName || ""}, je viens de DIGIY DRIVER.`);
+      lines.push(`Salam ${driverName || "chauffeur"}, je viens de DIGIY DRIVER.`);
       lines.push(`Je souhaite réserver : ${type}`);
       lines.push("");
+
       if(date) lines.push(`Date : ${date}`);
       if(time) lines.push(`Heure : ${time}`);
       if(pickup) lines.push(`Départ : ${pickup}`);
       if(dropoff) lines.push(`Arrivée : ${dropoff}`);
       if(people) lines.push(`Personnes : ${people}`);
       if(bags) lines.push(`Bagages : ${bags}`);
-      if(notes) { lines.push(""); lines.push(`Infos : ${notes}`); }
+
+      if(notes){
+        lines.push("");
+        lines.push(`Infos : ${notes}`);
+      }
+
+      lines.push("");
+      lines.push("Je souhaite discuter directement du tarif et confirmer avec vous.");
+      lines.push("Paiement direct au chauffeur.");
       lines.push("");
       lines.push("Merci 🙏");
+
       return lines.join("\n");
     }
 
@@ -418,15 +454,15 @@
     document.getElementById("btnSend").addEventListener("click", ()=>{
       const d = getSelected();
       if(!d || !d.wa){
-        setStatus("Choisis un chauffeur (WhatsApp manquant).", false);
+        setStatus("Choisis un chauffeur valide avant d’ouvrir WhatsApp.", false);
         return;
       }
 
-      // Champs minimum (départ+arrivée recommandés)
       const pickup = (document.getElementById("pickup").value || "").trim();
       const dropoff = (document.getElementById("dropoff").value || "").trim();
+
       if(!pickup || !dropoff){
-        setStatus("Ajoute au moins Départ + Arrivée (sinon le chauffeur doit deviner).", false);
+        setStatus("Ajoute au moins Départ + Arrivée.", false);
         return;
       }
 
@@ -441,21 +477,22 @@
         setStatus("Choisis un chauffeur avant de copier le lien.", false);
         return;
       }
+
       const url = new URL(location.href);
       url.searchParams.set("driver", d.name || "Chauffeur");
-      url.searchParams.set("wa", digitsOnly(d.wa));
+      url.searchParams.set("wa", normalizePhone221(d.wa));
       if(d.profile) url.searchParams.set("profile", d.profile);
 
       try{
         await navigator.clipboard.writeText(url.toString());
         setStatus("Lien copié ✅ (chauffeur pré-sélectionné)");
       }catch(_){
-        // fallback prompt
         window.prompt("Copie le lien :", url.toString());
         setStatus("Copie manuelle OK ✅");
       }
     });
 
+    populateDrivers();
   })();
   </script>
 </body>
