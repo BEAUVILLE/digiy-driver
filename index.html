@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>DIGIY DRIVER — Chauffeur direct, 0% commission</title>
+  <title>DIGIY DRIVER — Jakarta, Bus, Chauffeur direct</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="DIGIY DRIVER — Le rail chauffeur direct au Sénégal. 0% commission, paiement direct au pro, contact client direct, abonnement simple.">
+  <meta name="description" content="DIGIY DRIVER — Jakarta, bus et chauffeur direct au Sénégal. 0% commission, paiement direct au pro, contact client direct, abonnement simple.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#07140f">
 
@@ -183,7 +184,7 @@
 
     .hero{
       display:grid;
-      grid-template-columns:minmax(0,1.22fr) minmax(330px, .92fr);
+      grid-template-columns:minmax(0,1.18fr) minmax(330px,.92fr);
       gap:22px;
       align-items:stretch;
       margin-top:18px;
@@ -233,11 +234,11 @@
     }
 
     h1{
-      font-size:clamp(34px, 5vw, 64px);
+      font-size:clamp(34px, 5vw, 62px);
       line-height:.98;
       letter-spacing:-.04em;
       font-weight:900;
-      max-width:11ch;
+      max-width:12ch;
     }
 
     .accent{
@@ -249,7 +250,7 @@
 
     .hero-sub{
       margin-top:16px;
-      max-width:62ch;
+      max-width:64ch;
       font-size:18px;
       line-height:1.62;
       color:var(--muted);
@@ -358,7 +359,7 @@
       font-weight:900;
     }
 
-    .ride-card{
+    .rail-box{
       border-radius:22px;
       padding:16px;
       background:
@@ -366,7 +367,7 @@
       border:1px solid rgba(255,255,255,.08);
     }
 
-    .ride-top{
+    .rail-top{
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -374,7 +375,7 @@
       margin-bottom:14px;
     }
 
-    .ride-tag{
+    .rail-tag{
       display:inline-flex;
       align-items:center;
       gap:8px;
@@ -389,86 +390,56 @@
       border:1px solid rgba(34,197,94,.18);
     }
 
-    .ride-price{
+    .rail-price{
       font-size:22px;
       font-weight:900;
       letter-spacing:-.03em;
       color:var(--gold);
     }
 
-    .route{
+    .rail-list{
       display:grid;
       gap:10px;
-      margin-bottom:14px;
     }
 
-    .route-line{
+    .rail-item{
       display:flex;
       align-items:flex-start;
       gap:10px;
-      color:var(--ink);
-      font-weight:850;
-      line-height:1.45;
+      padding:12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
     }
 
-    .route-pin{
-      width:24px;
-      height:24px;
+    .rail-pin{
+      width:28px;
+      height:28px;
       border-radius:999px;
       display:grid;
       place-items:center;
-      font-size:11px;
+      font-size:12px;
       font-weight:900;
       flex:0 0 auto;
-      margin-top:1px;
-    }
-
-    .route-pin.start{
-      background:rgba(34,197,94,.12);
-      color:var(--green);
-      border:1px solid rgba(34,197,94,.18);
-    }
-
-    .route-pin.end{
+      margin-top:2px;
       background:rgba(250,204,21,.12);
       color:var(--gold);
       border:1px solid rgba(250,204,21,.18);
     }
 
-    .route-text small{
+    .rail-text strong{
+      display:block;
+      font-size:14px;
+      margin-bottom:3px;
+      font-weight:900;
+    }
+
+    .rail-text span{
       display:block;
       font-size:12px;
+      line-height:1.5;
       color:var(--muted);
       font-weight:800;
-      margin-bottom:2px;
-    }
-
-    .ride-stats{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .ride-stat{
-      padding:12px 10px;
-      border-radius:16px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.07);
-      text-align:center;
-    }
-
-    .ride-stat .k{
-      display:block;
-      font-size:11px;
-      color:var(--muted);
-      font-weight:800;
-      margin-bottom:5px;
-    }
-
-    .ride-stat .v{
-      display:block;
-      font-size:17px;
-      font-weight:900;
     }
 
     .side-note{
@@ -584,6 +555,130 @@
       height:7px;
       border-radius:999px;
       background:linear-gradient(135deg,var(--gold),var(--green));
+    }
+
+    .offers{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .offer{
+      border-radius:26px;
+      padding:20px 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+        rgba(8,23,18,.78);
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow:var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .offer.featured{
+      border-color:rgba(250,204,21,.28);
+      box-shadow:0 18px 42px rgba(250,204,21,.10);
+    }
+
+    .offer-badge{
+      position:absolute;
+      top:14px;
+      right:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:900;
+      color:#06110c;
+      background:linear-gradient(135deg,var(--gold),var(--orange));
+    }
+
+    .offer-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      padding-right:72px;
+    }
+
+    .offer-icon{
+      font-size:34px;
+      line-height:1;
+    }
+
+    .offer-code{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:46px;
+      height:46px;
+      border-radius:14px;
+      font-size:15px;
+      font-weight:900;
+      color:#06110c;
+      background:linear-gradient(135deg,var(--gold),var(--orange));
+      box-shadow:0 12px 28px rgba(250,204,21,.18);
+      flex:0 0 auto;
+    }
+
+    .offer-name{
+      font-size:22px;
+      line-height:1.08;
+      letter-spacing:-.03em;
+      font-weight:900;
+      margin-top:8px;
+    }
+
+    .offer-sub{
+      font-size:14px;
+      line-height:1.55;
+      color:var(--muted);
+      font-weight:760;
+    }
+
+    .offer-price{
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+      margin-top:4px;
+    }
+
+    .offer-price strong{
+      font-size:34px;
+      letter-spacing:-.04em;
+      line-height:1;
+      font-weight:900;
+      color:var(--gold);
+    }
+
+    .offer-price span{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:800;
+      padding-bottom:4px;
+    }
+
+    .offer .list{
+      margin-top:0;
+    }
+
+    .offer-cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:auto;
+    }
+
+    .offer-cta .btn,
+    .offer-cta .btn-outline{
+      flex:1;
+      min-width:140px;
     }
 
     .steps{
@@ -719,13 +814,13 @@
     @media (max-width: 1080px){
       .hero{grid-template-columns:1fr}
       h1{max-width:unset}
+      .offers{grid-template-columns:1fr}
     }
 
     @media (max-width: 900px){
       .grid-3{grid-template-columns:1fr}
       .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
       .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .ride-stats{grid-template-columns:1fr 1fr 1fr}
       .hero-mini-grid{grid-template-columns:1fr}
     }
 
@@ -738,7 +833,8 @@
       .hero-side{padding:14px}
       .grid-4{grid-template-columns:1fr}
       .steps{grid-template-columns:1fr}
-      .ride-stats{grid-template-columns:1fr}
+      .offer-top{padding-right:0}
+      .offer-badge{position:static;width:max-content}
       .floating-home{
         left:12px;
         right:12px;
@@ -760,6 +856,16 @@
       path = String(path || "").replace(/^\/+/,"");
       return digiyBasePath() + path;
     }
+
+    function digiyPayUrl(plan, amount, code){
+      const u = new URL("https://commencer-a-payer.digiylyfe.com/");
+      u.searchParams.set("module", "DRIVER");
+      u.searchParams.set("base_module", "DRIVER");
+      u.searchParams.set("plan", String(plan || "").toLowerCase());
+      u.searchParams.set("amount", String(amount || ""));
+      u.searchParams.set("code", String(code || "").toUpperCase());
+      return u.toString();
+    }
   </script>
 </head>
 <body>
@@ -771,62 +877,62 @@
         <div class="brand-text">
           <div class="brand-kicker">DIGIYLYFE</div>
           <div class="brand-title">DIGIY DRIVER</div>
-          <div class="brand-sub">Chauffeur direct • Sénégal • paiement direct au pro</div>
+          <div class="brand-sub">Jakarta • Bus • Chauffeur direct • Sénégal</div>
         </div>
       </div>
 
       <div class="top-actions">
         <div class="pill"><span class="dot"></span> 0% commission</div>
-        <a class="btn-ghost" id="btnGalleryTop" href="#">🚕 Galerie chauffeurs</a>
+        <a class="btn-ghost" id="btnGalleryTop" href="#">🚕 Galerie conducteurs</a>
         <a class="btn-ghost" id="btnPinTop" href="#">🔑 PIN</a>
-        <a class="btn" href="https://commencer-a-payer.digiylyfe.com/?module=DRIVER">💳 Commencer à payer</a>
+        <a class="btn" href="#offres">💳 Voir les formules</a>
       </div>
     </header>
 
     <section class="hero">
       <div class="hero-main">
-        <div class="hero-kicker">Rail chauffeur moderne</div>
+        <div class="hero-kicker">3 portes • 1 seul rail DRIVER</div>
 
         <h1>
-          Ton volant.
-          <span class="accent">Ton argent.</span>
-          Ton client.
+          Jakarta.
+          <span class="accent">Bus.</span>
+          Chauffeur direct.
         </h1>
 
         <p class="hero-sub">
-          DIGIY DRIVER te donne une vitrine propre, un parcours d’abonnement clair, un accès PIN, et un cockpit pro.
-          Le client te contacte directement. Tu encaisses directement. La plateforme ne mange pas ta route.
+          DIGIY DRIVER te donne une vitrine propre, un parcours d’abonnement clair, un accès PIN et une présence utile.
+          Tu choisis la formule qui colle à ta route. Le client te contacte directement. Tu encaisses directement.
         </p>
 
         <div class="hero-points">
-          <div class="hero-point">💸 0% commission sur tes courses</div>
-          <div class="hero-point">📲 contact client direct</div>
+          <div class="hero-point">💸 0% commission</div>
+          <div class="hero-point">📲 contact direct</div>
           <div class="hero-point">🧭 vitrine + galerie + cockpit</div>
           <div class="hero-point">🔐 accès PIN pro</div>
         </div>
 
         <div class="hero-cta">
-          <a class="btn" href="https://commencer-a-payer.digiylyfe.com/?module=DRIVER">💳 Je démarre maintenant</a>
+          <a class="btn" href="#offres">💳 Choisir ma formule</a>
           <a class="btn-outline" id="btnPinHero" href="#">🔑 J’ai déjà payé</a>
           <a class="btn-outline" id="btnGalleryHero" href="#">🚕 Voir la galerie</a>
         </div>
 
         <div class="hero-note">
-          Parcours simple : paiement → validation → PIN → cockpit chauffeur.
+          Parcours simple : formule → paiement → validation → PIN → cockpit conducteur.
         </div>
 
         <div class="hero-mini-grid">
           <div class="mini">
-            <div class="mini-label">Commission plateforme</div>
-            <div class="mini-value">0 F</div>
+            <div class="mini-label">Formules terrain</div>
+            <div class="mini-value">1A • 1B • 1C</div>
           </div>
           <div class="mini">
             <div class="mini-label">Relation client</div>
             <div class="mini-value">Directe</div>
           </div>
           <div class="mini">
-            <div class="mini-label">Positionnement</div>
-            <div class="mini-value">Chauffeur premium local</div>
+            <div class="mini-label">Commission DIGIY</div>
+            <div class="mini-value">0 F</div>
           </div>
         </div>
       </div>
@@ -834,61 +940,46 @@
       <aside class="hero-side">
         <div class="phone-shell">
           <div class="phone-top">
-            <span>Aperçu interface chauffeur</span>
-            <span class="live-chip"><span class="dot"></span> Vue vitrine</span>
+            <span>Aperçu des portes DRIVER</span>
+            <span class="live-chip"><span class="dot"></span> Vue publique</span>
           </div>
 
-          <div class="ride-card">
-            <div class="ride-top">
-              <span class="ride-tag">Demande directe</span>
-              <span class="ride-price">22 000 F</span>
+          <div class="rail-box">
+            <div class="rail-top">
+              <span class="rail-tag">Choisis ta route</span>
+              <span class="rail-price">Dès 5 500 F</span>
             </div>
 
-            <div class="route">
-              <div class="route-line">
-                <span class="route-pin start">A</span>
-                <div class="route-text">
-                  <small>Départ</small>
-                  Saly centre
+            <div class="rail-list">
+              <div class="rail-item">
+                <span class="rail-pin">1A</span>
+                <div class="rail-text">
+                  <strong>DIGIY JAKARTA</strong>
+                  <span>Présence simple • WhatsApp direct • QR • zone de circulation</span>
                 </div>
               </div>
 
-              <div class="route-line">
-                <span class="route-pin end">B</span>
-                <div class="route-text">
-                  <small>Destination</small>
-                  AIBD Blaise Diagne
+              <div class="rail-item">
+                <span class="rail-pin">1B</span>
+                <div class="rail-text">
+                  <strong>DIGIY BUS</strong>
+                  <span>Trajets • horaires • points de passage • contact direct</span>
                 </div>
               </div>
 
-              <div class="route-line">
-                <span class="route-pin start">☎</span>
-                <div class="route-text">
-                  <small>Contact</small>
-                  Client direct WhatsApp / téléphone
+              <div class="rail-item">
+                <span class="rail-pin">1C</span>
+                <div class="rail-text">
+                  <strong>DIGIY DRIVER</strong>
+                  <span>Historique courses • Wave & OM • présence DIGIY</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="ride-stats">
-              <div class="ride-stat">
-                <span class="k">Jour</span>
-                <span class="v">8</span>
-              </div>
-              <div class="ride-stat">
-                <span class="k">Encaissé</span>
-                <span class="v">36 500 F</span>
-              </div>
-              <div class="ride-stat">
-                <span class="k">Commission</span>
-                <span class="v">0 F</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="side-note">
-          Cette vitrine montre l’esprit du cockpit : visibilité, prix dignes, contact direct, paiement direct au chauffeur.
+          Une seule maison technique DRIVER. Trois portes terrain pour parler juste au réel : Jakarta, Bus et Chauffeur direct.
         </div>
       </aside>
     </section>
@@ -898,7 +989,7 @@
         <div class="eyebrow">Pourquoi DIGIY DRIVER</div>
         <h2>Tu roules pour toi, pas pour nourrir une appli.</h2>
         <p class="lead">
-          Le cœur du module, c’est simple : rendre au chauffeur sa marge, son image, sa clientèle et sa dignité de travail.
+          Le cœur du rail, c’est simple : rendre au conducteur sa marge, son image, sa clientèle et sa dignité de travail.
         </p>
       </div>
 
@@ -911,7 +1002,7 @@
           </p>
           <ul class="list">
             <li>Pas de pourcentage pris sur chaque course</li>
-            <li>Vision plus claire de ta journée</li>
+            <li>Prix plus lisibles</li>
             <li>Travail plus sain pour ta famille et tes projets</li>
           </ul>
         </article>
@@ -931,7 +1022,7 @@
 
         <article class="card">
           <div class="icon">🛡️</div>
-          <h3>Un rail pro plus propre</h3>
+          <h3>Un rail plus propre</h3>
           <p>
             Galerie, profil, PIN, cockpit, tarifs, visibilité. Tu n’as pas besoin d’être ingénieur pour exister proprement en ligne.
           </p>
@@ -944,16 +1035,131 @@
       </div>
     </section>
 
+    <section class="section" id="offres">
+      <div class="section-head">
+        <div class="eyebrow">Les 3 formules DRIVER</div>
+        <h2>Une maison DRIVER. Trois portes terrain.</h2>
+        <p class="lead">
+          Tu choisis la formule qui colle à ton métier réel. Jakarta, bus ou chauffeur direct : tout entre dans le même rail DIGIY DRIVER.
+        </p>
+      </div>
+
+      <div class="offers">
+        <article class="offer">
+          <div class="offer-top">
+            <div>
+              <div class="offer-icon">🛵</div>
+              <h3 class="offer-name">DIGIY JAKARTA</h3>
+              <p class="offer-sub">Pour le conducteur de quartier qui veut une porte digitale simple, claire et partageable.</p>
+            </div>
+            <div class="offer-code">1A</div>
+          </div>
+
+          <div class="offer-price">
+            <strong>5 500 F</strong>
+            <span>/ mois</span>
+          </div>
+
+          <ul class="list">
+            <li>Fiche pro simple</li>
+            <li>WhatsApp direct</li>
+            <li>Appel direct</li>
+            <li>QR personnel</li>
+            <li>Zone de circulation</li>
+            <li>Accès PIN pro</li>
+          </ul>
+
+          <div class="offer-cta">
+            <a class="btn btn-plan-1a" href="#">💳 Activer 1A</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%2C%20je%20veux%20des%20infos%20sur%20la%20formule%201A%20Jakarta.">💬 Infos</a>
+          </div>
+        </article>
+
+        <article class="offer featured">
+          <div class="offer-badge">Terrain collectif</div>
+          <div class="offer-top">
+            <div>
+              <div class="offer-icon">🚌</div>
+              <h3 class="offer-name">DIGIY BUS</h3>
+              <p class="offer-sub">Pour le conducteur de bus ou minibus qui veut montrer sa route, ses horaires et ses points de passage.</p>
+            </div>
+            <div class="offer-code">1B</div>
+          </div>
+
+          <div class="offer-price">
+            <strong>12 000 F</strong>
+            <span>/ mois</span>
+          </div>
+
+          <ul class="list">
+            <li>Fiche pro claire</li>
+            <li>Trajets et axes</li>
+            <li>Horaires visibles</li>
+            <li>Points de passage</li>
+            <li>Contact direct</li>
+            <li>Accès PIN pro</li>
+          </ul>
+
+          <div class="offer-cta">
+            <a class="btn btn-plan-1b" href="#">💳 Activer 1B</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%2C%20je%20veux%20des%20infos%20sur%20la%20formule%201B%20Bus.">💬 Infos</a>
+          </div>
+        </article>
+
+        <article class="offer">
+          <div class="offer-top">
+            <div>
+              <div class="offer-icon">🚗</div>
+              <h3 class="offer-name">DIGIY DRIVER</h3>
+              <p class="offer-sub">Pour le chauffeur direct, transfert, mise à disposition, clientèle privée et besoin plus complet.</p>
+            </div>
+            <div class="offer-code">1C</div>
+          </div>
+
+          <div class="offer-price">
+            <strong>19 900 F</strong>
+            <span>/ mois</span>
+          </div>
+
+          <ul class="list">
+            <li>Historique courses</li>
+            <li>Paiement Wave & OM</li>
+            <li>0% commission</li>
+            <li>Fiche pro DIGIY</li>
+            <li>Présence plus forte</li>
+            <li>Accès PIN pro</li>
+          </ul>
+
+          <div class="offer-cta">
+            <a class="btn btn-plan-1c" href="#">💳 Activer 1C</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%2C%20je%20veux%20des%20infos%20sur%20la%20formule%201C%20Driver.">💬 Infos</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="section">
       <div class="section-head">
         <div class="eyebrow">Pour qui</div>
-        <h2>Le module parle au terrain réel.</h2>
+        <h2>Le rail parle au terrain réel.</h2>
         <p class="lead">
-          Chauffeur local, transfert aéroport, mise à disposition, clientèle touristique, déplacements business, famille, quartier, événement : le rail est pensé pour le concret.
+          Jakarta, bus, transfert aéroport, mise à disposition, clientèle hébergement, famille, quartier, événement : le rail DRIVER est pensé pour le concret.
         </p>
       </div>
 
       <div class="grid-4">
+        <article class="card">
+          <div class="icon">🛵</div>
+          <h3>Jakarta</h3>
+          <p>Parfait pour les conducteurs qui veulent être trouvés, appelés et partagés plus facilement.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">🚌</div>
+          <h3>Bus / minibus</h3>
+          <p>Bon pour montrer un axe, des horaires, des points de passage et un contact direct.</p>
+        </article>
+
         <article class="card">
           <div class="icon">✈️</div>
           <h3>Transfert aéroport</h3>
@@ -961,21 +1167,9 @@
         </article>
 
         <article class="card">
-          <div class="icon">🏨</div>
-          <h3>Clientèle hébergement</h3>
-          <p>Bon pour travailler avec locations, hôtels, résidences et voyageurs de passage.</p>
-        </article>
-
-        <article class="card">
           <div class="icon">🧳</div>
           <h3>Mise à disposition</h3>
           <p>Course simple, demi-journée, journée, déplacement privé ou besoin ponctuel.</p>
-        </article>
-
-        <article class="card">
-          <div class="icon">🌍</div>
-          <h3>Image locale solide</h3>
-          <p>Tu apparais comme un pro visible, joignable, ancré sur le terrain.</p>
         </article>
       </div>
     </section>
@@ -985,33 +1179,33 @@
         <div class="eyebrow">Parcours simple</div>
         <h2>Pas de labyrinthe. Pas de cirque. On fait propre.</h2>
         <p class="lead">
-          Le chauffeur doit pouvoir comprendre vite, activer vite et travailler vite. Pas besoin d’un doctorat en bouton.
+          Le conducteur doit comprendre vite, activer vite et travailler vite. Pas besoin d’un doctorat en bouton.
         </p>
       </div>
 
       <div class="steps">
         <article class="step">
           <div class="step-no">01</div>
-          <h3>Tu choisis ton rail</h3>
-          <p>Tu décides d’entrer dans DIGIY DRIVER et tu passes par la page officielle de paiement.</p>
+          <h3>Tu choisis ta formule</h3>
+          <p>1A Jakarta, 1B Bus ou 1C Driver. La porte d’entrée dépend de ton vrai métier terrain.</p>
         </article>
 
         <article class="step">
           <div class="step-no">02</div>
-          <h3>Activation</h3>
-          <p>Ton abonnement est validé. Ton accès chauffeur est prêt sur le bon rail.</p>
+          <h3>Tu paies proprement</h3>
+          <p>Tu passes par la page officielle de paiement DIGIY avec la bonne formule déjà pré-remplie.</p>
         </article>
 
         <article class="step">
           <div class="step-no">03</div>
           <h3>PIN pro</h3>
-          <p>Tu entres avec ton PIN pour ouvrir ton espace sans bricoler dans le SQL pendant trente minutes.</p>
+          <p>Ton abonnement est validé, puis tu entres avec ton PIN pour ouvrir ton accès conducteur.</p>
         </article>
 
         <article class="step">
           <div class="step-no">04</div>
           <h3>Tu pilotes</h3>
-          <p>Profil, tarifs, visibilité, cockpit, historique, présence pro : tout commence à être carré.</p>
+          <p>Profil, visibilité, tarifs, cockpit et présence DIGIY : tout commence à être carré.</p>
         </article>
       </div>
     </section>
@@ -1024,10 +1218,11 @@
       </p>
 
       <div class="cta-actions">
-        <a class="btn" href="https://commencer-a-payer.digiylyfe.com/?module=DRIVER">💳 Commencer à payer</a>
+        <a class="btn btn-plan-1a" href="#">🛵 Activer Jakarta</a>
+        <a class="btn btn-plan-1b" href="#">🚌 Activer Bus</a>
+        <a class="btn btn-plan-1c" href="#">🚗 Activer Driver</a>
         <a class="btn-outline" id="btnPinBottom" href="#">🔑 Entrer mon PIN</a>
-        <a class="btn-outline" id="btnGalleryBottom" href="#">🚕 Galerie chauffeurs</a>
-        <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20je%20veux%20des%20infos%20sur%20l%27abonnement%20chauffeur.">💬 WhatsApp</a>
+        <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta%2C%20Bus%20et%20Driver.">💬 WhatsApp</a>
       </div>
 
       <div class="cta-note">
@@ -1036,8 +1231,8 @@
     </section>
 
     <footer class="footer">
-      <div>DIGIY DRIVER • Sénégal • <strong>0% commission</strong> • paiement direct au chauffeur</div>
-      <div>DIGIYLYFE • rail chauffeur moderne</div>
+      <div>DIGIY DRIVER • Sénégal • <strong>0% commission</strong> • paiement direct au conducteur</div>
+      <div>Jakarta • Bus • Chauffeur direct • même rail DRIVER</div>
     </footer>
   </div>
 
@@ -1049,13 +1244,20 @@
     const pinUrl = digiyLocal("pin.html");
     const galleryUrl = "https://beauville.github.io/galerie-chauffeurs/";
 
+    const url1A = digiyPayUrl("1a", 5500, "1A");
+    const url1B = digiyPayUrl("1b", 12000, "1B");
+    const url1C = digiyPayUrl("1c", 19900, "1C");
+
     document.getElementById("btnPinTop").href = pinUrl;
     document.getElementById("btnPinHero").href = pinUrl;
     document.getElementById("btnPinBottom").href = pinUrl;
 
     document.getElementById("btnGalleryTop").href = galleryUrl;
     document.getElementById("btnGalleryHero").href = galleryUrl;
-    document.getElementById("btnGalleryBottom").href = galleryUrl;
+
+    document.querySelectorAll(".btn-plan-1a").forEach(a => a.href = url1A);
+    document.querySelectorAll(".btn-plan-1b").forEach(a => a.href = url1B);
+    document.querySelectorAll(".btn-plan-1c").forEach(a => a.href = url1C);
   </script>
 </body>
 </html>
