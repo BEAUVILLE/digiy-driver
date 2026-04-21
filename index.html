@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="fr">
 <head>
@@ -557,11 +556,60 @@
       background:linear-gradient(135deg,var(--gold),var(--green));
     }
 
-    .offers{
+    .examples{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:16px;
       margin-top:18px;
+    }
+
+    .example{
+      border-radius:26px;
+      padding:20px 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+        rgba(8,23,18,.78);
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow:var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .example-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:900;
+      color:#06110c;
+      background:linear-gradient(135deg,var(--gold),var(--orange));
+    }
+
+    .example h3{
+      font-size:24px;
+      line-height:1.06;
+      letter-spacing:-.03em;
+      font-weight:900;
+    }
+
+    .example p{
+      font-size:15px;
+      line-height:1.65;
+      color:var(--muted);
+      font-weight:760;
+    }
+
+    .example-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:auto;
     }
 
     .offer{
@@ -577,6 +625,13 @@
       gap:14px;
       position:relative;
       overflow:hidden;
+    }
+
+    .offers{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-top:18px;
     }
 
     .offer.featured{
@@ -725,6 +780,45 @@
       font-weight:760;
     }
 
+    .contact-strip{
+      margin-top:22px;
+      border-radius:26px;
+      padding:18px 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+        rgba(8,23,18,.78);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow-soft);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .contact-strip h3{
+      font-size:22px;
+      line-height:1.08;
+      letter-spacing:-.02em;
+      font-weight:900;
+      margin-bottom:6px;
+    }
+
+    .contact-strip p{
+      font-size:15px;
+      line-height:1.65;
+      color:var(--muted);
+      font-weight:760;
+      max-width:58ch;
+    }
+
+    .contact-value{
+      font-size:22px;
+      font-weight:900;
+      color:var(--gold);
+      letter-spacing:-.02em;
+    }
+
     .cta{
       margin-top:34px;
       border-radius:30px;
@@ -815,6 +909,7 @@
       .hero{grid-template-columns:1fr}
       h1{max-width:unset}
       .offers{grid-template-columns:1fr}
+      .examples{grid-template-columns:1fr}
     }
 
     @media (max-width: 900px){
@@ -835,6 +930,7 @@
       .steps{grid-template-columns:1fr}
       .offer-top{padding-right:0}
       .offer-badge{position:static;width:max-content}
+      .contact-strip{padding:16px}
       .floating-home{
         left:12px;
         right:12px;
@@ -883,6 +979,7 @@
 
       <div class="top-actions">
         <div class="pill"><span class="dot"></span> 0% commission</div>
+        <div class="pill">📲 WhatsApp : +221 77 134 28 89</div>
         <a class="btn-ghost" id="btnGalleryTop" href="#">🚕 Galerie conducteurs</a>
         <a class="btn-ghost" id="btnPinTop" href="#">🔑 PIN</a>
         <a class="btn" href="#offres">💳 Voir les formules</a>
@@ -891,7 +988,7 @@
 
     <section class="hero">
       <div class="hero-main">
-        <div class="hero-kicker">3 portes • 1 seul rail DRIVER</div>
+        <div class="hero-kicker">3 formules • 1 seul espace DIGIY</div>
 
         <h1>
           Jakarta.
@@ -901,7 +998,7 @@
 
         <p class="hero-sub">
           DIGIY DRIVER te donne une vitrine propre, un parcours d’abonnement clair, un accès PIN et une présence utile.
-          Tu choisis la formule qui colle à ta route. Le client te contacte directement. Tu encaisses directement.
+          Tu choisis la formule qui colle à ta façon de travailler. Le client te contacte directement. Tu encaisses directement.
         </p>
 
         <div class="hero-points">
@@ -915,10 +1012,11 @@
           <a class="btn" href="#offres">💳 Choisir ma formule</a>
           <a class="btn-outline" id="btnPinHero" href="#">🔑 J’ai déjà payé</a>
           <a class="btn-outline" id="btnGalleryHero" href="#">🚕 Voir la galerie</a>
+          <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY%20DRIVER,%20je%20cherche%20un%20chauffeur." target="_blank" rel="noopener noreferrer">📲 WhatsApp direct</a>
         </div>
 
         <div class="hero-note">
-          Parcours simple : formule → paiement → validation → PIN → cockpit conducteur.
+          Parcours simple : formule → paiement → validation → PIN → accès conducteur.
         </div>
 
         <div class="hero-mini-grid">
@@ -940,13 +1038,13 @@
       <aside class="hero-side">
         <div class="phone-shell">
           <div class="phone-top">
-            <span>Aperçu des portes DRIVER</span>
+            <span>Aperçu des formules</span>
             <span class="live-chip"><span class="dot"></span> Vue publique</span>
           </div>
 
           <div class="rail-box">
             <div class="rail-top">
-              <span class="rail-tag">Choisis ta route</span>
+              <span class="rail-tag">Choisis ta formule</span>
               <span class="rail-price">Dès 5 500 F</span>
             </div>
 
@@ -979,9 +1077,71 @@
         </div>
 
         <div class="side-note">
-          Une seule maison technique DRIVER. Trois portes terrain pour parler juste au réel : Jakarta, Bus et Chauffeur direct.
+          Un seul espace DIGIY. Trois façons simples d’avancer : Jakarta, Bus et Chauffeur direct.
         </div>
       </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="eyebrow">Exemples concrets</div>
+        <h2>Des besoins réels, pas seulement une vitrine.</h2>
+        <p class="lead">
+          Voilà le genre de demandes que DIGIY DRIVER doit capter tout de suite côté public. Ça remplit la façade, ça parle terrain, et ça crée du mouvement.
+        </p>
+      </div>
+
+      <div class="examples">
+        <article class="example">
+          <div class="example-badge">Trajet type</div>
+          <h3>Saly → AIBD</h3>
+          <p>
+            Besoin d’un chauffeur pour l’aéroport ? Départ immédiat ou programmé. Le client clique et écrit directement.
+          </p>
+          <div class="example-actions">
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY,%20je%20cherche%20un%20chauffeur%20Saly%20%E2%86%92%20AIBD." target="_blank" rel="noopener noreferrer">📲 WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="example">
+          <div class="example-badge">Mise à disposition</div>
+          <h3>Journée Saly / Somone</h3>
+          <p>
+            Un client cherche un chauffeur pour une demi-journée ou une journée entière. C’est concret, lisible et actionnable.
+          </p>
+          <div class="example-actions">
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY,%20je%20cherche%20un%20chauffeur%20pour%20une%20journ%C3%A9e%20%C3%A0%20Saly%20ou%20Somone." target="_blank" rel="noopener noreferrer">📲 WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="example">
+          <div class="example-badge">Déplacement direct</div>
+          <h3>Mbour → Dakar</h3>
+          <p>
+            Trajet direct, sans application intermédiaire, avec contact rapide et simple pour le client.
+          </p>
+          <div class="example-actions">
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY,%20je%20cherche%20un%20chauffeur%20Mbour%20%E2%86%92%20Dakar." target="_blank" rel="noopener noreferrer">📲 WhatsApp</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-strip">
+      <div>
+        <h3>Tu cherches un chauffeur maintenant ?</h3>
+        <p>
+          Écris directement sur WhatsApp. Donne ton trajet, ton heure et ta zone.
+          DIGIY te répond simplement.
+        </p>
+      </div>
+      <div>
+        <div class="contact-value">+221 77 134 28 89</div>
+        <div class="example-actions" style="margin-top:10px;">
+          <a class="btn" href="https://wa.me/221771342889?text=Bonjour%20DIGIY%20DRIVER,%20je%20cherche%20un%20chauffeur." target="_blank" rel="noopener noreferrer">📲 Écrire maintenant</a>
+          <a class="btn-outline" href="tel:+221771342889">📞 Appeler</a>
+        </div>
+      </div>
     </section>
 
     <section class="section">
@@ -989,7 +1149,7 @@
         <div class="eyebrow">Pourquoi DIGIY DRIVER</div>
         <h2>Tu roules pour toi, pas pour nourrir une appli.</h2>
         <p class="lead">
-          Le cœur du rail, c’est simple : rendre au conducteur sa marge, son image, sa clientèle et sa dignité de travail.
+          Le cœur de cette formule, c’est simple : rendre au conducteur sa marge, son image, sa clientèle et sa dignité de travail.
         </p>
       </div>
 
@@ -1022,7 +1182,7 @@
 
         <article class="card">
           <div class="icon">🛡️</div>
-          <h3>Un rail plus propre</h3>
+          <h3>Un espace plus propre</h3>
           <p>
             Galerie, profil, PIN, cockpit, tarifs, visibilité. Tu n’as pas besoin d’être ingénieur pour exister proprement en ligne.
           </p>
@@ -1038,9 +1198,9 @@
     <section class="section" id="offres">
       <div class="section-head">
         <div class="eyebrow">Les 3 formules DRIVER</div>
-        <h2>Une maison DRIVER. Trois portes terrain.</h2>
+        <h2>Un seul espace DIGIY. Trois façons de travailler.</h2>
         <p class="lead">
-          Tu choisis la formule qui colle à ton métier réel. Jakarta, bus ou chauffeur direct : tout entre dans le même rail DIGIY DRIVER.
+          Tu choisis la formule qui colle à ton métier réel. Jakarta, bus ou chauffeur direct : tout entre dans le même espace DIGIY DRIVER.
         </p>
       </div>
 
@@ -1050,7 +1210,7 @@
             <div>
               <div class="offer-icon">🛵</div>
               <h3 class="offer-name">DIGIY JAKARTA</h3>
-              <p class="offer-sub">Pour le conducteur de quartier qui veut une porte digitale simple, claire et partageable.</p>
+              <p class="offer-sub">Pour le conducteur de quartier qui veut une présence digitale simple, claire et partageable.</p>
             </div>
             <div class="offer-code">1A</div>
           </div>
@@ -1071,7 +1231,7 @@
 
           <div class="offer-cta">
             <a class="btn btn-plan-1a" href="#">💳 Activer 1A</a>
-            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%2C%20je%20veux%20des%20infos%20sur%20la%20formule%201A%20Jakarta.">💬 Infos</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201A%20Jakarta.">💬 Infos</a>
           </div>
         </article>
 
@@ -1102,7 +1262,7 @@
 
           <div class="offer-cta">
             <a class="btn btn-plan-1b" href="#">💳 Activer 1B</a>
-            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%2C%20je%20veux%20des%20infos%20sur%20la%20formule%201B%20Bus.">💬 Infos</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201B%20Bus.">💬 Infos</a>
           </div>
         </article>
 
@@ -1132,7 +1292,7 @@
 
           <div class="offer-cta">
             <a class="btn btn-plan-1c" href="#">💳 Activer 1C</a>
-            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%2C%20je%20veux%20des%20infos%20sur%20la%20formule%201C%20Driver.">💬 Infos</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201C%20Driver.">💬 Infos</a>
           </div>
         </article>
       </div>
@@ -1141,9 +1301,9 @@
     <section class="section">
       <div class="section-head">
         <div class="eyebrow">Pour qui</div>
-        <h2>Le rail parle au terrain réel.</h2>
+        <h2>Cette formule parle au terrain réel.</h2>
         <p class="lead">
-          Jakarta, bus, transfert aéroport, mise à disposition, clientèle hébergement, famille, quartier, événement : le rail DRIVER est pensé pour le concret.
+          Jakarta, bus, transfert aéroport, mise à disposition, clientèle hébergement, famille, quartier, événement : DIGIY DRIVER est pensé pour le concret.
         </p>
       </div>
 
@@ -1187,7 +1347,7 @@
         <article class="step">
           <div class="step-no">01</div>
           <h3>Tu choisis ta formule</h3>
-          <p>1A Jakarta, 1B Bus ou 1C Driver. La porte d’entrée dépend de ton vrai métier terrain.</p>
+          <p>1A Jakarta, 1B Bus ou 1C Driver. La formule dépend de ton vrai métier terrain.</p>
         </article>
 
         <article class="step">
@@ -1222,7 +1382,7 @@
         <a class="btn btn-plan-1b" href="#">🚌 Activer Bus</a>
         <a class="btn btn-plan-1c" href="#">🚗 Activer Driver</a>
         <a class="btn-outline" id="btnPinBottom" href="#">🔑 Entrer mon PIN</a>
-        <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta%2C%20Bus%20et%20Driver.">💬 WhatsApp</a>
+        <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER,%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta,%20Bus%20et%20Driver.">💬 WhatsApp</a>
       </div>
 
       <div class="cta-note">
@@ -1232,7 +1392,7 @@
 
     <footer class="footer">
       <div>DIGIY DRIVER • Sénégal • <strong>0% commission</strong> • paiement direct au conducteur</div>
-      <div>Jakarta • Bus • Chauffeur direct • même rail DRIVER</div>
+      <div>Jakarta • Bus • Chauffeur direct • même espace DIGIY</div>
     </footer>
   </div>
 
