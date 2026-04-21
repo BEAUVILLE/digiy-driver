@@ -941,18 +941,6 @@
   </style>
 
   <script>
-    function digiyBasePath(){
-      const parts = location.pathname.split("/").filter(Boolean);
-      const isGh = /\.github\.io$/i.test(location.hostname);
-      if(isGh && parts.length > 0) return "/" + parts[0] + "/";
-      return "/";
-    }
-
-    function digiyLocal(path){
-      path = String(path || "").replace(/^\/+/,"");
-      return digiyBasePath() + path;
-    }
-
     function digiyPayUrl(plan, amount, code){
       const u = new URL("https://commencer-a-payer.digiylyfe.com/");
       u.searchParams.set("module", "DRIVER");
@@ -981,7 +969,6 @@
         <div class="pill"><span class="dot"></span> 0% commission</div>
         <div class="pill">📲 WhatsApp : +221 77 134 28 89</div>
         <a class="btn-ghost" id="btnGalleryTop" href="#">🚕 Galerie conducteurs</a>
-        <a class="btn-ghost" id="btnPinTop" href="#">🔑 PIN</a>
         <a class="btn" href="#offres">💳 Voir les formules</a>
       </div>
     </header>
@@ -997,7 +984,7 @@
         </h1>
 
         <p class="hero-sub">
-          DIGIY DRIVER te donne une vitrine propre, un parcours d’abonnement clair, un accès PIN et une présence utile.
+          DIGIY DRIVER te donne une vitrine propre, un parcours d’abonnement clair et une présence utile.
           Tu choisis la formule qui colle à ta façon de travailler. Le client te contacte directement. Tu encaisses directement.
         </p>
 
@@ -1005,18 +992,16 @@
           <div class="hero-point">💸 0% commission</div>
           <div class="hero-point">📲 contact direct</div>
           <div class="hero-point">🧭 vitrine + galerie + cockpit</div>
-          <div class="hero-point">🔐 accès PIN pro</div>
         </div>
 
         <div class="hero-cta">
           <a class="btn" href="#offres">💳 Choisir ma formule</a>
-          <a class="btn-outline" id="btnPinHero" href="#">🔑 J’ai déjà payé</a>
           <a class="btn-outline" id="btnGalleryHero" href="#">🚕 Voir la galerie</a>
           <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY%20DRIVER,%20je%20cherche%20un%20chauffeur." target="_blank" rel="noopener noreferrer">📲 WhatsApp direct</a>
         </div>
 
         <div class="hero-note">
-          Parcours simple : formule → paiement → validation → PIN → accès conducteur.
+          Parcours simple : formule → paiement → validation → module pro conducteur.
         </div>
 
         <div class="hero-mini-grid">
@@ -1184,7 +1169,7 @@
           <div class="icon">🛡️</div>
           <h3>Un espace plus propre</h3>
           <p>
-            Galerie, profil, PIN, cockpit, tarifs, visibilité. Tu n’as pas besoin d’être ingénieur pour exister proprement en ligne.
+            Galerie, profil, cockpit, tarifs, visibilité. Tu n’as pas besoin d’être ingénieur pour exister proprement en ligne.
           </p>
           <ul class="list">
             <li>Parcours simple à comprendre</li>
@@ -1226,7 +1211,6 @@
             <li>Appel direct</li>
             <li>QR personnel</li>
             <li>Zone de circulation</li>
-            <li>Accès PIN pro</li>
           </ul>
 
           <div class="offer-cta">
@@ -1257,7 +1241,6 @@
             <li>Horaires visibles</li>
             <li>Points de passage</li>
             <li>Contact direct</li>
-            <li>Accès PIN pro</li>
           </ul>
 
           <div class="offer-cta">
@@ -1287,7 +1270,6 @@
             <li>0% commission</li>
             <li>Fiche pro DIGIY</li>
             <li>Présence plus forte</li>
-            <li>Accès PIN pro</li>
           </ul>
 
           <div class="offer-cta">
@@ -1358,8 +1340,8 @@
 
         <article class="step">
           <div class="step-no">03</div>
-          <h3>PIN pro</h3>
-          <p>Ton abonnement est validé, puis tu entres avec ton PIN pour ouvrir ton accès conducteur.</p>
+          <h3>Validation</h3>
+          <p>Ton abonnement est confirmé, puis tu ouvres ton module pro conducteur par la bonne porte.</p>
         </article>
 
         <article class="step">
@@ -1381,7 +1363,6 @@
         <a class="btn btn-plan-1a" href="#">🛵 Activer Jakarta</a>
         <a class="btn btn-plan-1b" href="#">🚌 Activer Bus</a>
         <a class="btn btn-plan-1c" href="#">🚗 Activer Driver</a>
-        <a class="btn-outline" id="btnPinBottom" href="#">🔑 Entrer mon PIN</a>
         <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER,%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta,%20Bus%20et%20Driver.">💬 WhatsApp</a>
       </div>
 
@@ -1401,14 +1382,11 @@
   </a>
 
   <script>
+    const galleryUrl = "https://beauville.github.io/galerie-chauffeurs/";
 
     const url1A = digiyPayUrl("1a", 5500, "1A");
     const url1B = digiyPayUrl("1b", 12000, "1B");
     const url1C = digiyPayUrl("1c", 19900, "1C");
-
-    document.getElementById("btnPinTop").href = pinUrl;
-    document.getElementById("btnPinHero").href = pinUrl;
-    document.getElementById("btnPinBottom").href = pinUrl;
 
     document.getElementById("btnGalleryTop").href = galleryUrl;
     document.getElementById("btnGalleryHero").href = galleryUrl;
