@@ -1395,5 +1395,133 @@
     document.querySelectorAll(".btn-plan-1b").forEach(a => a.href = url1B);
     document.querySelectorAll(".btn-plan-1c").forEach(a => a.href = url1C);
   </script>
+  <!-- ============================================================
+     DIGIY AUDIO — DRIVER
+     ============================================================ -->
+
+<script>
+window.DIGIY_AUDIO_CONFIG = {
+  label: "Écouter chauffeur",
+  stopLabel: "Arrêter",
+  text: "Bienvenue. Ici, tu peux trouver un chauffeur, un Jakarta ou un bus, et le contacter directement. Tu choisis ton trajet, tu écris, et tu avances sans intermédiaire. Le conducteur travaille pour lui, pas pour une plateforme. Direct. Clair. Humain. DIGIYLYFE.",
+  buttonBg: "linear-gradient(135deg,#facc15,#f59e0b)",
+  buttonColor: "#06110c",
+  bottom: "24px",
+  right: "24px",
+  rate: 0.82,
+  pitch: 1,
+  volume: 1,
+  zIndex: 99999,
+  shadow: "0 10px 30px rgba(0,0,0,.26)"
+};
+</script>
+
+<style>
+#digiy-audio-btn{
+position:fixed;
+display:inline-flex;
+align-items:center;
+gap:12px;
+padding:16px 26px;
+border:none;
+border-radius:999px;
+cursor:pointer;
+font-family:'Outfit',Inter,sans-serif;
+font-weight:900;
+font-size:17px;
+line-height:1;
+transition:.18s ease;
+}
+#digiy-audio-btn:hover{transform:translateY(-2px)}
+#digiy-audio-btn:active{transform:scale(.97)}
+#digiy-audio-btn .digiy-audio-ico{font-size:18px}
+
+#digiy-audio-progress-wrap{
+position:fixed;
+left:0;right:0;bottom:0;
+height:3px;
+opacity:0;
+transition:.25s;
+}
+#digiy-audio-progress{
+width:0%;
+height:100%;
+transition:.18s linear;
+}
+</style>
+
+<button id="digiy-audio-btn">
+  <span class="digiy-audio-ico">▶</span>
+  <span class="digiy-audio-lbl">Écouter chauffeur</span>
+</button>
+
+<div id="digiy-audio-progress-wrap">
+  <div id="digiy-audio-progress"></div>
+</div>
+
+<script>
+(function(){
+  var cfg = window.DIGIY_AUDIO_CONFIG;
+
+  var btn = document.getElementById("digiy-audio-btn");
+  var lbl = btn.querySelector(".digiy-audio-lbl");
+  var ico = btn.querySelector(".digiy-audio-ico");
+  var bar = document.getElementById("digiy-audio-progress");
+  var wrap = document.getElementById("digiy-audio-progress-wrap");
+
+  btn.style.bottom = cfg.bottom;
+  btn.style.right = cfg.right;
+  btn.style.background = cfg.buttonBg;
+  btn.style.color = cfg.buttonColor;
+  btn.style.boxShadow = cfg.shadow;
+
+  wrap.style.background = "rgba(250,204,21,.2)";
+  bar.style.background = "linear-gradient(90deg,#facc15,#f59e0b)";
+
+  var synth = window.speechSynthesis;
+  var playing = false;
+  var timer = null;
+
+  function stop(){
+    synth.cancel();
+    clearInterval(timer);
+    playing = false;
+    ico.innerHTML = "▶";
+    lbl.textContent = cfg.label;
+    wrap.style.opacity = 0;
+    bar.style.width = "0%";
+  }
+
+  function play(){
+    var u = new SpeechSynthesisUtterance(cfg.text);
+    u.lang = "fr-FR";
+    u.rate = cfg.rate;
+
+    u.onstart = function(){
+      wrap.style.opacity = 1;
+      var p = 0;
+      timer = setInterval(function(){
+        p += 2;
+        bar.style.width = p + "%";
+      }, 200);
+    };
+
+    u.onend = stop;
+
+    synth.speak(u);
+    playing = true;
+    ico.innerHTML = "■";
+    lbl.textContent = cfg.stopLabel;
+  }
+
+  btn.onclick = function(){
+    playing ? stop() : play();
+  };
+})();
+</script>
+
+<!-- ============================================================
+     FIN DIGIY AUDIO — DRIVER
+     ============================================================ -->
 </body>
 </html>
