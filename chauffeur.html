@@ -52,6 +52,81 @@
       margin:auto;
     }
 
+
+    .brand-top{
+      margin-bottom:12px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      background:rgba(255,255,255,.035);
+      box-shadow:0 14px 34px rgba(0,0,0,.22);
+      padding:10px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .brand-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .brand-logo{
+      width:48px;
+      height:48px;
+      border-radius:18px;
+      overflow:hidden;
+      background:#fff;
+      display:grid;
+      place-items:center;
+      box-shadow:0 12px 28px rgba(250,204,21,.20);
+      flex:0 0 auto;
+    }
+
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .brand-title{
+      font-size:13px;
+      font-weight:1000;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color:var(--gold);
+      line-height:1.1;
+    }
+
+    .brand-sub{
+      margin-top:3px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.3;
+      font-weight:850;
+    }
+
+    .brand-top .btn{
+      min-height:42px;
+      border-radius:999px;
+      padding:10px 13px;
+      font-size:13px;
+    }
+
+    @media(max-width:760px){
+      .brand-top{
+        align-items:flex-start;
+      }
+
+      .brand-top .btn{
+        width:100%;
+      }
+    }
+
     .hero,
     .card{
       border:1px solid var(--line);
@@ -181,6 +256,11 @@
       height:100%;
       object-fit:cover;
       display:block;
+    }
+
+    .avatar img.digiy-logo-fallback{
+      background:#fff;
+      object-fit:cover;
     }
 
     .badge{
@@ -602,6 +682,20 @@
 <body>
   <div class="wrap">
 
+
+    <header class="brand-top">
+      <div class="brand-left">
+        <div class="brand-logo">
+          <img src="https://digiylyfe.net/wp-content/uploads/2026/04/icon-512-1.png" alt="DIGIY">
+        </div>
+        <div>
+          <div class="brand-title">DIGIY DRIVER</div>
+          <div class="brand-sub">Fiche chauffeur · contact direct · 0% commission</div>
+        </div>
+      </div>
+      <a class="btn gold" id="brandBack" href="./index.html">🏠 Retour vitrine</a>
+    </header>
+
     <section class="hero">
       <div class="hero-grid-main">
         <div class="hero-media" id="heroMedia">
@@ -880,7 +974,7 @@
       if(photo){
         avatar.innerHTML = `<img src="${escapeHtml(photo)}" alt="${escapeHtml(displayName)}" onerror="this.parentNode.textContent='${escapeHtml(initials(displayName))}'">`;
       }else{
-        avatar.textContent = initials(displayName);
+        avatar.innerHTML = `<img class="digiy-logo-fallback" src="https://digiylyfe.net/wp-content/uploads/2026/04/icon-512-1.png" alt="DIGIY" onerror="this.parentNode.textContent='${escapeHtml(initials(displayName))}'">`;
       }
     }
 
@@ -949,6 +1043,7 @@
     async function boot(){
       document.getElementById("slugPill").textContent = "fiche : " + (slug || "—");
       document.getElementById("btnRetour").href = digiyLocal("index.html");
+      document.getElementById("brandBack").href = digiyLocal("index.html");
 
       if(!slug){
         document.getElementById("name").textContent = "Slug manquant";
