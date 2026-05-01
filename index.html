@@ -449,6 +449,49 @@
       padding:0 4px;
     }
 
+
+    .request-box{
+      margin-top:22px;
+      border-radius:26px;
+      padding:18px;
+      background:
+        radial-gradient(circle at top left, rgba(250,204,21,.12), transparent 42%),
+        rgba(255,255,255,.045);
+      border:1px solid rgba(250,204,21,.20);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .request-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px;}
+    .request-title{font-size:24px;line-height:1.08;font-weight:900;letter-spacing:-.03em;color:var(--gold);}
+    .request-sub{margin-top:6px;color:var(--muted);line-height:1.6;font-weight:780;max-width:64ch;font-size:15px;}
+    .request-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px;}
+    .request-field{display:flex;flex-direction:column;gap:6px;}
+    .request-field.full{grid-column:1/-1}
+    .request-field label{color:var(--muted);font-size:12px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;}
+    .request-field input,.request-field textarea{
+      width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(2,9,6,.62);color:var(--ink);padding:13px 13px;
+      font:inherit;font-weight:800;outline:none;
+    }
+    .request-field textarea{min-height:104px;resize:vertical;line-height:1.55;}
+    .request-field input:focus,.request-field textarea:focus{border-color:rgba(250,204,21,.55);box-shadow:0 0 0 3px rgba(250,204,21,.10);}
+    .request-examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+    .request-example{
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);
+      color:var(--ink);border-radius:999px;padding:10px 12px;font:inherit;
+      font-weight:900;font-size:13px;cursor:pointer;
+    }
+    .request-example.gold{background:rgba(250,204,21,.11);border-color:rgba(250,204,21,.25);color:#fde68a;}
+    .request-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+    .request-note{margin-top:10px;color:var(--muted);font-size:13px;line-height:1.55;font-weight:800;}
+    .owner-call{
+      margin-top:18px;border-radius:22px;border:1px solid rgba(34,197,94,.22);
+      background:rgba(34,197,94,.08);padding:15px;display:flex;
+      justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    }
+    .owner-call strong{display:block;color:#bbf7d0;font-size:18px;margin-bottom:4px;}
+    .owner-call span{display:block;color:var(--muted);line-height:1.55;font-weight:780;max-width:62ch;font-size:14px;}
+
     .section{
       margin-top:30px;
     }
@@ -931,6 +974,10 @@
       .offer-top{padding-right:0}
       .offer-badge{position:static;width:max-content}
       .contact-strip{padding:16px}
+      .request-grid{grid-template-columns:1fr}
+      .request-actions .btn,
+      .request-actions .btn-outline{width:100%}
+      .owner-call .btn-outline{width:100%}
       .floating-home{
         left:12px;
         right:12px;
@@ -978,14 +1025,15 @@
         <div class="hero-kicker">3 formules • 1 seul espace DIGIY</div>
 
         <h1>
-          Jakarta.
-          <span class="accent">Bus.</span>
-          Chauffeur direct.
+          Je cherche
+          <span class="accent">un chauffeur</span>
+          ici.
         </h1>
 
         <p class="hero-sub">
-          DIGIY DRIVER te donne une vitrine propre, un parcours d’abonnement clair et une présence utile.
-          Tu choisis la formule qui colle à ta façon de travailler. Le client te contacte directement. Tu encaisses directement.
+          Trajet simple, aéroport, journée, Jakarta, bus ou chauffeur direct.
+          Écris ton besoin, DIGIY prépare la demande, et le contact reste humain.
+          Le client parle direct, le conducteur garde la main.
         </p>
 
         <div class="hero-points">
@@ -995,13 +1043,14 @@
         </div>
 
         <div class="hero-cta">
-          <a class="btn" href="#offres">💳 Choisir ma formule</a>
-          <a class="btn-outline" id="btnGalleryHero" href="#">🚕 Voir la galerie</a>
-          <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY%20DRIVER,%20je%20cherche%20un%20chauffeur." target="_blank" rel="noopener noreferrer">📲 WhatsApp direct</a>
+          <a class="btn" href="#demande">📲 Demander un chauffeur</a>
+          <a class="btn-outline" id="btnGalleryHero" href="#">🚕 Voir les chauffeurs</a>
+          <a class="btn-outline" href="#offres">➕ Je suis conducteur</a>
         </div>
 
         <div class="hero-note">
-          Parcours simple : formule → paiement → validation → module pro conducteur.
+          Même quand la flotte est encore jeune, la demande ne doit pas se perdre.
+          WhatsApp sert de première messagerie terrain.
         </div>
 
         <div class="hero-mini-grid">
@@ -1065,6 +1114,50 @@
           Un seul espace DIGIY. Trois façons simples d’avancer : Jakarta, Bus et Chauffeur direct.
         </div>
       </aside>
+    </section>
+
+
+    <section class="request-box" id="demande">
+      <div class="request-head">
+        <div>
+          <div class="request-title">Note rapide course</div>
+          <div class="request-sub">
+            Tu cherches un chauffeur ? Écris ton trajet comme tu parles.
+            DIGIY prépare le message et l’envoie sur WhatsApp pour ne pas perdre ta demande.
+          </div>
+        </div>
+        <a class="btn-outline" href="https://wa.me/221771342889?text=Bonjour%20DIGIY,%20je%20cherche%20un%20chauffeur." target="_blank" rel="noopener noreferrer">WhatsApp direct</a>
+      </div>
+
+      <div class="request-grid">
+        <div class="request-field"><label for="rideFrom">Départ</label><input id="rideFrom" type="text" placeholder="Ex : Saly"></div>
+        <div class="request-field"><label for="rideTo">Arrivée</label><input id="rideTo" type="text" placeholder="Ex : AIBD"></div>
+        <div class="request-field"><label for="rideWhen">Date / heure</label><input id="rideWhen" type="text" placeholder="Ex : demain 7h"></div>
+        <div class="request-field"><label for="ridePeople">Personnes</label><input id="ridePeople" type="text" placeholder="Ex : 2 + bagages"></div>
+        <div class="request-field"><label for="rideBudget">Budget</label><input id="rideBudget" type="text" placeholder="Ex : à discuter"></div>
+        <div class="request-field full"><label for="rideNote">Message libre</label><textarea id="rideNote" placeholder="Ex : Je cherche un chauffeur de Saly à AIBD demain matin à 7h pour 2 personnes avec bagages."></textarea></div>
+      </div>
+
+      <div class="request-examples">
+        <button class="request-example gold" type="button" data-ride="aibd">Saly → AIBD demain 7h</button>
+        <button class="request-example gold" type="button" data-ride="journee">Chauffeur journée Saly / Somone</button>
+        <button class="request-example gold" type="button" data-ride="mbour">Mbour → Dakar</button>
+        <button class="request-example" type="button" data-ride="jakarta">Jakarta quartier</button>
+      </div>
+
+      <div class="request-actions">
+        <button class="btn" id="btnSendRide" type="button">📲 Envoyer ma demande à DIGIY</button>
+        <button class="btn-outline" id="btnClearRide" type="button">↩ Effacer</button>
+      </div>
+
+      <div class="request-note">
+        Le message part vers DIGIY sur WhatsApp. Donne ton trajet, ton heure, le nombre de personnes et ton budget si tu en as un.
+      </div>
+
+      <div class="owner-call">
+        <div><strong>Tu es conducteur ?</strong><span>Des clients cherchent déjà des trajets. Choisis ta formule DRIVER et reçois les demandes directement.</span></div>
+        <a class="btn-outline" href="#offres">Voir les formules</a>
+      </div>
     </section>
 
     <section class="section">
@@ -1382,6 +1475,67 @@
   </a>
 
   <script>
+
+    const TEAM_WA = "221771342889";
+
+    function rideVal(id){
+      const el = document.getElementById(id);
+      return String(el?.value || "").trim();
+    }
+
+    function setRide(data){
+      ["rideFrom","rideTo","rideWhen","ridePeople","rideBudget","rideNote"].forEach(id => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        const key = {rideFrom:"from",rideTo:"to",rideWhen:"when",ridePeople:"people",rideBudget:"budget",rideNote:"note"}[id];
+        el.value = data[key] || "";
+      });
+      document.getElementById("demande")?.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    function buildRideMessage(){
+      return [
+        "Bonjour DIGIY DRIVER 👋",
+        "",
+        "Je cherche un chauffeur.",
+        "",
+        "Départ : " + (rideVal("rideFrom") || "à préciser"),
+        "Arrivée : " + (rideVal("rideTo") || "à préciser"),
+        "Date / heure : " + (rideVal("rideWhen") || "à préciser"),
+        "Personnes / bagages : " + (rideVal("ridePeople") || "à préciser"),
+        "Budget : " + (rideVal("rideBudget") || "à discuter"),
+        "",
+        "Message :",
+        rideVal("rideNote") || "à préciser",
+        "",
+        "Merci de m'aider à trouver un contact disponible."
+      ].join("\n");
+    }
+
+    document.querySelectorAll("[data-ride]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const presets = {
+          aibd:{from:"Saly",to:"AIBD",when:"demain matin 7h",people:"2 personnes + bagages",budget:"à discuter",note:"Je cherche un chauffeur de Saly à AIBD demain matin à 7h pour 2 personnes avec bagages."},
+          journee:{from:"Saly / Somone",to:"plusieurs déplacements",when:"une journée",people:"2 à 4 personnes",budget:"à discuter",note:"Je cherche un chauffeur disponible pour une journée entre Saly, Somone et les alentours."},
+          mbour:{from:"Mbour",to:"Dakar",when:"à préciser",people:"1 à 3 personnes",budget:"à discuter",note:"Je cherche un chauffeur pour un trajet direct Mbour vers Dakar."},
+          jakarta:{from:"quartier",to:"déplacement local",when:"maintenant / aujourd'hui",people:"1 personne",budget:"à discuter",note:"Je cherche un Jakarta ou un conducteur disponible pour un déplacement local."}
+        };
+        setRide(presets[btn.getAttribute("data-ride")] || {});
+      });
+    });
+
+    document.getElementById("btnSendRide")?.addEventListener("click", () => {
+      window.open("https://wa.me/" + TEAM_WA + "?text=" + encodeURIComponent(buildRideMessage()), "_blank", "noopener,noreferrer");
+    });
+
+    document.getElementById("btnClearRide")?.addEventListener("click", () => {
+      ["rideFrom","rideTo","rideWhen","ridePeople","rideBudget","rideNote"].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = "";
+      });
+    });
+
+
     const galleryUrl = "https://beauville.github.io/galerie-chauffeurs/";
 
     const url1A = digiyPayUrl("1a", 5500, "1A");
@@ -1403,7 +1557,7 @@
 window.DIGIY_AUDIO_CONFIG = {
   label: "Écouter chauffeur",
   stopLabel: "Arrêter",
-  text: "Bienvenue. Ici, tu peux trouver un chauffeur, un Jakarta ou un bus, et le contacter directement. Tu choisis ton trajet, tu écris, et tu avances sans intermédiaire. Le conducteur travaille pour lui, pas pour une plateforme. Direct. Clair. Humain. DIGIYLYFE.",
+  text: "Bienvenue sur DIGIY DRIVER. Ici, tu peux chercher un chauffeur, un Jakarta ou un bus. Écris ton trajet, ton heure, le nombre de personnes et ton budget si tu en as un. DIGIY prépare la demande et ouvre WhatsApp. Le contact reste direct. Le conducteur travaille pour lui, pas pour une plateforme. Direct. Clair. Humain. DIGIYLYFE.",
   buttonBg: "linear-gradient(135deg,#facc15,#f59e0b)",
   buttonColor: "#06110c",
   bottom: "24px",
