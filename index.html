@@ -995,6 +995,374 @@
         justify-content:center;
       }
     }
+  
+    /* DIGIY DRIVER — Mobile lisible + menu bas */
+    .mobile-dock{
+      display:none;
+    }
+
+    @media(max-width:760px){
+      body{
+        font-size:17px;
+      }
+
+      .page{
+        padding:12px 10px 112px;
+      }
+
+      .topbar{
+        gap:12px;
+        align-items:flex-start;
+      }
+
+      .brand{
+        width:100%;
+      }
+
+      .brand-badge{
+        width:54px;
+        height:54px;
+        border-radius:20px;
+      }
+
+      .brand-title{
+        font-size:20px;
+        white-space:normal;
+      }
+
+      .brand-sub{
+        font-size:14px;
+        line-height:1.35;
+      }
+
+      .top-actions{
+        width:100%;
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .top-actions .pill,
+      .top-actions .btn,
+      .top-actions .btn-ghost{
+        width:100%;
+        justify-content:center;
+        min-height:50px;
+        font-size:14px;
+      }
+
+      .hero{
+        gap:14px;
+      }
+
+      .hero-main{
+        padding:22px 16px 18px;
+        border-radius:26px;
+      }
+
+      .hero-kicker{
+        font-size:12px;
+        margin-bottom:14px;
+      }
+
+      h1{
+        font-size:clamp(38px, 12vw, 54px);
+        line-height:.96;
+        max-width:10ch;
+      }
+
+      .hero-sub{
+        font-size:17px;
+        line-height:1.58;
+        margin-top:14px;
+      }
+
+      .hero-points{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:8px;
+      }
+
+      .hero-point{
+        min-height:44px;
+        display:flex;
+        align-items:center;
+        font-size:14px;
+      }
+
+      .hero-cta{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .hero-cta .btn,
+      .hero-cta .btn-outline{
+        width:100%;
+        min-height:56px;
+        font-size:16px;
+        border-radius:18px;
+      }
+
+      .hero-note{
+        font-size:14px;
+        line-height:1.55;
+      }
+
+      .hero-mini-grid{
+        gap:10px;
+      }
+
+      .mini{
+        padding:16px 14px;
+      }
+
+      .mini-label{
+        font-size:13px;
+      }
+
+      .mini-value{
+        font-size:22px;
+      }
+
+      .hero-side{
+        border-radius:26px;
+      }
+
+      .phone-shell{
+        border-radius:24px;
+      }
+
+      .rail-box{
+        border-radius:20px;
+      }
+
+      .rail-price{
+        font-size:24px;
+      }
+
+      .rail-text strong{
+        font-size:15px;
+      }
+
+      .rail-text span{
+        font-size:13px;
+      }
+
+      .request-box{
+        padding:16px;
+        border-radius:24px;
+      }
+
+      .request-title{
+        font-size:28px;
+      }
+
+      .request-sub{
+        font-size:16px;
+        line-height:1.58;
+      }
+
+      .request-grid{
+        grid-template-columns:1fr;
+        gap:12px;
+      }
+
+      .request-field label{
+        font-size:13px;
+      }
+
+      .request-field input,
+      .request-field textarea{
+        min-height:54px;
+        font-size:16px;
+        padding:14px;
+      }
+
+      .request-field textarea{
+        min-height:120px;
+      }
+
+      .request-examples{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .request-example{
+        min-height:46px;
+        font-size:14px;
+        white-space:normal;
+      }
+
+      .request-actions{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .request-actions .btn,
+      .request-actions .btn-outline{
+        width:100%;
+        min-height:56px;
+        border-radius:18px;
+        font-size:16px;
+      }
+
+      .request-note{
+        font-size:14px;
+      }
+
+      .owner-call{
+        border-radius:20px;
+      }
+
+      .owner-call strong{
+        font-size:20px;
+      }
+
+      .owner-call span{
+        font-size:15px;
+      }
+
+      .owner-call .btn-outline{
+        width:100%;
+        min-height:52px;
+      }
+
+      .section{
+        margin-top:22px;
+      }
+
+      .eyebrow{
+        font-size:12px;
+      }
+
+      .section h2,
+      .cta h2{
+        font-size:clamp(28px, 8vw, 38px);
+        line-height:1.04;
+      }
+
+      .section p.lead,
+      .cta p,
+      .contact-strip p{
+        font-size:16px;
+        line-height:1.6;
+      }
+
+      .card,
+      .example,
+      .offer,
+      .step{
+        border-radius:22px;
+        padding:18px 16px;
+      }
+
+      .card h3,
+      .example h3,
+      .offer-name,
+      .step h3{
+        font-size:22px;
+      }
+
+      .card p,
+      .example p,
+      .offer-sub,
+      .step p,
+      .list li{
+        font-size:15px;
+        line-height:1.58;
+      }
+
+      .offer-price strong{
+        font-size:38px;
+      }
+
+      .offer-cta,
+      .cta-actions,
+      .example-actions{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .offer-cta .btn,
+      .offer-cta .btn-outline,
+      .cta-actions .btn,
+      .cta-actions .btn-outline,
+      .example-actions .btn,
+      .example-actions .btn-outline{
+        width:100%;
+        min-height:52px;
+      }
+
+      .contact-strip{
+        align-items:stretch;
+      }
+
+      .contact-value{
+        font-size:24px;
+      }
+
+      .floating-home{
+        display:none;
+      }
+
+      #digiy-audio-btn{
+        bottom:88px !important;
+        right:12px !important;
+        padding:13px 16px !important;
+        font-size:14px !important;
+      }
+
+      .mobile-dock{
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:99998;
+        display:block;
+        padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));
+        background:linear-gradient(180deg, rgba(4,17,13,0), rgba(4,17,13,.96) 28%);
+        backdrop-filter:blur(12px);
+      }
+
+      .mobile-dock-inner{
+        max-width:760px;
+        margin:0 auto;
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:7px;
+        border:1px solid rgba(255,255,255,.12);
+        background:rgba(5,16,12,.94);
+        border-radius:22px;
+        padding:7px;
+        box-shadow:0 16px 44px rgba(0,0,0,.38);
+      }
+
+      .mobile-dock a{
+        min-height:56px;
+        border-radius:16px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:3px;
+        color:rgba(248,250,252,.80);
+        font-size:11px;
+        font-weight:950;
+        border:1px solid rgba(255,255,255,.07);
+        text-align:center;
+        background:rgba(255,255,255,.04);
+      }
+
+      .mobile-dock a.primary{
+        color:#06110c;
+        background:linear-gradient(135deg,var(--gold),var(--orange));
+      }
+
+      .mobile-dock strong{
+        font-size:19px;
+        line-height:1;
+      }
+    }
+
   </style>
 
   <script>
@@ -1480,6 +1848,15 @@
     </footer>
   </div>
 
+
+  <nav class="mobile-dock" aria-label="Navigation rapide DRIVER">
+    <div class="mobile-dock-inner">
+      <a class="primary" href="#demande"><strong>📲</strong><span>Demander</span></a>
+      <a href="https://beauville.github.io/galerie-chauffeurs/"><strong>🚕</strong><span>Chauffeurs</span></a>
+      <a href="#offres"><strong>➕</strong><span>Conducteur</span></a>
+    </div>
+  </nav>
+
   <a class="floating-home" href="https://digiylyfe.com/" aria-label="Retour au site DIGIYLYFE">
     ⬅️ Retour site DIGIYLYFE
   </a>
@@ -1689,4 +2066,3 @@ transition:.18s linear;
      ============================================================ -->
 </body>
 </html>
-
