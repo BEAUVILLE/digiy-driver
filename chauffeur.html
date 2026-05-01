@@ -8,6 +8,9 @@
   <meta name="description" content="Fiche publique chauffeur DIGIY DRIVER. Contact direct, paiement direct, 0% commission."/>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
@@ -38,7 +41,7 @@
         radial-gradient(900px 520px at 110% 0%, rgba(250,204,21,.10), transparent 55%),
         linear-gradient(180deg, #07140f, #05100c 55%, #040b08 100%);
       color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:"Outfit",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       padding:16px;
     }
 
@@ -428,6 +431,163 @@
       color:var(--muted);
     }
 
+
+    .client-choice{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .choice-card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:20px;
+      background:rgba(0,0,0,.16);
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:138px;
+    }
+
+    .choice-icon{
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:24px;
+      background:rgba(250,204,21,.10);
+      border:1px solid rgba(250,204,21,.18);
+    }
+
+    .choice-card b{
+      font-size:15px;
+      line-height:1.18;
+    }
+
+    .choice-card span{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+      font-weight:800;
+    }
+
+    .quick-demand{
+      margin-top:14px;
+      border:1px solid rgba(250,204,21,.22);
+      border-radius:22px;
+      background:rgba(250,204,21,.075);
+      padding:15px;
+    }
+
+    .quick-demand h2{
+      color:var(--gold);
+      margin-bottom:6px;
+    }
+
+    .quick-demand p{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+      font-weight:800;
+    }
+
+    .quick-demand-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .audio-mini{
+      position:fixed;
+      right:14px;
+      bottom:14px;
+      z-index:80;
+      display:flex;
+      gap:8px;
+    }
+
+    .audio-mini button{
+      min-height:48px;
+      border:none;
+      border-radius:999px;
+      padding:0 14px;
+      font-family:inherit;
+      font-weight:1000;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--gold),var(--primary));
+      color:#041b12;
+      box-shadow:0 14px 30px rgba(0,0,0,.30);
+    }
+
+    .audio-mini button.stop{
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.14);
+    }
+
+    @media(max-width:760px){
+      body{
+        padding:10px 10px 82px;
+        font-size:17px;
+      }
+
+      .hero-content{
+        padding:18px;
+      }
+
+      .hero-actions{
+        justify-content:stretch;
+      }
+
+      .hero-actions .btn{
+        width:100%;
+        min-height:52px;
+        border-radius:18px;
+        font-size:15px;
+      }
+
+      .hero-info-grid{
+        gap:10px;
+      }
+
+      .fact{
+        padding:13px;
+      }
+
+      .fact .k{
+        font-size:13px;
+      }
+
+      .fact .v{
+        font-size:16px;
+      }
+
+      .client-choice{
+        grid-template-columns:1fr;
+      }
+
+      .choice-card{
+        min-height:auto;
+      }
+
+      .quick-demand-actions{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .quick-demand-actions .btn{
+        width:100%;
+      }
+
+      .audio-mini{
+        right:10px;
+        bottom:10px;
+      }
+    }
+
     .footer{
       margin-top:16px;
       text-align:center;
@@ -465,14 +625,14 @@
                 <div class="hero-meta">
                   <div class="pill" id="cityPill">Ville : —</div>
                   <div class="pill" id="vehiclePill">Véhicule : —</div>
-                  <div class="pill slug-pill" id="slugPill">slug : —</div>
+                  <div class="pill slug-pill" id="slugPill">fiche : —</div>
                 </div>
               </div>
             </div>
 
             <div class="hero-actions">
-              <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 Contacter</a>
-              <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Commander</a>
+              <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 WhatsApp direct</a>
+              <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Demander ce chauffeur</a>
               <a class="btn" id="btnRetour" href="./index.html">🏠 Retour vitrine</a>
             </div>
           </div>
@@ -499,6 +659,46 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+
+    <section class="card" style="margin-top:14px">
+      <h2>Que veux-tu faire ?</h2>
+      <div class="muted">
+        Choisis l’action la plus simple. Tu peux écrire directement au chauffeur ou préparer une demande de course plus claire.
+      </div>
+
+      <div class="client-choice">
+        <a class="choice-card" id="choiceWhatsApp" href="#" target="_blank" rel="noopener">
+          <div class="choice-icon">💬</div>
+          <b>Écrire au chauffeur</b>
+          <span>WhatsApp direct pour poser une question ou confirmer une disponibilité.</span>
+        </a>
+
+        <a class="choice-card" id="choiceCommander" href="./commander-course.html">
+          <div class="choice-icon">🚖</div>
+          <b>Demander une course</b>
+          <span>Trajet, heure, personnes, bagages : DIGIY prépare le message.</span>
+        </a>
+
+        <a class="choice-card" id="choiceDetail" href="./commander-course-detail.html">
+          <div class="choice-icon">🗂️</div>
+          <b>Course détaillée</b>
+          <span>Pour l’aéroport, une journée, un budget ou un besoin spécial.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="quick-demand" id="quickDemand">
+      <h2>Note rapide chauffeur</h2>
+      <p>
+        Si ce chauffeur te convient, prépare une demande simple :
+        départ, arrivée, heure, personnes et bagages. Le contact reste direct, le paiement reste direct.
+      </p>
+      <div class="quick-demand-actions">
+        <a class="btn primary" id="quickCommander" href="./commander-course.html">📲 Préparer ma demande</a>
+        <a class="btn gold" id="quickWhatsApp" href="#" target="_blank" rel="noopener">💬 Écrire maintenant</a>
       </div>
     </section>
 
@@ -537,6 +737,11 @@
     <div class="footer">
       DIGIY DRIVER • Contact direct • 0% commission
     </div>
+  </div>
+
+  <div class="audio-mini">
+    <button id="btnAudio" type="button">🎧 Écouter</button>
+    <button id="btnStopAudio" class="stop" type="button">⏹</button>
   </div>
 
   <script>
@@ -582,18 +787,40 @@
     function waLink(phone, name){
       const clean = normalizeWa(phone);
       if(!clean) return "";
-      const msg = `Bonjour ${name || ""}, je vous contacte via votre fiche DIGIY DRIVER.`;
+      const msg = `Bonjour ${name || ""}, je vous contacte via votre fiche DIGIY DRIVER. Je cherche un chauffeur et je souhaite échanger directement avec vous.`;
       return "https://wa.me/" + clean + "?text=" + encodeURIComponent(msg);
     }
 
-    function commanderLink(slug, profile){
-      const u = new URL(digiyLocal("commander-course.html"), location.origin);
+    function commanderLink(slug, profile, detail=false){
+      const u = new URL(digiyLocal(detail ? "commander-course-detail.html" : "commander-course.html"), location.origin);
       if (profile?.display_name) u.searchParams.set("driver", profile.display_name);
       if (profile?.whatsapp) u.searchParams.set("wa", normalizeWa(profile.whatsapp));
       if (slug) u.searchParams.set("slug", slug);
       u.searchParams.set("profile", location.href);
       return u.toString();
     }
+
+    function stopAudio(){
+      try{ if("speechSynthesis" in window) window.speechSynthesis.cancel(); }catch(_){}
+    }
+
+    function speakProfile(){
+      const name = document.getElementById("name")?.textContent || "ce chauffeur";
+      const city = document.getElementById("cityPill")?.textContent || "";
+      const vehicle = document.getElementById("vehiclePill")?.textContent || "";
+      const text = `Fiche DIGIY DRIVER. Tu peux contacter ${name} directement sur WhatsApp, ou préparer une demande de course. ${city}. ${vehicle}. Contact direct, paiement direct, zéro commission DIGIY.`;
+      try{
+        if(!("speechSynthesis" in window)) return;
+        stopAudio();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "fr-FR";
+        u.rate = 0.86;
+        window.speechSynthesis.speak(u);
+      }catch(_){}
+    }
+
+    document.getElementById("btnAudio")?.addEventListener("click", speakProfile);
+    document.getElementById("btnStopAudio")?.addEventListener("click", stopAudio);
 
     function escapeHtml(str){
       return String(str ?? "")
@@ -720,7 +947,7 @@
     }
 
     async function boot(){
-      document.getElementById("slugPill").textContent = "slug : " + (slug || "—");
+      document.getElementById("slugPill").textContent = "fiche : " + (slug || "—");
       document.getElementById("btnRetour").href = digiyLocal("index.html");
 
       if(!slug){
@@ -729,6 +956,7 @@
         document.getElementById("ratesList").innerHTML = `<div class="empty">Cette fiche ne peut pas s’ouvrir sans slug.</div>`;
         document.getElementById("btnWhatsApp").classList.add("hidden");
         document.getElementById("btnCommander").classList.add("hidden");
+        document.getElementById("quickDemand")?.classList.add("hidden");
         return;
       }
 
@@ -792,15 +1020,28 @@
         const wa = document.getElementById("btnWhatsApp");
         const waHref = waLink(p.whatsapp, name);
 
+        const choiceWhatsApp = document.getElementById("choiceWhatsApp");
+        const quickWhatsApp = document.getElementById("quickWhatsApp");
+
         if(waHref){
           wa.href = waHref;
+          if(choiceWhatsApp) choiceWhatsApp.href = waHref;
+          if(quickWhatsApp) quickWhatsApp.href = waHref;
         } else {
           wa.removeAttribute("href");
           wa.classList.remove("primary");
           wa.textContent = "WhatsApp indisponible";
+          if(choiceWhatsApp) choiceWhatsApp.removeAttribute("href");
+          if(quickWhatsApp) quickWhatsApp.removeAttribute("href");
         }
 
-        document.getElementById("btnCommander").href = commanderLink(slug, p);
+        const cmd = commanderLink(slug, p);
+        const detail = commanderLink(slug, p, true);
+
+        document.getElementById("btnCommander").href = cmd;
+        document.getElementById("choiceCommander").href = cmd;
+        document.getElementById("quickCommander").href = cmd;
+        document.getElementById("choiceDetail").href = detail;
       }catch(e){
         console.error(e);
         document.getElementById("name").textContent = "Chauffeur indisponible";
@@ -808,6 +1049,7 @@
         document.getElementById("ratesList").innerHTML = `<div class="empty">Ce chauffeur est introuvable ou non publié.</div>`;
         document.getElementById("btnWhatsApp").classList.add("hidden");
         document.getElementById("btnCommander").classList.add("hidden");
+        document.getElementById("quickDemand")?.classList.add("hidden");
         document.getElementById("heroMedia").innerHTML = `
           <div class="hero-media-fallback">🚗</div>
           <div class="hero-badge"><span class="dot"></span> Chauffeur privé</div>
