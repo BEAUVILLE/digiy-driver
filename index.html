@@ -958,6 +958,29 @@
       transform:translateY(-1px);
     }
 
+    .floating-returns{
+      position:fixed;
+      left:16px;
+      bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+      z-index:50;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .floating-returns .floating-home{
+      position:static;
+      left:auto;
+      bottom:auto;
+    }
+
+    .floating-home.hub{
+      border-color:rgba(250,204,21,.24);
+      background:rgba(250,204,21,.10);
+      color:#fde68a;
+    }
+
     @media (max-width: 1080px){
       .hero{grid-template-columns:1fr}
       h1{max-width:unset}
@@ -988,10 +1011,15 @@
       .request-actions .btn,
       .request-actions .btn-outline{width:100%}
       .owner-call .btn-outline{width:100%}
-      .floating-home{
+      .floating-returns{
         left:12px;
         right:12px;
         bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+        justify-content:center;
+      }
+
+      .floating-returns .floating-home{
+        flex:1;
         justify-content:center;
       }
     }
@@ -1327,7 +1355,7 @@
         max-width:760px;
         margin:0 auto;
         display:grid;
-        grid-template-columns:repeat(3,1fr);
+        grid-template-columns:repeat(5,1fr);
         gap:7px;
         border:1px solid rgba(255,255,255,.12);
         background:rgba(5,16,12,.94);
@@ -1361,6 +1389,21 @@
         font-size:19px;
         line-height:1;
       }
+
+      @media(max-width:430px){
+        .mobile-dock-inner{
+          gap:5px;
+          padding:6px;
+        }
+        .mobile-dock a{
+          min-height:54px;
+          font-size:10px;
+          border-radius:14px;
+        }
+        .mobile-dock strong{
+          font-size:18px;
+        }
+      }
     }
 
   </style>
@@ -1391,6 +1434,9 @@
       </div>
 
       <div class="top-actions">
+        <a class="btn-ghost" href="https://digiylyfe.com/">🌍 Site DIGIYLYFE</a>
+        <a class="btn-ghost" href="https://digiy-hub.digiylyfe.com/">🧭 HUB DIGIY</a>
+        <a class="btn-ghost" href="https://tarifs.digiylyfe.com/" target="_blank" rel="noopener noreferrer">📦 Tarifs</a>
         <div class="pill"><span class="dot"></span> 0% commission</div>
         <div class="pill">📲 WhatsApp : +221 77 134 28 89</div>
         <a class="btn-ghost" id="btnGalleryTop" href="#">🚕 Galerie conducteurs</a>
@@ -1842,6 +1888,22 @@
       </div>
     </section>
 
+
+    <section class="contact-strip" id="retours-digiy">
+      <div>
+        <h3>Revenir dans la maison DIGIY</h3>
+        <p>
+          Cette page parle chauffeur. Pour comprendre DIGIYLYFE, choisir un outil ou voir les tarifs officiels,
+          utilise les portes ci-dessous.
+        </p>
+      </div>
+      <div class="example-actions">
+        <a class="btn-outline" href="https://digiylyfe.com/">🌍 Site DIGIYLYFE</a>
+        <a class="btn" href="https://digiy-hub.digiylyfe.com/">🧭 HUB DIGIY</a>
+        <a class="btn-outline" href="https://tarifs.digiylyfe.com/" target="_blank" rel="noopener noreferrer">📦 Tarifs</a>
+      </div>
+    </section>
+
     <footer class="footer">
       <div>DIGIY DRIVER • Sénégal • <strong>0% commission</strong> • paiement direct au conducteur</div>
       <div>Jakarta • Bus • Chauffeur direct • même espace DIGIY</div>
@@ -1851,15 +1913,22 @@
 
   <nav class="mobile-dock" aria-label="Navigation rapide DRIVER">
     <div class="mobile-dock-inner">
+      <a href="https://digiylyfe.com/"><strong>🌍</strong><span>Site</span></a>
+      <a href="https://digiy-hub.digiylyfe.com/"><strong>🧭</strong><span>HUB</span></a>
       <a class="primary" href="#demande"><strong>📲</strong><span>Demander</span></a>
       <a href="https://beauville.github.io/galerie-chauffeurs/"><strong>🚕</strong><span>Chauffeurs</span></a>
       <a href="#offres"><strong>➕</strong><span>Conducteur</span></a>
     </div>
   </nav>
 
-  <a class="floating-home" href="https://digiylyfe.com/" aria-label="Retour au site DIGIYLYFE">
-    ⬅️ Retour site DIGIYLYFE
-  </a>
+  <div class="floating-returns" aria-label="Retours DIGIY">
+    <a class="floating-home" href="https://digiylyfe.com/" aria-label="Retour au site DIGIYLYFE">
+      🌍 Site DIGIYLYFE
+    </a>
+    <a class="floating-home hub" href="https://digiy-hub.digiylyfe.com/" aria-label="Retour au HUB DIGIY">
+      🧭 HUB DIGIY
+    </a>
+  </div>
 
   <script>
 
