@@ -7,6 +7,10 @@
   <meta name="description" content="DIGIY DRIVER — Jakarta, bus et chauffeur direct au Sénégal. 0% commission, paiement direct au pro, contact client direct, abonnement simple.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#07140f">
+  <link rel="canonical" href="https://driver.digiylyfe.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -35,7 +39,7 @@
     body{
       min-height:100vh;
       color:var(--ink);
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      font-family:Outfit,Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
       background:
         radial-gradient(circle at top left, rgba(250,204,21,.10), transparent 30%),
         radial-gradient(circle at top right, rgba(34,197,94,.10), transparent 28%),
@@ -1409,6 +1413,48 @@
   </style>
 
   <script>
+    function digiyCleanPublicUrl(){
+      try{
+        const u = new URL(location.href);
+        let changed = false;
+
+        ["phone","tel","wa"].forEach((key) => {
+          if(u.searchParams.has(key)){
+            u.searchParams.delete(key);
+            changed = true;
+          }
+        });
+
+        ["slug","identifiant"].forEach((key) => {
+          const raw = String(u.searchParams.get(key) || "").trim().toLowerCase();
+          if(/\d{7,}/.test(raw)){
+            u.searchParams.delete(key);
+            changed = true;
+          }
+        });
+
+        if(changed){
+          history.replaceState({}, "", u.pathname + u.search + u.hash);
+        }
+      }catch(_){}
+    }
+
+    digiyCleanPublicUrl();
+
+    function digiySafeReturn(){
+      try{
+        const u = new URL(location.href);
+        ["phone","tel","wa"].forEach((key) => u.searchParams.delete(key));
+        ["slug","identifiant"].forEach((key) => {
+          const raw = String(u.searchParams.get(key) || "").trim().toLowerCase();
+          if(/\d{7,}/.test(raw)) u.searchParams.delete(key);
+        });
+        return u.toString();
+      }catch(_){
+        return "https://driver.digiylyfe.com/";
+      }
+    }
+
     function digiyPayUrl(plan, amount, code){
       const u = new URL("https://commencer-a-payer.digiylyfe.com/");
       u.searchParams.set("module", "DRIVER");
@@ -1416,6 +1462,8 @@
       u.searchParams.set("plan", String(plan || "").toLowerCase());
       u.searchParams.set("amount", String(amount || ""));
       u.searchParams.set("code", String(code || "").toUpperCase());
+      u.searchParams.set("source", "driver_public");
+      u.searchParams.set("return", digiySafeReturn());
       return u.toString();
     }
   </script>
@@ -1463,7 +1511,7 @@
         <div class="hero-points">
           <div class="hero-point">💸 0% commission</div>
           <div class="hero-point">📲 contact direct</div>
-          <div class="hero-point">🧭 vitrine + galerie + cockpit</div>
+          <div class="hero-point">🧭 vitrine + galerie + espace pro</div>
         </div>
 
         <div class="hero-cta">
@@ -1732,7 +1780,7 @@
 
           <div class="offer-cta">
             <a class="btn btn-plan-1a" href="#">💳 Activer 1A</a>
-            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201A%20Jakarta.">💬 Infos</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201A%20Jakarta." target="_blank" rel="noopener noreferrer">💬 Infos</a>
           </div>
         </article>
 
@@ -1762,7 +1810,7 @@
 
           <div class="offer-cta">
             <a class="btn btn-plan-1b" href="#">💳 Activer 1B</a>
-            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201B%20Bus.">💬 Infos</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201B%20Bus." target="_blank" rel="noopener noreferrer">💬 Infos</a>
           </div>
         </article>
 
@@ -1791,7 +1839,7 @@
 
           <div class="offer-cta">
             <a class="btn btn-plan-1c" href="#">💳 Activer 1C</a>
-            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201C%20Driver.">💬 Infos</a>
+            <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY,%20je%20veux%20des%20infos%20sur%20la%20formule%201C%20Driver." target="_blank" rel="noopener noreferrer">💬 Infos</a>
           </div>
         </article>
       </div>
@@ -1858,13 +1906,13 @@
         <article class="step">
           <div class="step-no">03</div>
           <h3>Validation</h3>
-          <p>Ton abonnement est confirmé, puis tu ouvres ton module pro conducteur par la bonne porte.</p>
+          <p>Ton abonnement est confirmé, puis tu ouvres ton espace conducteur par la bonne porte.</p>
         </article>
 
         <article class="step">
           <div class="step-no">04</div>
           <h3>Tu pilotes</h3>
-          <p>Profil, visibilité, tarifs, cockpit et présence DIGIY : tout commence à être carré.</p>
+          <p>Profil, visibilité, tarifs, espace pro et présence DIGIY : tout commence à être carré.</p>
         </article>
       </div>
     </section>
@@ -1880,7 +1928,7 @@
         <a class="btn btn-plan-1a" href="#">🛵 Activer Jakarta</a>
         <a class="btn btn-plan-1b" href="#">🚌 Activer Bus</a>
         <a class="btn btn-plan-1c" href="#">🚗 Activer Driver</a>
-        <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER,%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta,%20Bus%20et%20Driver.">💬 WhatsApp</a>
+        <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER,%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta,%20Bus%20et%20Driver." target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
       </div>
 
       <div class="cta-note">
@@ -1916,7 +1964,7 @@
       <a href="https://digiylyfe.com/"><strong>🌍</strong><span>Site</span></a>
       <a href="https://digiy-hub.digiylyfe.com/"><strong>🧭</strong><span>HUB</span></a>
       <a class="primary" href="#demande"><strong>📲</strong><span>Demander</span></a>
-      <a href="https://beauville.github.io/galerie-chauffeurs/"><strong>🚕</strong><span>Chauffeurs</span></a>
+      <a id="btnGalleryMobile" href="https://beauville.github.io/galerie-chauffeurs/"><strong>🚕</strong><span>Chauffeurs</span></a>
       <a href="#offres"><strong>➕</strong><span>Conducteur</span></a>
     </div>
   </nav>
@@ -2000,6 +2048,8 @@
 
     document.getElementById("btnGalleryTop").href = galleryUrl;
     document.getElementById("btnGalleryHero").href = galleryUrl;
+    const btnGalleryMobile = document.getElementById("btnGalleryMobile");
+    if(btnGalleryMobile) btnGalleryMobile.href = galleryUrl;
 
     document.querySelectorAll(".btn-plan-1a").forEach(a => a.href = url1A);
     document.querySelectorAll(".btn-plan-1b").forEach(a => a.href = url1B);
@@ -2133,5 +2183,6 @@ transition:.18s linear;
 <!-- ============================================================
      FIN DIGIY AUDIO — DRIVER
      ============================================================ -->
+<!-- DIGIY DRIVER PUBLIC INDEX SECURITY V2 — 20260504 -->
 </body>
 </html>
