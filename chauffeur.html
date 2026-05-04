@@ -25,6 +25,7 @@
       --primary-2:#16a34a;
       --gold:#facc15;
       --gold-soft:rgba(250,204,21,.12);
+      --danger:#ef4444;
       --shadow:0 20px 60px rgba(0,0,0,.38);
       --r:24px;
       --max:1120px;
@@ -46,12 +47,7 @@
     }
 
     a{color:inherit;text-decoration:none}
-
-    .wrap{
-      max-width:var(--max);
-      margin:auto;
-    }
-
+    .wrap{max-width:var(--max);margin:auto}
 
     .brand-top{
       margin-bottom:12px;
@@ -118,13 +114,8 @@
     }
 
     @media(max-width:760px){
-      .brand-top{
-        align-items:flex-start;
-      }
-
-      .brand-top .btn{
-        width:100%;
-      }
+      .brand-top{align-items:flex-start}
+      .brand-top .btn{width:100%}
     }
 
     .hero,
@@ -135,9 +126,7 @@
       box-shadow:var(--shadow);
     }
 
-    .hero{
-      overflow:hidden;
-    }
+    .hero{overflow:hidden}
 
     .hero-grid-main{
       display:grid;
@@ -146,9 +135,7 @@
     }
 
     @media(max-width:940px){
-      .hero-grid-main{
-        grid-template-columns:1fr;
-      }
+      .hero-grid-main{grid-template-columns:1fr}
     }
 
     .hero-media{
@@ -322,7 +309,7 @@
       max-width:100%;
     }
 
-    .slug-pill{
+    .safe-pill{
       color:var(--gold);
       border-color:rgba(250,204,21,.22);
       background:var(--gold-soft);
@@ -352,9 +339,7 @@
       transition:.18s ease;
     }
 
-    .btn:hover{
-      transform:translateY(-1px);
-    }
+    .btn:hover{transform:translateY(-1px)}
 
     .btn.primary{
       background:linear-gradient(135deg, var(--primary), var(--primary-2));
@@ -376,9 +361,7 @@
     }
 
     @media(max-width:700px){
-      .hero-info-grid{
-        grid-template-columns:1fr;
-      }
+      .hero-info-grid{grid-template-columns:1fr}
     }
 
     .fact{
@@ -408,14 +391,10 @@
     }
 
     @media(min-width:920px){
-      .grid{
-        grid-template-columns:1.05fr .95fr;
-      }
+      .grid{grid-template-columns:1.05fr .95fr}
     }
 
-    .card{
-      padding:18px;
-    }
+    .card{padding:18px}
 
     h2{
       margin:0 0 10px;
@@ -454,9 +433,7 @@
     }
 
     @media(max-width:920px){
-      .rates-groups{
-        grid-template-columns:1fr;
-      }
+      .rates-groups{grid-template-columns:1fr}
     }
 
     .rate-group{
@@ -510,7 +487,6 @@
       font-weight:850;
       color:var(--muted);
     }
-
 
     .client-choice{
       margin-top:14px;
@@ -608,66 +584,6 @@
       border:1px solid rgba(255,255,255,.14);
     }
 
-    @media(max-width:760px){
-      body{
-        padding:10px 10px 82px;
-        font-size:17px;
-      }
-
-      .hero-content{
-        padding:18px;
-      }
-
-      .hero-actions{
-        justify-content:stretch;
-      }
-
-      .hero-actions .btn{
-        width:100%;
-        min-height:52px;
-        border-radius:18px;
-        font-size:15px;
-      }
-
-      .hero-info-grid{
-        gap:10px;
-      }
-
-      .fact{
-        padding:13px;
-      }
-
-      .fact .k{
-        font-size:13px;
-      }
-
-      .fact .v{
-        font-size:16px;
-      }
-
-      .client-choice{
-        grid-template-columns:1fr;
-      }
-
-      .choice-card{
-        min-height:auto;
-      }
-
-      .quick-demand-actions{
-        display:grid;
-        grid-template-columns:1fr;
-      }
-
-      .quick-demand-actions .btn{
-        width:100%;
-      }
-
-      .audio-mini{
-        right:10px;
-        bottom:10px;
-      }
-    }
-
     .footer{
       margin-top:16px;
       text-align:center;
@@ -677,11 +593,47 @@
     }
 
     .hidden{display:none !important}
+
+    @media(max-width:760px){
+      body{
+        padding:10px 10px 82px;
+        font-size:17px;
+      }
+
+      .hero-content{padding:18px}
+
+      .hero-actions{justify-content:stretch}
+
+      .hero-actions .btn{
+        width:100%;
+        min-height:52px;
+        border-radius:18px;
+        font-size:15px;
+      }
+
+      .hero-info-grid{gap:10px}
+      .fact{padding:13px}
+      .fact .k{font-size:13px}
+      .fact .v{font-size:16px}
+      .client-choice{grid-template-columns:1fr}
+      .choice-card{min-height:auto}
+
+      .quick-demand-actions{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .quick-demand-actions .btn{width:100%}
+
+      .audio-mini{
+        right:10px;
+        bottom:10px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-
 
     <header class="brand-top">
       <div class="brand-left">
@@ -719,7 +671,7 @@
                 <div class="hero-meta">
                   <div class="pill" id="cityPill">Ville : —</div>
                   <div class="pill" id="vehiclePill">Véhicule : —</div>
-                  <div class="pill slug-pill" id="slugPill">fiche : —</div>
+                  <div class="pill safe-pill" id="safePill">fiche : publique</div>
                 </div>
               </div>
             </div>
@@ -749,13 +701,12 @@
 
             <div class="fact">
               <div class="k">Contact direct</div>
-              <div class="v" id="contactDirect">—</div>
+              <div class="v" id="contactDirect">WhatsApp disponible si publié par le chauffeur</div>
             </div>
           </div>
         </div>
       </div>
     </section>
-
 
     <section class="card" style="margin-top:14px">
       <h2>Que veux-tu faire ?</h2>
@@ -841,7 +792,9 @@
   <script>
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth:{ persistSession:false, autoRefreshToken:false, detectSessionInUrl:false }
+    });
 
     function digiyBasePath(){
       const parts = location.pathname.split("/").filter(Boolean);
@@ -855,8 +808,76 @@
       return digiyBasePath() + path;
     }
 
+    function normalizeSlug(v){
+      return String(v || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\-_]/g, "")
+        .replace(/-+/g, "-")
+        .replace(/^[-_]+|[-_]+$/g, "");
+    }
+
+    function isSensitiveSlug(slug){
+      return /\d{7,}/.test(String(slug || ""));
+    }
+
+    function canExposeSlug(slug){
+      const s = normalizeSlug(slug);
+      return !!s && !isSensitiveSlug(s);
+    }
+
+    function normalizeWa(phone){
+      let clean = String(phone || "").replace(/[^\d]/g, "");
+      if(clean.length === 9 && clean.startsWith("7")) clean = "221" + clean;
+      return clean;
+    }
+
+    function cleanVisibleUrl(){
+      try{
+        const u = new URL(location.href);
+        let changed = false;
+
+        ["phone","tel","wa"].forEach(k => {
+          if(u.searchParams.has(k)){
+            u.searchParams.delete(k);
+            changed = true;
+          }
+        });
+
+        ["slug","identifiant"].forEach(k => {
+          const s = normalizeSlug(u.searchParams.get(k) || "");
+          if(s && isSensitiveSlug(s)){
+            u.searchParams.delete(k);
+            changed = true;
+          }
+        });
+
+        if(changed){
+          history.replaceState({}, "", u.pathname + u.search + u.hash);
+        }
+      }catch(_){}
+    }
+
     const qs = new URLSearchParams(location.search);
-    const slug = (qs.get("slug") || "").trim();
+    const rawSlug = normalizeSlug(qs.get("slug") || qs.get("identifiant") || "");
+    const slugForRpc = rawSlug;
+    cleanVisibleUrl();
+
+    function visibleProfileUrl(){
+      try{
+        const u = new URL(location.href);
+        ["phone","tel","wa"].forEach(k => u.searchParams.delete(k));
+        ["slug","identifiant"].forEach(k => {
+          const s = normalizeSlug(u.searchParams.get(k) || "");
+          if(s && isSensitiveSlug(s)) u.searchParams.delete(k);
+        });
+        return u.toString();
+      }catch{
+        return location.origin + digiyLocal("chauffeur.html");
+      }
+    }
 
     function money(n){
       return Number(n || 0).toLocaleString("fr-FR") + " FCFA";
@@ -872,12 +893,6 @@
       return s.split(/\s+/).slice(0,2).map(x => (x[0] || "").toUpperCase()).join("") || "DR";
     }
 
-    function normalizeWa(phone){
-      let clean = String(phone || "").replace(/[^\d]/g, "");
-      if(clean.length === 9 && clean.startsWith("7")) clean = "221" + clean;
-      return clean;
-    }
-
     function waLink(phone, name){
       const clean = normalizeWa(phone);
       if(!clean) return "";
@@ -885,12 +900,19 @@
       return "https://wa.me/" + clean + "?text=" + encodeURIComponent(msg);
     }
 
-    function commanderLink(slug, profile, detail=false){
+    function commanderLink(profile, detail=false){
       const u = new URL(digiyLocal(detail ? "commander-course-detail.html" : "commander-course.html"), location.origin);
+
       if (profile?.display_name) u.searchParams.set("driver", profile.display_name);
-      if (profile?.whatsapp) u.searchParams.set("wa", normalizeWa(profile.whatsapp));
-      if (slug) u.searchParams.set("slug", slug);
-      u.searchParams.set("profile", location.href);
+
+      const wa = normalizeWa(profile?.whatsapp || "");
+      if (wa) u.searchParams.set("wa", wa);
+
+      if (canExposeSlug(slugForRpc)){
+        u.searchParams.set("slug", slugForRpc);
+      }
+
+      u.searchParams.set("profile", visibleProfileUrl());
       return u.toString();
     }
 
@@ -996,30 +1018,35 @@
       }
 
       const safeRates = rates.filter(r => r && r.is_active !== false);
+      const used = new Set();
 
-      const groups = {
-        interurbains: {
+      function take(matchFn){
+        const rows = safeRates.filter(r => {
+          const id = String(r.id || r.route_label || Math.random());
+          if(used.has(id)) return false;
+          const ok = matchFn(r);
+          if(ok) used.add(id);
+          return ok;
+        });
+        return rows;
+      }
+
+      const groups = [
+        {
           title: "Transferts interurbains",
-          items: safeRates.filter(r =>
-            /dakar|aibd|thi[eè]s|aeroport|airport/i.test(String(r.route_label || ""))
-          )
+          items: take(r => /dakar|aibd|thi[eè]s|aeroport|airport/i.test(String(r.route_label || "")))
         },
-        locaux: {
-          title: "Trajets locaux",
-          items: safeRates.filter(r =>
-            /ngaparou|somone|mbour|saly/i.test(String(r.route_label || "")) &&
-            !/dakar|aibd|thi[eè]s|aeroport|airport/i.test(String(r.route_label || ""))
-          )
-        },
-        dispo: {
+        {
           title: "Mise à disposition",
-          items: safeRates.filter(r =>
-            /mise à dispo|mise a dispo|dispo|journ[eé]e|4h|soir[eé]e/i.test(String(r.route_label || ""))
-          )
+          items: take(r => /mise à dispo|mise a dispo|dispo|journ[eé]e|4h|soir[eé]e/i.test(String(r.route_label || "")))
+        },
+        {
+          title: "Trajets locaux",
+          items: take(r => true)
         }
-      };
+      ];
 
-      const sections = Object.values(groups)
+      const sections = groups
         .filter(group => group.items.length > 0)
         .map(group => `
           <div class="rate-group">
@@ -1040,15 +1067,28 @@
         : `<div class="empty">Aucun tarif publié</div>`;
     }
 
+    function setUnavailable(message){
+      document.getElementById("name").textContent = "Chauffeur indisponible";
+      document.getElementById("subtitle").textContent = message || "Cette fiche n’est pas disponible publiquement.";
+      document.getElementById("ratesList").innerHTML = `<div class="empty">Ce chauffeur est introuvable ou non publié.</div>`;
+      document.getElementById("btnWhatsApp").classList.add("hidden");
+      document.getElementById("btnCommander").classList.add("hidden");
+      document.getElementById("quickDemand")?.classList.add("hidden");
+      document.getElementById("heroMedia").innerHTML = `
+        <div class="hero-media-fallback">🚗</div>
+        <div class="hero-badge"><span class="dot"></span> Chauffeur privé</div>
+      `;
+    }
+
     async function boot(){
-      document.getElementById("slugPill").textContent = "fiche : " + (slug || "—");
+      document.getElementById("safePill").textContent = "fiche : publique";
       document.getElementById("btnRetour").href = digiyLocal("index.html");
       document.getElementById("brandBack").href = digiyLocal("index.html");
 
-      if(!slug){
-        document.getElementById("name").textContent = "Slug manquant";
-        document.getElementById("subtitle").textContent = "Impossible d’ouvrir cette fiche sans identifiant chauffeur.";
-        document.getElementById("ratesList").innerHTML = `<div class="empty">Cette fiche ne peut pas s’ouvrir sans slug.</div>`;
+      if(!slugForRpc){
+        document.getElementById("name").textContent = "Lien incomplet";
+        document.getElementById("subtitle").textContent = "Impossible d’ouvrir cette fiche sans lien chauffeur.";
+        document.getElementById("ratesList").innerHTML = `<div class="empty">Cette fiche ne peut pas s’ouvrir sans lien chauffeur.</div>`;
         document.getElementById("btnWhatsApp").classList.add("hidden");
         document.getElementById("btnCommander").classList.add("hidden");
         document.getElementById("quickDemand")?.classList.add("hidden");
@@ -1056,7 +1096,7 @@
       }
 
       try{
-        const { data, error } = await sb.rpc("driver_public_profile_by_slug", { p_slug: slug });
+        const { data, error } = await sb.rpc("driver_public_profile_by_slug", { p_slug: slugForRpc });
         if(error) throw error;
         if(!data?.ok) throw new Error(data?.error || "not_found");
 
@@ -1105,7 +1145,7 @@
         document.getElementById("bio").textContent = safe(p.bio, "Service propre, ponctuel et confortable.");
         document.getElementById("services").textContent = services || "Service standard";
         document.getElementById("contactNote").textContent = safe(p.contact_note, "Disponible sur réservation");
-        document.getElementById("contactDirect").textContent = safe(p.whatsapp, "WhatsApp sur demande");
+        document.getElementById("contactDirect").textContent = p.whatsapp ? "WhatsApp direct disponible" : "WhatsApp sur demande";
         document.getElementById("vehicleFull").textContent = safe(vehicleFull, "Véhicule confortable");
         document.getElementById("comfort").textContent = comfort;
 
@@ -1130,8 +1170,8 @@
           if(quickWhatsApp) quickWhatsApp.removeAttribute("href");
         }
 
-        const cmd = commanderLink(slug, p);
-        const detail = commanderLink(slug, p, true);
+        const cmd = commanderLink(p);
+        const detail = commanderLink(p, true);
 
         document.getElementById("btnCommander").href = cmd;
         document.getElementById("choiceCommander").href = cmd;
@@ -1139,16 +1179,7 @@
         document.getElementById("choiceDetail").href = detail;
       }catch(e){
         console.error(e);
-        document.getElementById("name").textContent = "Chauffeur indisponible";
-        document.getElementById("subtitle").textContent = "Cette fiche n’est pas disponible publiquement.";
-        document.getElementById("ratesList").innerHTML = `<div class="empty">Ce chauffeur est introuvable ou non publié.</div>`;
-        document.getElementById("btnWhatsApp").classList.add("hidden");
-        document.getElementById("btnCommander").classList.add("hidden");
-        document.getElementById("quickDemand")?.classList.add("hidden");
-        document.getElementById("heroMedia").innerHTML = `
-          <div class="hero-media-fallback">🚗</div>
-          <div class="hero-badge"><span class="dot"></span> Chauffeur privé</div>
-        `;
+        setUnavailable("Cette fiche n’est pas disponible publiquement.");
       }
     }
 
