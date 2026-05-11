@@ -464,6 +464,83 @@
     }
 
 
+    .gallery-strip{
+      margin-top:22px;
+      border-radius:30px;
+      padding:20px 18px;
+      background:
+        radial-gradient(circle at top left, rgba(34,197,94,.13), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+        rgba(8,23,18,.78);
+      border:1px solid rgba(34,197,94,.22);
+      box-shadow:var(--shadow-soft);
+      display:grid;
+      gap:16px;
+    }
+
+    .gallery-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .gallery-title{
+      font-size:clamp(26px,3vw,38px);
+      line-height:1.04;
+      letter-spacing:-.03em;
+      font-weight:900;
+    }
+
+    .gallery-sub{
+      margin-top:8px;
+      color:var(--muted);
+      line-height:1.62;
+      font-weight:780;
+      max-width:76ch;
+      font-size:16px;
+    }
+
+    .gallery-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .gallery-cards{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .gallery-card{
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.045);
+      padding:16px;
+      min-height:126px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .gallery-card strong{
+      font-size:18px;
+      line-height:1.15;
+      font-weight:900;
+    }
+
+    .gallery-card span{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+      font-weight:780;
+    }
+
+
+
     .request-box{
       margin-top:22px;
       border-radius:26px;
@@ -1258,6 +1335,44 @@
         min-height:52px;
       }
 
+
+      .gallery-strip{
+        border-radius:24px;
+        padding:16px;
+      }
+
+      .gallery-head{
+        display:grid;
+        gap:12px;
+      }
+
+      .gallery-title{
+        font-size:clamp(28px,8vw,38px);
+      }
+
+      .gallery-sub{
+        font-size:16px;
+        line-height:1.58;
+      }
+
+      .gallery-actions{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .gallery-actions .btn,
+      .gallery-actions .btn-outline{
+        width:100%;
+        min-height:56px;
+        border-radius:18px;
+        font-size:16px;
+      }
+
+      .gallery-cards{
+        grid-template-columns:1fr;
+      }
+
+
       .section{
         margin-top:22px;
       }
@@ -1486,8 +1601,9 @@
         <a class="btn-ghost" href="https://digiy-hub.digiylyfe.com/">🧭 HUB DIGIY</a>
         <a class="btn-ghost" href="https://tarifs.digiylyfe.com/" target="_blank" rel="noopener noreferrer">📦 Tarifs</a>
         <div class="pill"><span class="dot"></span> 0% commission</div>
-        <div class="pill">📲 WhatsApp : +221 77 134 28 89</div>
+        <div class="pill">📲 Support DIGIY : +221 77 134 28 89</div>
         <a class="btn-ghost" id="btnGalleryTop" href="#">🚕 Galerie conducteurs</a>
+        <a class="btn-ghost" id="btnProTop" href="https://pro-driver.digiylyfe.com/">🔐 Espace conducteur</a>
         <a class="btn" href="#offres">💳 Voir les formules</a>
       </div>
     </header>
@@ -1521,8 +1637,7 @@
         </div>
 
         <div class="hero-note">
-          Même quand la flotte est encore jeune, la demande ne doit pas se perdre.
-          WhatsApp sert de première messagerie terrain.
+          La galerie ouvre les fiches chauffeurs publiques. Si aucun chauffeur ne répond tout de suite, la note rapide garde la demande vivante côté DIGIY.
         </div>
 
         <div class="hero-mini-grid">
@@ -1588,6 +1703,39 @@
       </aside>
     </section>
 
+    <section class="gallery-strip" id="chauffeurs">
+      <div class="gallery-head">
+        <div>
+          <div class="eyebrow">Chauffeur Ambassadeur</div>
+          <h2 class="gallery-title">Voir les chauffeurs disponibles avant d’écrire.</h2>
+          <div class="gallery-sub">
+            La galerie ouvre les fiches chauffeurs publiques : profil, zone, véhicule, WhatsApp direct,
+            demande simple et course détaillée. Le client choisit mieux, le chauffeur garde le contact.
+          </div>
+        </div>
+        <div class="gallery-actions">
+          <a class="btn" id="btnGalleryBridge" href="#">🚕 Voir les chauffeurs</a>
+          <a class="btn-outline" href="#demande">📲 Demande rapide</a>
+          <a class="btn-outline" href="#offres">➕ Je suis conducteur</a>
+        </div>
+      </div>
+
+      <div class="gallery-cards">
+        <div class="gallery-card">
+          <strong>🌍 Fiche client</strong>
+          <span>Chaque chauffeur publié peut avoir une fiche publique claire, partageable par QR.</span>
+        </div>
+        <div class="gallery-card">
+          <strong>📲 Contact direct</strong>
+          <span>WhatsApp reste direct. DIGIY organise la porte, sans prendre de commission.</span>
+        </div>
+        <div class="gallery-card">
+          <strong>🧭 Demande guidée</strong>
+          <span>Départ, arrivée, heure, bagages : le message client est préparé proprement.</span>
+        </div>
+      </div>
+    </section>
+
 
     <section class="request-box" id="demande">
       <div class="request-head">
@@ -1619,6 +1767,7 @@
 
       <div class="request-actions">
         <button class="btn" id="btnSendRide" type="button">📲 Envoyer ma demande à DIGIY</button>
+        <a class="btn-outline" id="btnGalleryRequest" href="#">🚕 Voir les chauffeurs</a>
         <button class="btn-outline" id="btnClearRide" type="button">↩ Effacer</button>
       </div>
 
@@ -1928,6 +2077,7 @@
         <a class="btn btn-plan-1a" href="#">🛵 Activer Jakarta</a>
         <a class="btn btn-plan-1b" href="#">🚌 Activer Bus</a>
         <a class="btn btn-plan-1c" href="#">🚗 Activer Driver</a>
+        <a class="btn-outline" href="https://pro-driver.digiylyfe.com/">🔐 Espace conducteur</a>
         <a class="btn-outline" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER,%20je%20veux%20des%20infos%20sur%20les%20formules%20Jakarta,%20Bus%20et%20Driver." target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
       </div>
 
@@ -1953,7 +2103,7 @@
     </section>
 
     <footer class="footer">
-      <div>DIGIY DRIVER • Sénégal • <strong>0% commission</strong> • paiement direct au conducteur</div>
+      <div>DIGIY DRIVER • Sénégal • <strong>0% commission</strong> • galerie publique • paiement direct au conducteur</div>
       <div>Jakarta • Bus • Chauffeur direct • même espace DIGIY</div>
     </footer>
   </div>
@@ -2041,6 +2191,7 @@
 
 
     const galleryUrl = "https://beauville.github.io/galerie-chauffeurs/";
+    const proDriverUrl = "https://pro-driver.digiylyfe.com/";
 
     const url1A = digiyPayUrl("1a", 5500, "1A");
     const url1B = digiyPayUrl("1b", 12000, "1B");
@@ -2048,6 +2199,12 @@
 
     document.getElementById("btnGalleryTop").href = galleryUrl;
     document.getElementById("btnGalleryHero").href = galleryUrl;
+    const btnGalleryBridge = document.getElementById("btnGalleryBridge");
+    if(btnGalleryBridge) btnGalleryBridge.href = galleryUrl;
+    const btnGalleryRequest = document.getElementById("btnGalleryRequest");
+    if(btnGalleryRequest) btnGalleryRequest.href = galleryUrl;
+    const btnProTop = document.getElementById("btnProTop");
+    if(btnProTop) btnProTop.href = proDriverUrl;
     const btnGalleryMobile = document.getElementById("btnGalleryMobile");
     if(btnGalleryMobile) btnGalleryMobile.href = galleryUrl;
 
@@ -2063,7 +2220,7 @@
 window.DIGIY_AUDIO_CONFIG = {
   label: "Écouter chauffeur",
   stopLabel: "Arrêter",
-  text: "Bienvenue sur DIGIY DRIVER. Ici, tu peux chercher un chauffeur, un Jakarta ou un bus. Écris ton trajet, ton heure, le nombre de personnes et ton budget si tu en as un. DIGIY prépare la demande et ouvre WhatsApp. Le contact reste direct. Le conducteur travaille pour lui, pas pour une plateforme. Direct. Clair. Humain. DIGIYLYFE.",
+  text: "Bienvenue sur DIGIY DRIVER. Ici, tu peux chercher un chauffeur, un Jakarta ou un bus. Tu peux voir la galerie des chauffeurs disponibles, ouvrir une fiche publique, ou écrire une demande rapide. Départ, arrivée, heure, personnes, bagages : DIGIY prépare le message et ouvre WhatsApp. Le contact reste direct. Le conducteur travaille pour lui, pas pour une plateforme. Direct. Clair. Humain. DIGIYLYFE.",
   buttonBg: "linear-gradient(135deg,#facc15,#f59e0b)",
   buttonColor: "#06110c",
   bottom: "24px",
