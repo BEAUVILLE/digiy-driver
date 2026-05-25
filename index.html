@@ -1525,7 +1525,119 @@
       }
     }
 
-  </style>
+  
+/* ===== DIGIY DRIVER — LECTEUR PUBLIC TERRAIN ===== */
+.digiy-audio-public-card{
+  margin-top:18px;
+  border-radius:24px;
+  border:1px solid rgba(250,204,21,.22);
+  background:
+    radial-gradient(circle at top left, rgba(250,204,21,.13), transparent 42%),
+    rgba(255,255,255,.045);
+  box-shadow:var(--shadow-soft);
+  padding:16px;
+  position:relative;
+  z-index:1;
+}
+.digiy-audio-public-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.digiy-audio-public-title{
+  font-size:22px;
+  line-height:1.08;
+  font-weight:1000;
+  color:var(--gold);
+  letter-spacing:-.03em;
+}
+.digiy-audio-public-sub{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+  font-weight:800;
+  max-width:68ch;
+}
+.digiy-audio-public-controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.digiy-audio-public-controls button,
+.digiy-audio-public-controls a{
+  min-height:46px;
+  border-radius:999px;
+  padding:0 15px;
+  border:1px solid rgba(255,255,255,.12);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font:inherit;
+  font-size:14px;
+  font-weight:1000;
+  cursor:pointer;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.digiy-audio-play{
+  color:#06110c;
+  background:linear-gradient(135deg,var(--gold),var(--orange));
+  box-shadow:0 12px 28px rgba(250,204,21,.16);
+}
+.digiy-audio-stop{
+  color:var(--ink);
+  background:rgba(255,255,255,.06);
+}
+.digiy-audio-link{
+  color:#bbf7d0;
+  background:rgba(34,197,94,.10);
+}
+.digiy-audio-public-progress{
+  margin-top:12px;
+  height:6px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+}
+.digiy-audio-public-progress > span{
+  display:block;
+  width:0%;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--gold),var(--orange),var(--green));
+  transition:width .18s linear;
+}
+.digiy-audio-public-status{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  font-weight:850;
+}
+@media(max-width:760px){
+  .digiy-audio-public-card{padding:15px;border-radius:22px}
+  .digiy-audio-public-title{font-size:24px}
+  .digiy-audio-public-sub{font-size:15px}
+  .digiy-audio-public-controls{
+    display:grid;
+    grid-template-columns:1fr;
+    width:100%;
+  }
+  .digiy-audio-public-controls button,
+  .digiy-audio-public-controls a{
+    width:100%;
+    min-height:54px;
+    font-size:15px;
+  }
+}
+
+</style>
 
   <script>
     function digiyCleanPublicUrl(){
@@ -1634,6 +1746,33 @@
           <a class="btn" href="#demande">📲 Demander un chauffeur</a>
           <a class="btn-outline" id="btnGalleryHero" href="#">🚕 Voir les chauffeurs</a>
           <a class="btn-outline" href="#offres">➕ Je suis conducteur</a>
+        </div>
+
+
+        <div class="digiy-audio-public-card" id="digiyAudioPublicCard">
+          <div class="digiy-audio-public-head">
+            <div>
+              <div class="digiy-audio-public-title">🎧 Écouter la porte DRIVER</div>
+              <div class="digiy-audio-public-sub">
+                Module public : une voix explique la page sans connexion, sans PIN et sans détour.
+                Le client comprend vite : galerie chauffeurs, demande rapide, WhatsApp ou SMS, contact direct et 0% commission.
+              </div>
+            </div>
+
+            <div class="digiy-audio-public-controls" aria-label="Lecteur audio DIGIY DRIVER">
+              <button class="digiy-audio-play" id="digiyAudioPlay" type="button">▶️ Lecture</button>
+              <button class="digiy-audio-stop" id="digiyAudioStop" type="button">⏹ Arrêt</button>
+              <a class="digiy-audio-link" href="https://wa.me/221771342889?text=Bonjour%20DIGIY%20DRIVER,%20je%20cherche%20un%20chauffeur." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <a class="digiy-audio-link" href="sms:+221771342889?body=Bonjour%20DIGIY%20DRIVER,%20je%20cherche%20un%20chauffeur.">SMS</a>
+            </div>
+          </div>
+
+          <div class="digiy-audio-public-progress" aria-hidden="true">
+            <span id="digiyAudioProgress"></span>
+          </div>
+          <div class="digiy-audio-public-status" id="digiyAudioStatus">
+            Prêt à lire. Doctrine audio : DIGIY se prononce “diji i”.
+          </div>
         </div>
 
         <div class="hero-note">
@@ -2212,134 +2351,186 @@
     document.querySelectorAll(".btn-plan-1b").forEach(a => a.href = url1B);
     document.querySelectorAll(".btn-plan-1c").forEach(a => a.href = url1C);
   </script>
+
   <!-- ============================================================
-     DIGIY AUDIO — DRIVER
+     DIGIY AUDIO — DRIVER PUBLIC · LECTEUR DANS LA PAGE
+     ============================================================ -->
+  <script>
+    (function(){
+      "use strict";
+
+      const playBtn = document.getElementById("digiyAudioPlay");
+      const stopBtn = document.getElementById("digiyAudioStop");
+      const progress = document.getElementById("digiyAudioProgress");
+      const status = document.getElementById("digiyAudioStatus");
+
+      if(!playBtn || !stopBtn || !progress || !status) return;
+
+      if(!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined"){
+        playBtn.disabled = true;
+        stopBtn.disabled = true;
+        status.textContent = "Lecteur vocal non disponible sur ce navigateur.";
+        return;
+      }
+
+      const synth = window.speechSynthesis;
+
+      const visibleText = "Bienvenue sur DIGIY DRIVER. Cette page est publique : le client peut chercher un chauffeur, voir la galerie, écrire une demande rapide, puis contacter par WhatsApp ou SMS. Le conducteur garde son contact direct, son prix et sa relation client. DIGIY organise la porte, sans commission sur la course.";
+
+      function prepareForVoice(text){
+        return String(text || "")
+          .replace(/\bDIGIYLYFE\b/g, "diji i laïfe")
+          .replace(/\bDIGIY\b/g, "diji i")
+          .replace(/\bDRIVER\b/g, "chauffeur")
+          .replace(/\bWhatsApp\b/gi, "Ouatsap")
+          .replace(/\bSMS\b/g, "S M S")
+          .replace(/\bQR\b/g, "Q R")
+          .replace(/\bWave\b/g, "Ouève")
+          .replace(/\bOM\b/g, "O M")
+          .replace(/\bAIBD\b/g, "A I B D")
+          .replace(/0\s*%/g, "zéro pour cent");
+      }
+
+      const audioText = prepareForVoice(visibleText);
+      let utterance = null;
+      let playing = false;
+      let timer = null;
+      let launchId = 0;
+
+      function frenchVoice(){
+        const voices = synth.getVoices ? synth.getVoices() : [];
+        return (
+          voices.find(v => /fr[-_]?FR/i.test(v.lang) && /google/i.test(v.name)) ||
+          voices.find(v => /fr[-_]?FR/i.test(v.lang)) ||
+          voices.find(v => /^fr/i.test(v.lang)) ||
+          null
+        );
+      }
+
+      function setIdle(){
+        playing = false;
+        playBtn.textContent = "▶️ Lecture";
+        status.textContent = "Prêt à lire. Doctrine audio : DIGIY se prononce “diji i”.";
+        progress.style.width = "0%";
+        clearInterval(timer);
+        timer = null;
+      }
+
+      function setPlaying(){
+        playing = true;
+        playBtn.textContent = "🔊 Lecture en cours";
+        status.textContent = "Lecture en cours… le client écoute la porte DRIVER.";
+      }
+
+      function stopAudio(){
+        launchId += 1;
+        clearInterval(timer);
+        timer = null;
+        try{ synth.cancel(); }catch(_){}
+        utterance = null;
+        setIdle();
+      }
+
+      function startProgress(currentId){
+        const words = (audioText.match(/\S+/g) || []).length;
+        const estimatedMs = Math.max(3600, words * 470);
+        let elapsed = 0;
+        progress.style.width = "0%";
+        clearInterval(timer);
+
+        timer = setInterval(function(){
+          if(!playing || currentId !== launchId){
+            clearInterval(timer);
+            timer = null;
+            return;
+          }
+          elapsed += 160;
+          progress.style.width = Math.min(96, (elapsed / estimatedMs) * 100) + "%";
+        }, 160);
+      }
+
+      function launch(){
+        launchId += 1;
+        const currentId = launchId;
+
+        try{ synth.cancel(); }catch(_){}
+
+        utterance = new SpeechSynthesisUtterance(audioText);
+        utterance.lang = "fr-FR";
+        utterance.rate = 0.84;
+        utterance.pitch = 1.02;
+        utterance.volume = 1;
+
+        const voice = frenchVoice();
+        if(voice) utterance.voice = voice;
+
+        utterance.onstart = function(){
+          if(currentId !== launchId) return;
+          setPlaying();
+          startProgress(currentId);
+        };
+
+        utterance.onend = function(){
+          if(currentId !== launchId) return;
+          progress.style.width = "100%";
+          setTimeout(function(){
+            if(currentId === launchId) setIdle();
+          }, 260);
+        };
+
+        utterance.onerror = function(){
+          if(currentId !== launchId) return;
+          stopAudio();
+        };
+
+        synth.speak(utterance);
+      }
+
+      function playAudio(){
+        if(playing){
+          stopAudio();
+          return;
+        }
+
+        const voices = synth.getVoices ? synth.getVoices() : [];
+        if(voices.length){
+          launch();
+          return;
+        }
+
+        let done = false;
+        function onVoices(){
+          if(done) return;
+          done = true;
+          synth.removeEventListener("voiceschanged", onVoices);
+          launch();
+        }
+
+        synth.addEventListener("voiceschanged", onVoices);
+
+        setTimeout(function(){
+          if(done) return;
+          done = true;
+          synth.removeEventListener("voiceschanged", onVoices);
+          launch();
+        }, 700);
+      }
+
+      playBtn.addEventListener("click", playAudio);
+      stopBtn.addEventListener("click", stopAudio);
+      window.addEventListener("beforeunload", stopAudio);
+      document.addEventListener("visibilitychange", function(){
+        if(document.hidden && playing) stopAudio();
+      });
+
+      setIdle();
+    })();
+  </script>
+
+  <!-- ============================================================
+     FIN DIGIY AUDIO — DRIVER PUBLIC
      ============================================================ -->
 
-<script>
-window.DIGIY_AUDIO_CONFIG = {
-  label: "Écouter chauffeur",
-  stopLabel: "Arrêter",
-  text: "Bienvenue sur DIGIY DRIVER. Ici, tu peux chercher un chauffeur, un Jakarta ou un bus. Tu peux voir la galerie des chauffeurs disponibles, ouvrir une fiche publique, ou écrire une demande rapide. Départ, arrivée, heure, personnes, bagages : DIGIY prépare le message et ouvre WhatsApp. Le contact reste direct. Le conducteur travaille pour lui, pas pour une plateforme. Direct. Clair. Humain. DIGIYLYFE.",
-  buttonBg: "linear-gradient(135deg,#facc15,#f59e0b)",
-  buttonColor: "#06110c",
-  bottom: "24px",
-  right: "24px",
-  rate: 0.82,
-  pitch: 1,
-  volume: 1,
-  zIndex: 99999,
-  shadow: "0 10px 30px rgba(0,0,0,.26)"
-};
-</script>
-
-<style>
-#digiy-audio-btn{
-position:fixed;
-display:inline-flex;
-align-items:center;
-gap:12px;
-padding:16px 26px;
-border:none;
-border-radius:999px;
-cursor:pointer;
-font-family:'Outfit',Inter,sans-serif;
-font-weight:900;
-font-size:17px;
-line-height:1;
-transition:.18s ease;
-}
-#digiy-audio-btn:hover{transform:translateY(-2px)}
-#digiy-audio-btn:active{transform:scale(.97)}
-#digiy-audio-btn .digiy-audio-ico{font-size:18px}
-
-#digiy-audio-progress-wrap{
-position:fixed;
-left:0;right:0;bottom:0;
-height:3px;
-opacity:0;
-transition:.25s;
-}
-#digiy-audio-progress{
-width:0%;
-height:100%;
-transition:.18s linear;
-}
-</style>
-
-<button id="digiy-audio-btn">
-  <span class="digiy-audio-ico">▶</span>
-  <span class="digiy-audio-lbl">Écouter chauffeur</span>
-</button>
-
-<div id="digiy-audio-progress-wrap">
-  <div id="digiy-audio-progress"></div>
-</div>
-
-<script>
-(function(){
-  var cfg = window.DIGIY_AUDIO_CONFIG;
-
-  var btn = document.getElementById("digiy-audio-btn");
-  var lbl = btn.querySelector(".digiy-audio-lbl");
-  var ico = btn.querySelector(".digiy-audio-ico");
-  var bar = document.getElementById("digiy-audio-progress");
-  var wrap = document.getElementById("digiy-audio-progress-wrap");
-
-  btn.style.bottom = cfg.bottom;
-  btn.style.right = cfg.right;
-  btn.style.background = cfg.buttonBg;
-  btn.style.color = cfg.buttonColor;
-  btn.style.boxShadow = cfg.shadow;
-
-  wrap.style.background = "rgba(250,204,21,.2)";
-  bar.style.background = "linear-gradient(90deg,#facc15,#f59e0b)";
-
-  var synth = window.speechSynthesis;
-  var playing = false;
-  var timer = null;
-
-  function stop(){
-    synth.cancel();
-    clearInterval(timer);
-    playing = false;
-    ico.innerHTML = "▶";
-    lbl.textContent = cfg.label;
-    wrap.style.opacity = 0;
-    bar.style.width = "0%";
-  }
-
-  function play(){
-    var u = new SpeechSynthesisUtterance(cfg.text);
-    u.lang = "fr-FR";
-    u.rate = cfg.rate;
-
-    u.onstart = function(){
-      wrap.style.opacity = 1;
-      var p = 0;
-      timer = setInterval(function(){
-        p += 2;
-        bar.style.width = p + "%";
-      }, 200);
-    };
-
-    u.onend = stop;
-
-    synth.speak(u);
-    playing = true;
-    ico.innerHTML = "■";
-    lbl.textContent = cfg.stopLabel;
-  }
-
-  btn.onclick = function(){
-    playing ? stop() : play();
-  };
-})();
-</script>
-
-<!-- ============================================================
-     FIN DIGIY AUDIO — DRIVER
-     ============================================================ -->
 <!-- DIGIY DRIVER PUBLIC INDEX SECURITY V2 — 20260504 -->
 </body>
 </html>
