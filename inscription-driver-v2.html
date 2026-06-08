@@ -1,25 +1,26 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#f6eddc">
-  <meta name="digiy-version" content="driver-inscription-readable-note-paiement-clair-20260604">
-  <title>Inscription DRIVER — DIGIY</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta name="theme-color" content="#123c2d"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="digiy-version" content="inscription-driver-fiche-verifiee-no-precheck-20260608"/>
+
+  <title>Inscription chauffeur — DIGIY DRIVER</title>
+  <meta name="description" content="Inscription chauffeur DIGIY DRIVER : Jakarta, bus, taxi-local, VTC, chauffeur privé. Contact direct, 0% commission, fiche chauffeur et QR."/>
+
   <style>
     :root{
-      --bg:#f6eddc;
-      --bg2:#efe0c4;
-      --card:#fffaf0;
-      --ink:#173629;
-      --muted:#647466;
-      --green:#176b47;
-      --green2:#0f5138;
+      --bg:#123c2d;
+      --bg2:#071b14;
+      --line:rgba(255,255,255,.18);
+      --text:#f7fff9;
+      --muted:rgba(247,255,249,.82);
       --gold:#facc15;
       --gold2:#f59e0b;
-      --line:rgba(65,48,18,.18);
-      --shadow:0 18px 46px rgba(64,46,17,.14);
+      --green:#22c55e;
+      --shadow:0 18px 48px rgba(0,0,0,.28);
     }
 
     *{box-sizing:border-box}
@@ -30,19 +31,20 @@
       min-height:100vh;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:
-        radial-gradient(900px 520px at 5% -8%,rgba(250,204,21,.20),transparent 58%),
-        radial-gradient(850px 520px at 106% 2%,rgba(23,107,71,.16),transparent 54%),
+        radial-gradient(circle at top left,rgba(34,197,94,.18),transparent 34%),
+        radial-gradient(circle at bottom right,rgba(250,204,21,.12),transparent 32%),
         linear-gradient(180deg,var(--bg),var(--bg2));
-      color:var(--ink);
+      color:var(--text);
       font-size:18px;
       font-weight:850;
-      padding-bottom:108px;
+      padding-bottom:110px;
     }
 
     a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
 
-    .app{
-      max-width:1060px;
+    .wrap{
+      max-width:1040px;
       margin:auto;
       padding:14px;
     }
@@ -53,8 +55,8 @@
       z-index:20;
       margin:-14px -14px 14px;
       padding:12px 14px;
-      background:rgba(246,237,220,.94);
-      backdrop-filter:blur(14px);
+      background:rgba(18,60,45,.94);
+      backdrop-filter:blur(12px);
       border-bottom:1px solid var(--line);
       display:flex;
       justify-content:space-between;
@@ -65,21 +67,7 @@
 
     .brand{
       font-weight:1000;
-      color:var(--green2);
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-
-    .brandBadge{
-      width:46px;
-      height:46px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;
-      box-shadow:0 12px 28px rgba(15,81,56,.16);
+      color:#fff8db;
     }
 
     .nav{
@@ -88,79 +76,70 @@
       flex-wrap:wrap;
     }
 
-    .btn,
-    button,
-    .top a{
+    .btn{
       min-height:48px;
-      border-radius:15px;
+      border-radius:999px;
       border:1px solid var(--line);
-      background:#fffaf0;
-      color:var(--green2);
-      padding:0 14px;
-      font:inherit;
-      font-weight:1000;
+      background:rgba(255,255,255,.08);
+      color:var(--text);
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:8px;
+      padding:0 15px;
+      font-weight:1000;
       cursor:pointer;
-      box-shadow:0 8px 18px rgba(64,46,17,.07);
+      text-align:center;
     }
 
-    .gold{
-      background:linear-gradient(135deg,var(--gold),var(--gold2))!important;
-      color:#2b2108!important;
-      border:0!important;
+    .btn.gold{
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:#061b14;
+      border:0;
     }
 
-    .green{
-      background:linear-gradient(135deg,#22c55e,#16a34a)!important;
-      color:#062014!important;
-      border:0!important;
-    }
-
-    .clear{
-      background:#fff3cd!important;
-      color:#6b4d09!important;
-      border-color:rgba(250,204,21,.42)!important;
-    }
-
-    .hero,
-    .card{
-      border:1px solid var(--line);
-      border-radius:24px;
-      background:rgba(255,250,240,.86);
-      box-shadow:var(--shadow);
+    .btn.green{
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#052016;
+      border:0;
     }
 
     .hero{
-      padding:20px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(180deg,rgba(25,82,60,.96),rgba(16,61,46,.96));
+      box-shadow:var(--shadow);
+      padding:22px;
       margin-bottom:14px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-      align-items:start;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:4px;
+      background:linear-gradient(90deg,var(--gold),var(--green));
     }
 
     h1{
-      font-size:clamp(34px,6vw,58px);
-      line-height:1.02;
       margin:0;
+      font-size:clamp(36px,7vw,70px);
+      line-height:.96;
       font-weight:1000;
-      letter-spacing:-.045em;
-      color:var(--green2);
+      letter-spacing:-.05em;
+      color:#fff8db;
     }
 
     h2{
       margin:0 0 10px;
-      color:var(--green2);
-      font-size:clamp(24px,4vw,34px);
-      line-height:1.08;
+      font-size:24px;
+      color:#fff8db;
     }
 
     p{
       color:var(--muted);
-      line-height:1.58;
+      line-height:1.6;
       font-weight:850;
     }
 
@@ -168,113 +147,127 @@
       display:flex;
       gap:8px;
       flex-wrap:wrap;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .pill{
       border:1px solid var(--line);
-      background:#fffaf0;
-      color:#6b4d09;
+      background:rgba(255,255,255,.07);
       border-radius:999px;
       padding:8px 12px;
       font-size:13px;
       font-weight:1000;
+      color:#fff8db;
     }
 
     .grid{
       display:grid;
-      grid-template-columns:1.08fr .92fr;
+      grid-template-columns:1fr 1fr;
       gap:14px;
     }
 
     .card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:rgba(255,255,255,.07);
       padding:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,.12);
     }
 
-    .section{
-      margin:16px 0 10px;
-      padding:12px;
-      border:1px solid rgba(250,204,21,.46);
-      background:rgba(250,204,21,.14);
-      border-radius:16px;
+    .card.gold{
+      background:rgba(250,204,21,.10);
+      border-color:rgba(250,204,21,.36);
+    }
+
+    .card.green{
+      background:rgba(34,197,94,.10);
+      border-color:rgba(34,197,94,.30);
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      color:#fff8db;
       font-weight:1000;
-      color:#6b4d09;
+      margin:0 0 6px;
     }
 
-    .prices{
+    input,select,textarea{
+      width:100%;
+      border-radius:16px;
+      border:1px solid var(--line);
+      outline:none;
+      background:rgba(255,255,255,.09);
+      color:#fff;
+      padding:13px 14px;
+      font-weight:900;
+    }
+
+    select option{
+      color:#071b14;
+    }
+
+    textarea{
+      min-height:96px;
+      resize:vertical;
+      line-height:1.45;
+    }
+
+    .row{
       display:grid;
-      grid-template-columns:repeat(2,1fr);
+      grid-template-columns:1fr 1fr;
       gap:10px;
+      margin-top:10px;
     }
 
-    .option{
+    .field{
+      margin-top:10px;
+    }
+
+    .tarifs{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .tarif{
       border:1px solid var(--line);
       border-radius:18px;
-      background:#fffdf6;
-      padding:14px;
-      display:grid;
-      gap:7px;
-      text-align:left;
-      color:var(--ink);
-      min-height:126px;
-    }
-
-    .option.active{
-      border-color:#facc15;
-      background:rgba(250,204,21,.22);
-      box-shadow:0 12px 26px rgba(250,204,21,.14);
-    }
-
-    .code{
-      display:inline-flex;
-      width:max-content;
-      min-width:52px;
-      height:38px;
-      border-radius:12px;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;
-      font-weight:1000;
-    }
-
-    .code.extra{
-      background:linear-gradient(135deg,var(--gold),var(--gold2));
-      color:#2b2108;
-    }
-
-    .amount{
-      color:#6b4d09;
-      font-weight:1000;
-    }
-
-    .summary{
-      position:sticky;
-      top:82px;
-    }
-
-    .box,
-    .payment{
-      margin-top:12px;
-      border:1px solid rgba(250,204,21,.42);
-      border-radius:18px;
-      background:rgba(250,204,21,.10);
+      background:rgba(255,255,255,.07);
       padding:12px;
+      cursor:pointer;
     }
 
-    .payment{
-      background:linear-gradient(145deg,rgba(250,204,21,.16),rgba(34,197,94,.10));
-      border-color:rgba(250,204,21,.58);
+    .tarif input{
+      width:auto;
+      margin-right:8px;
+      accent-color:#facc15;
+    }
+
+    .tarif strong{
+      display:block;
+      color:#fff8db;
+      font-size:18px;
+      margin-top:6px;
+    }
+
+    .tarif small{
+      display:block;
+      color:var(--muted);
+      line-height:1.4;
+      margin-top:5px;
+      font-weight:850;
     }
 
     .waveHero{
-      margin-top:12px;
+      margin-top:10px;
       padding:18px;
-      border-radius:20px;
+      border-radius:22px;
       background:linear-gradient(135deg,#facc15,#f59e0b);
-      color:#2b2108;
-      border:1px solid rgba(250,204,21,.78);
-      box-shadow:0 14px 32px rgba(64,46,17,.18);
+      color:#061b14;
+      border:1px solid rgba(250,204,21,.80);
+      box-shadow:0 14px 32px rgba(0,0,0,.28);
     }
 
     .waveHero small{
@@ -289,575 +282,541 @@
 
     .waveHero strong{
       display:block;
-      font-size:clamp(24px,5.6vw,38px);
+      font-size:clamp(24px,5.6vw,36px);
       line-height:1.12;
       font-weight:1000;
       letter-spacing:-.035em;
     }
 
-    .paymentTitle{
-      font-size:20px;
-      color:#6b4d09;
-      font-weight:1000;
-      margin-bottom:8px;
-    }
-
-    .payLine{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      padding:8px 0;
-      border-bottom:1px solid var(--line);
-      color:var(--ink);
-      font-size:15px;
-      font-weight:1000;
-    }
-
-    .payLine:last-child{border-bottom:0}
-    .payLine strong{color:#6b4d09}
-
-    .proof{
-      margin-top:10px;
-      padding:10px;
-      border-radius:14px;
-      background:rgba(255,255,255,.68);
-      border:1px dashed rgba(250,204,21,.55);
-      color:#6b4d09;
-      line-height:1.45;
-      font-weight:950;
-    }
-
-    .proofNote{
-      margin-top:12px;
+    .paybox{
       display:grid;
-      gap:6px;
+      gap:8px;
+      margin-top:10px;
     }
 
-    .proofNote label{
-      color:var(--green2);
-      font-weight:1000;
-      font-size:14px;
-    }
-
-    .proofNote textarea{
-      width:100%;
-      min-height:92px;
-      border-radius:16px;
-      border:1px solid rgba(65,48,18,.22);
-      background:#fffaf0;
-      color:var(--ink);
-      padding:12px;
-      font:inherit;
-      font-size:16px;
-      font-weight:850;
-      line-height:1.45;
-      resize:vertical;
-      outline:none;
-    }
-
-    .line{
+    .payline{
       display:flex;
       justify-content:space-between;
       gap:10px;
-      border-bottom:1px solid var(--line);
-      padding:8px 0;
+      align-items:center;
+      border:1px solid rgba(250,204,21,.25);
+      border-radius:16px;
+      padding:10px;
+      background:rgba(250,204,21,.08);
     }
 
-    .line.final{
-      font-size:24px;
-      color:var(--green2);
-      border-bottom:0;
+    .payline b{
+      color:#fff8db;
+    }
+
+    .payline span:last-child{
+      text-align:right;
+      color:#bbf7d0;
+      font-weight:1000;
+    }
+
+    .proofHint{
+      margin-top:10px;
+      padding:10px;
+      border-radius:14px;
+      background:rgba(7,27,20,.62);
+      border:1px dashed rgba(250,204,21,.48);
+      color:#fff8dc;
+      line-height:1.45;
+      font-weight:950;
+      font-size:14px;
     }
 
     .actions{
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:9px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       margin-top:14px;
     }
 
-    .benefits{
-      color:var(--ink);
-      line-height:1.55;
-    }
-
-    .floating{
-      position:fixed;
-      left:12px;
-      bottom:calc(14px + env(safe-area-inset-bottom,0px));
-      z-index:50;
+    .result{
+      white-space:pre-wrap;
+      border:1px solid var(--line);
       border-radius:18px;
-      min-height:60px;
-      max-width:260px;
-      padding:0 18px;
-      box-shadow:0 16px 36px rgba(64,46,17,.16);
+      background:rgba(0,0,0,.18);
+      padding:14px;
+      line-height:1.45;
+      color:#f7fff9;
+      font-weight:850;
+      min-height:170px;
     }
 
-    @media(max-width:850px){
-      .hero,
-      .grid{grid-template-columns:1fr}
+    .note{
+      font-size:14px;
+      line-height:1.55;
+      color:var(--muted);
+      font-weight:850;
+    }
 
-      .summary{
-        position:relative;
-        top:auto;
-      }
+    .footer{
+      margin-top:14px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:14px;
+      background:rgba(255,255,255,.055);
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.5;
+    }
 
-      .prices,
-      .actions{
+    .sticky{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:30;
+      padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+      background:rgba(7,27,20,.94);
+      backdrop-filter:blur(12px);
+      border-top:1px solid var(--line);
+    }
+
+    .sticky .inner{
+      max-width:1040px;
+      margin:auto;
+      display:flex;
+      gap:10px;
+    }
+
+    .sticky .btn{
+      flex:1;
+    }
+
+    @media(max-width:760px){
+      .grid,.row,.tarifs{
         grid-template-columns:1fr;
       }
 
-      .nav{width:100%}
-      .nav a{flex:1}
+      .btn{
+        width:100%;
+      }
 
-      .payLine{
+      .nav{
+        width:100%;
+      }
+
+      .sticky .inner{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding:18px;
+      }
+
+      .payline{
         display:grid;
         gap:3px;
       }
 
-      .floating{
-        left:12px;
-        right:auto;
-        bottom:calc(12px + env(safe-area-inset-bottom,0px));
-        max-width:calc(50vw - 18px);
-        border-radius:18px;
-        padding:0 12px;
-        font-size:15px;
+      .payline span:last-child{
+        text-align:left;
       }
-    }
-
-    @media(max-width:520px){
-      body{font-size:17px}
-      .hero,
-      .card{padding:14px}
-      .line{display:grid}
-      .line.final{font-size:21px}
-      .floating{max-width:46vw}
     }
   </style>
 </head>
 
 <body>
-  <div class="app">
+  <main class="wrap">
     <header class="top">
-      <a class="brand" href="./index.html">
-        <span class="brandBadge">🚕</span>
-        <span>DIGIY DRIVER · inscription</span>
-      </a>
+      <a class="brand" href="./">🚗 DIGIY DRIVER · Inscription chauffeur</a>
+
       <nav class="nav">
-        <a href="./index.html">← Page client</a>
-        <a href="https://digiy-hub.digiylyfe.com/">🧭 HUB</a>
+        <a class="btn" href="./">← Galerie</a>
+        <a class="btn" href="https://digiylyfe.com/">🌍 Site</a>
       </nav>
     </header>
 
     <section class="hero">
-      <div>
-        <h1>Je conduis, je garde ma route.</h1>
-        <p>
-          Aucun tarif n’est précoché. Le professionnel choisit volontairement,
-          l’addition se fait seulement sur les cartes cliquées.
-        </p>
-        <div class="pills">
-          <span class="pill">0% commission</span>
-          <span class="pill">Contact direct</span>
-          <span class="pill">Fiche chauffeur</span>
-          <span class="pill">QR / lien</span>
-        </div>
-      </div>
+      <h1>Inscription chauffeur</h1>
+      <p>
+        Remplis ta fiche chauffeur. DIGIY prépare le message propre avec tes infos,
+        ton tarif choisi volontairement, ton paiement Wave et ta demande d’inscription.
+        Le paiement ne publie pas automatiquement la fiche : DIGIY vérifie d’abord que la présentation est complète, lisible et cohérente.
+      </p>
 
-      <div>
-        <div class="waveHero">
-          <small>Paiement Wave</small>
-          <strong>Wave : JB BEAUVILLE · +221 77 134 28 89</strong>
-        </div>
-        <p>
-          Date, sous-total, total, WhatsApp, SMS, bouton Effacer.
-          Après paiement, envoie la preuve sur WhatsApp.
-        </p>
+      <div class="pills">
+        <span class="pill">Fiche chauffeur vérifiée</span>
+        <span class="pill">QR & carte digitale</span>
+        <span class="pill">0% commission</span>
+        <span class="pill">Contact direct WhatsApp</span>
+        <span class="pill">Aucun tarif précoché</span>
       </div>
     </section>
 
-    <main class="grid">
-      <section class="card">
-        <h2>Tarifs DRIVER</h2>
+    <section class="grid">
+      <form class="card" id="driverForm">
+        <h2>1 · Mon profil chauffeur</h2>
 
-        <div class="section">🚕 Abonnement DRIVER</div>
-        <div class="prices" id="baseOptions"></div>
-
-        <div class="section">✨ BOOST visibilité</div>
-        <div class="prices" id="boostOptions"></div>
-
-        <div class="section">📣 RÉSEAU abonné / FIRST non-abonné</div>
-        <div class="prices" id="reseauOptions"></div>
-      </section>
-
-      <aside class="card summary" id="summary">
-        <h2>Ce que l’abonnement m’apporte</h2>
-
-        <div class="box" id="selectedBox">
-          <strong>Aucun choix sélectionné</strong><br>
-          Rien n’est précoché.
-        </div>
-
-        <div id="choiceList"></div>
-
-        <div class="box">
-          <div class="line">
-            <span>Sous-total</span>
-            <strong id="subtotalText">0 FCFA</strong>
+        <div class="row">
+          <div class="field">
+            <label for="fullName">Nom complet</label>
+            <input id="fullName" placeholder="Ex : Lamine Diop" autocomplete="name" required/>
           </div>
-          <div class="line">
-            <span>Ajustement / remise</span>
-            <strong>0 FCFA</strong>
-          </div>
-          <div class="line final">
-            <span>Total</span>
-            <strong id="totalText">0 FCFA</strong>
+
+          <div class="field">
+            <label for="phone">Téléphone WhatsApp</label>
+            <input id="phone" placeholder="Ex : +221 77 000 00 00" autocomplete="tel" inputmode="tel" required/>
           </div>
         </div>
 
-        <div class="payment">
-          <div class="paymentTitle">💳 Paiement Wave</div>
-
-          <div class="waveHero">
-            <small>Nom et numéro de paiement</small>
-            <strong>Wave : JB BEAUVILLE · +221 77 134 28 89</strong>
+        <div class="row">
+          <div class="field">
+            <label for="city">Ville principale</label>
+            <input id="city" placeholder="Ex : Saly, Dakar, Mbour" autocomplete="address-level2"/>
           </div>
 
-          <div class="payLine">
-            <span>Montant à payer</span>
-            <strong id="payTotal">0 FCFA</strong>
-          </div>
-
-          <div class="proof">
-            Après paiement Wave, envoie la capture ou la preuve par WhatsApp.
-            DIGIY vérifie puis accompagne l’ouverture / visibilité DRIVER.
-          </div>
-
-          <div class="proofNote">
-            <label for="paymentNote">📝 Note / preuve paiement</label>
-            <textarea
-              id="paymentNote"
-              placeholder="Ex : Paiement Wave envoyé pour DRIVER 1C — 19 900 FCFA — au nom de Mamadou Diop — tél +221 77 000 00 00."></textarea>
+          <div class="field">
+            <label for="zone">Zone de travail</label>
+            <input id="zone" placeholder="Ex : Petite Côte, AIBD, Dakar" autocomplete="address-level2"/>
           </div>
         </div>
 
-        <div class="box" id="dateBox">Date de demande : —</div>
+        <div class="row">
+          <div class="field">
+            <label for="transportType">Type de transport</label>
+            <select id="transportType">
+              <option>Chauffeur privé</option>
+              <option>Taxi local</option>
+              <option>VTC</option>
+              <option>Jakarta</option>
+              <option>Bus / minibus</option>
+              <option>Transport touristique</option>
+            </select>
+          </div>
 
-        <ul class="benefits" id="benefits"></ul>
+          <div class="field">
+            <label for="vehicle">Véhicule</label>
+            <input id="vehicle" placeholder="Ex : Toyota, Hyundai, Jakarta, bus"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="places">Nombre de places</label>
+            <input id="places" placeholder="Ex : 4 places"/>
+          </div>
+
+          <div class="field">
+            <label for="services">Services</label>
+            <input id="services" placeholder="Ex : AIBD, courses, circuits, nuit"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bio">Petite présentation</label>
+          <textarea id="bio" placeholder="Ex : Chauffeur sérieux, ponctuel, disponible pour transferts AIBD et déplacements sur la Petite Côte."></textarea>
+        </div>
+      </form>
+
+      <aside class="card gold">
+        <h2>2 · Tarif & paiement Wave</h2>
+        <p class="note">
+          Choisis volontairement ton niveau DRIVER, puis paie par Wave. Aucun tarif n’est précoché.
+          Après paiement, indique la preuve : nom utilisé, montant, date/heure ou référence Wave.
+        </p>
+
+        <div class="tarifs" role="radiogroup" aria-label="Choix tarif chauffeur">
+          <label class="tarif">
+            <input type="radio" name="plan" value="DRIVER Jakarta" data-code="1A" data-amount="5500" data-eur="9"/>
+            1A · Jakarta
+            <strong>5 500 FCFA</strong>
+            <small>9 € · présence simple</small>
+          </label>
+
+          <label class="tarif">
+            <input type="radio" name="plan" value="DRIVER Bus" data-code="1B" data-amount="12000" data-eur="19"/>
+            1B · Bus
+            <strong>12 000 FCFA</strong>
+            <small>19 € · transport groupe</small>
+          </label>
+
+          <label class="tarif">
+            <input type="radio" name="plan" value="DRIVER" data-code="1C" data-amount="19900" data-eur="29"/>
+            1C · Driver
+            <strong>19 900 FCFA</strong>
+            <small>29 € · chauffeur pro</small>
+          </label>
+        </div>
+
+        <div class="waveHero">
+          <small>Paiement Wave officiel</small>
+          <strong>Wave : JB BEAUVILLE · +221 77 134 28 89</strong>
+        </div>
+
+        <div class="paybox" aria-label="Paiement Wave DIGIY">
+          <div class="payline">
+            <b>Nom Wave</b>
+            <span>JB BEAUVILLE</span>
+          </div>
+
+          <div class="payline">
+            <b>Téléphone Wave</b>
+            <span>+221 77 134 28 89</span>
+          </div>
+
+          <div class="payline">
+            <b>Montant choisi</b>
+            <span id="payAmount">Choisis un tarif</span>
+          </div>
+        </div>
+
+        <div class="proofHint">
+          Après paiement Wave, envoie la capture ou la preuve sur WhatsApp.
+          DIGIY vérifie le paiement et la qualité de présentation avant affichage public.
+        </div>
+
+        <div class="proofHint">
+          <strong>Fiche vérifiée DIGIY.</strong><br>
+          DIGIY vérifie que les informations sont complètes, lisibles et cohérentes.
+          DIGIY ne remplace pas les obligations légales du chauffeur : véhicule, documents,
+          conduite et service restent sous la responsabilité du professionnel.
+        </div>
+
+        <div class="field">
+          <label for="paymentRef">📝 Note / preuve paiement</label>
+          <textarea id="paymentRef" placeholder="Ex : Paiement Wave envoyé pour DRIVER 1C — 19 900 FCFA — au nom de Lamine Diop — tél +221 77 000 00 00."></textarea>
+        </div>
 
         <div class="actions">
-          <a class="btn green" id="btnWa">💬 WhatsApp</a>
-          <button class="btn" id="btnSms" type="button">📱 SMS</button>
-          <button class="btn clear" id="btnClear" type="button">🧹 Effacer</button>
-        </div>
-
-        <div class="actions">
-          <button class="btn" id="btnCopyWave" type="button">📋 Copier Wave</button>
-          <a class="btn gold" id="btnProof">📸 Envoyer preuve</a>
-          <a class="btn gold" href="https://pro-driver.digiylyfe.com/">🔐 Espace pro</a>
+          <button class="btn gold" type="button" id="buildMsg">Préparer mon message</button>
+          <button class="btn" type="button" id="saveLocal">Sauvegarder ici</button>
         </div>
       </aside>
-    </main>
+    </section>
+
+    <section class="card green" style="margin-top:14px;">
+      <h2>3 · Message prêt à envoyer</h2>
+
+      <div class="result" id="resultBox">
+        Remplis la fiche, choisis ton tarif, puis clique sur “Préparer mon message”.
+      </div>
+
+      <div class="actions">
+        <button class="btn gold" type="button" id="copyMsg">Copier le message</button>
+        <a class="btn green" id="waBtn" target="_blank" rel="noopener" href="https://wa.me/221771342889">Envoyer sur WhatsApp DIGIY</a>
+      </div>
+
+      <p class="note">
+        Rien n’est activé automatiquement : DIGIY reçoit ta demande, vérifie le paiement
+        et vérifie seulement la fiche de présentation. Le chauffeur reste responsable de son véhicule,
+        de ses documents, de sa conduite et de son service.
+      </p>
+    </section>
+
+    <footer class="footer">
+      DIGIY DRIVER — Le chauffeur garde son nom, son client, son argent et sa relation. 🦅
+    </footer>
+  </main>
+
+  <div class="sticky">
+    <div class="inner">
+      <button class="btn gold" type="button" id="stickyBuild">Préparer inscription</button>
+      <a class="btn green" href="https://wa.me/221771342889" id="stickyWa" target="_blank" rel="noopener">WhatsApp DIGIY</a>
+    </div>
   </div>
 
-  <button class="gold floating" id="btnFloating" type="button">📱 Voir total</button>
+  <!-- 🎧 DIGIY ACCUEIL — bouton flottant de bienvenue -->
+  <script
+    src="https://digiy-accueil.digiylyfe.com/assets/js/digiy-welcome-floating.js"
+    data-module="DRIVER"
+    defer>
+  </script>
 
   <script>
     (function(){
       "use strict";
 
-      const TEL = "221771342889";
+      const DIGIY_WA = "221771342889";
       const WAVE_LABEL = "Wave : JB BEAUVILLE · +221 77 134 28 89";
 
-      const PLANS = [
-        {
-          code:"1A",
-          cat:"base",
-          name:"DRIVER Jakarta",
-          fcfa:5500,
-          amount:"5 500 FCFA · 9 €",
-          desc:"Entrée légère deux-roues.",
-          bonus:["Fiche pro","QR","Contact direct"]
-        },
-        {
-          code:"1B",
-          cat:"base",
-          name:"DRIVER Bus",
-          fcfa:12000,
-          amount:"12 000 FCFA · 19 €",
-          desc:"Transport groupe ou ligne.",
-          bonus:["Fiche transport","Trajets","Messages prêts"]
-        },
-        {
-          code:"1C",
-          cat:"base",
-          name:"DRIVER Chauffeur",
-          fcfa:19900,
-          amount:"19 900 FCFA · 29 €",
-          desc:"Chauffeur, taxi-local ou VTC.",
-          bonus:["Profil pro","Disponibilité","WhatsApp direct"]
-        },
-        {
-          code:"E1",
-          cat:"boost",
-          name:"Boost Local",
-          fcfa:5000,
-          amount:"5 000 FCFA",
-          desc:"Petit projecteur local.",
-          bonus:["Boost local"]
-        },
-        {
-          code:"E2",
-          cat:"boost",
-          name:"Boost Standard",
-          fcfa:10000,
-          amount:"10 000 FCFA",
-          desc:"Mise en avant renforcée.",
-          bonus:["Visibilité renforcée"]
-        },
-        {
-          code:"E3",
-          cat:"boost",
-          name:"Boost Premium",
-          fcfa:20000,
-          amount:"20 000 FCFA",
-          desc:"Visibilité maximale.",
-          bonus:["Priorité visibilité"]
-        },
-        {
-          code:"R7",
-          cat:"reseau",
-          name:"RÉSEAU abonné — 7 jours",
-          fcfa:15000,
-          amount:"15 000 FCFA",
-          desc:"Pour pro déjà abonné.",
-          bonus:["Réservé abonnés"]
-        },
-        {
-          code:"R15",
-          cat:"reseau",
-          name:"RÉSEAU abonné — 15 jours",
-          fcfa:25000,
-          amount:"25 000 FCFA",
-          desc:"Pour pro déjà abonné.",
-          bonus:["Visibilité 15 jours"]
-        },
-        {
-          code:"R30",
-          cat:"reseau",
-          name:"RÉSEAU abonné — 1 mois",
-          fcfa:45000,
-          amount:"45 000 FCFA",
-          desc:"Pour pro déjà abonné.",
-          bonus:["Visibilité 1 mois"]
-        },
-        {
-          code:"FIRST",
-          cat:"reseau",
-          name:"Mise en classe FIRST — non-abonné",
-          fcfa:150000,
-          amount:"150 000 FCFA · 1 mois",
-          desc:"Qualification, fiche, QR, lien.",
-          bonus:["Réservé non-abonnés","Fiche premium"]
+      const els = {
+        fullName: document.getElementById("fullName"),
+        phone: document.getElementById("phone"),
+        city: document.getElementById("city"),
+        zone: document.getElementById("zone"),
+        transportType: document.getElementById("transportType"),
+        vehicle: document.getElementById("vehicle"),
+        places: document.getElementById("places"),
+        services: document.getElementById("services"),
+        bio: document.getElementById("bio"),
+        paymentRef: document.getElementById("paymentRef"),
+        payAmount: document.getElementById("payAmount"),
+        resultBox: document.getElementById("resultBox"),
+        waBtn: document.getElementById("waBtn"),
+        stickyWa: document.getElementById("stickyWa")
+      };
+
+      function chosenPlan(){
+        const c = document.querySelector('input[name="plan"]:checked');
+
+        if(!c){
+          return null;
         }
-      ];
 
-      const COMMON = [
-        "Carte de visite complète",
-        "QR et lien partageable",
-        "Gestion métier DRIVER",
-        "Textes prêts",
-        "Validation humaine",
-        "0% commission"
-      ];
-
-      let selected = new Set();
-
-      const $ = id => document.getElementById(id);
-      const summary = $("summary");
-
-      function money(n){
-        return new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
+        return {
+          code: c.dataset.code,
+          name: c.value,
+          amount: c.dataset.amount,
+          eur: c.dataset.eur
+        };
       }
 
-      function date(){
+      function fmtFcfa(n){
+        return String(n || "").replace(/\B(?=(\d{3})+(?!\d))/g," ");
+      }
+
+      function val(id){
+        return (els[id]?.value || "").trim();
+      }
+
+      function nowFr(){
         return new Date().toLocaleString("fr-FR", {
           dateStyle:"full",
           timeStyle:"short"
         });
       }
 
-      function chosen(){
-        return PLANS.filter(p => selected.has(p.code));
+      function updateAmount(){
+        const p = chosenPlan();
+        els.payAmount.textContent = p
+          ? fmtFcfa(p.amount) + " FCFA · " + p.eur + " €"
+          : "Choisis un tarif";
       }
 
-      function note(){
-        return ($("paymentNote")?.value || "").trim();
-      }
+      function buildMessage(){
+        const p = chosenPlan();
+        const paymentNote = val("paymentRef") || "à compléter après paiement Wave";
+        const planLine = p ? (p.code + " · " + p.name) : "à choisir volontairement";
+        const amountLine = p ? (fmtFcfa(p.amount) + " FCFA · " + p.eur + " €") : "à compléter";
 
-      function selectedLines(){
-        const items = chosen();
-
-        return items.map(p => {
-          return "- " + p.code + " · " + p.name + " · " + money(p.fcfa);
-        }).join("\n") || "Aucun choix sélectionné";
-      }
-
-      function total(){
-        return chosen().reduce((sum, p) => sum + p.fcfa, 0);
-      }
-
-      function render(){
-        ["base","boost","reseau"].forEach(cat => {
-          const target = cat === "base"
-            ? "baseOptions"
-            : cat === "boost"
-              ? "boostOptions"
-              : "reseauOptions";
-
-          $(target).innerHTML = PLANS
-            .filter(p => p.cat === cat)
-            .map(p => `
-              <button class="option ${selected.has(p.code) ? "active" : ""}" data-code="${p.code}" type="button">
-                <span class="code ${cat !== "base" ? "extra" : ""}">${p.code}</span>
-                <b>${p.name}</b>
-                <span class="amount">${p.amount}</span>
-                <span>${p.desc}</span>
-              </button>
-            `).join("");
-        });
-
-        document.querySelectorAll(".option").forEach(btn => {
-          btn.onclick = () => {
-            const code = btn.dataset.code;
-            selected.has(code) ? selected.delete(code) : selected.add(code);
-            update(true);
-          };
-        });
-      }
-
-      function messageText(){
-        const sub = total();
-        const proofNote = note() || "à compléter";
-
-        return [
-          "Bonjour JB, je veux avancer avec DIGIY DRIVER.",
+        const msg = [
+          "Bonjour JB, je souhaite faire mon inscription chauffeur DIGIY DRIVER.",
           "",
-          "Date de demande : " + date(),
+          "STATUT : dossier reçu · paiement et fiche à vérifier avant affichage public.",
+          "DIGIY vérifie la fiche de présentation, pas une certification chauffeur officielle.",
           "",
-          "Choix :",
-          selectedLines(),
+          "Date de demande : " + nowFr(),
           "",
-          "Sous-total : " + money(sub),
-          "Ajustement / remise : 0 FCFA",
-          "Total : " + money(sub),
+          "🚗 Module : " + planLine,
+          "💳 Montant choisi : " + amountLine,
+          "🏦 Paiement Wave : " + WAVE_LABEL,
+          "📝 Note / preuve paiement : " + paymentNote,
           "",
-          "Paiement Wave : " + WAVE_LABEL,
+          "👤 Nom chauffeur : " + (val("fullName") || "à compléter"),
+          "📞 Téléphone : " + (val("phone") || "à compléter"),
+          "🏙️ Ville : " + (val("city") || "à compléter"),
+          "📍 Zone : " + (val("zone") || "à compléter"),
+          "🚕 Type : " + (val("transportType") || "à compléter"),
+          "🚘 Véhicule : " + (val("vehicle") || "à compléter"),
+          "👥 Places : " + (val("places") || "à compléter"),
+          "🧭 Services : " + (val("services") || "à compléter"),
           "",
-          "Note / preuve paiement :",
-          proofNote,
+          "📝 Présentation :",
+          val("bio") || "à compléter",
           "",
-          "Après paiement, je vous envoie la preuve ici.",
-          "",
-          "Canal souhaité : WhatsApp ou SMS."
+          "Merci de vérifier mon paiement, la cohérence de ma fiche, puis de préparer mon accès DIGIY DRIVER."
         ].join("\n");
+
+        els.resultBox.textContent = msg;
+
+        const url = "https://wa.me/" + DIGIY_WA + "?text=" + encodeURIComponent(msg);
+        els.waBtn.href = url;
+        els.stickyWa.href = url;
+
+        try{
+          localStorage.setItem("digiy_driver_inscription_message", msg);
+        }catch(_){}
+
+        return msg;
       }
 
-      function proofMessage(){
-        const sub = total();
-        const proofNote = note() || "à compléter";
+      document.querySelectorAll('input[name="plan"]').forEach(r => {
+        r.addEventListener("change", function(){
+          updateAmount();
+          buildMessage();
+        });
+      });
 
-        return [
-          "Bonjour JB, voici la preuve de paiement Wave pour DIGIY DRIVER.",
-          "",
-          "Date de demande : " + date(),
-          "",
-          WAVE_LABEL,
-          "Montant : " + money(sub),
-          "",
-          "Choix :",
-          selectedLines(),
-          "",
-          "Note / preuve paiement :",
-          proofNote,
-          "",
-          "Je joins la capture / preuve de paiement à ce message."
-        ].join("\n");
-      }
+      document.getElementById("buildMsg").addEventListener("click", buildMessage);
+      document.getElementById("stickyBuild").addEventListener("click", buildMessage);
 
-      function update(scroll){
-        render();
+      document.getElementById("copyMsg").addEventListener("click", async function(){
+        const msg = els.resultBox.textContent || buildMessage();
 
-        const items = chosen();
-        const sub = total();
+        try{
+          await navigator.clipboard.writeText(msg);
+          alert("Message copié ✅");
+        }catch(_){
+          alert("Copie impossible automatiquement. Sélectionne le message puis copie-le.");
+        }
+      });
 
-        $("selectedBox").innerHTML = items.length
-          ? `<strong>${items.length} choix sélectionné${items.length > 1 ? "s" : ""}</strong><br>Ajoute ou retire en recliquant.`
-          : `<strong>Aucun choix sélectionné</strong><br>Rien n’est précoché.`;
+      document.getElementById("saveLocal").addEventListener("click", function(){
+        saveLocalDraft(false);
+      });
 
-        $("choiceList").innerHTML = items.length
-          ? items.map(p => `
-              <div class="line">
-                <span>${p.code} · ${p.name}</span>
-                <b>${money(p.fcfa)}</b>
-              </div>
-            `).join("")
-          : `<div class="line"><span>Aucun choix</span><b>0 FCFA</b></div>`;
+      function saveLocalDraft(silent){
+        const data = {};
 
-        $("subtotalText").textContent = money(sub);
-        $("totalText").textContent = money(sub);
-        $("payTotal").textContent = money(sub);
-        $("dateBox").textContent = "Date de demande : " + date();
+        [
+          "fullName",
+          "phone",
+          "city",
+          "zone",
+          "transportType",
+          "vehicle",
+          "places",
+          "services",
+          "bio",
+          "paymentRef"
+        ].forEach(k => data[k] = val(k));
 
-        $("benefits").innerHTML = (
-          items.length
-            ? [...COMMON, ...items.flatMap(p => p.bonus)]
-            : []
-        ).slice(0,20).map(x => `<li>✅ ${x}</li>`).join("");
+        data.plan = chosenPlan();
 
-        $("btnWa").href = "https://wa.me/" + TEL + "?text=" + encodeURIComponent(messageText());
-        $("btnProof").href = "https://wa.me/" + TEL + "?text=" + encodeURIComponent(proofMessage());
-
-        if(scroll && matchMedia("(max-width:850px)").matches){
-          summary.scrollIntoView({behavior:"smooth", block:"start"});
+        try{
+          localStorage.setItem("digiy_driver_inscription_form", JSON.stringify(data));
+          if(!silent) alert("Fiche sauvegardée sur ce téléphone ✅");
+        }catch(_){
+          if(!silent) alert("Sauvegarde locale impossible sur cet appareil.");
         }
       }
 
-      $("paymentNote").addEventListener("input", () => update(false));
+      try{
+        const raw = localStorage.getItem("digiy_driver_inscription_form");
 
-      $("btnSms").onclick = () => {
-        navigator.clipboard && navigator.clipboard.writeText(messageText()).then(() => {
-          $("btnSms").textContent = "✅ Message SMS copié";
-          setTimeout(() => $("btnSms").textContent = "📱 SMS", 1600);
-        });
-      };
+        if(raw){
+          const data = JSON.parse(raw);
 
-      $("btnCopyWave").onclick = () => {
-        navigator.clipboard && navigator.clipboard.writeText(WAVE_LABEL).then(() => {
-          $("btnCopyWave").textContent = "✅ Wave copié";
-          setTimeout(() => $("btnCopyWave").textContent = "📋 Copier Wave", 1600);
-        });
-      };
+          Object.keys(data || {}).forEach(k => {
+            if(els[k] && typeof data[k] === "string"){
+              els[k].value = data[k];
+            }
+          });
 
-      $("btnClear").onclick = () => {
-        selected.clear();
-        $("paymentNote").value = "";
-        update(true);
-      };
+          if(data.plan && data.plan.code){
+            const radio = document.querySelector('input[name="plan"][data-code="' + data.plan.code + '"]');
+            if(radio) radio.checked = true;
+          }
+        }
+      }catch(_){}
 
-      $("btnFloating").onclick = () => {
-        summary.scrollIntoView({behavior:"smooth", block:"start"});
-      };
+      Object.keys(els).forEach(k => {
+        const el = els[k];
+        if(!el || !el.addEventListener) return;
+        el.addEventListener("input", () => saveLocalDraft(true));
+        el.addEventListener("change", () => saveLocalDraft(true));
+      });
 
-      update(false);
+      updateAmount();
     })();
-  </script>
-
-  <script
-    src="https://digiy-accueil.digiylyfe.com/assets/js/digiy-welcome-floating.js"
-    data-module="DRIVER"
-    defer>
   </script>
 </body>
 </html>
+
+
