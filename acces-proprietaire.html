@@ -23,14 +23,26 @@ const db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionI
 const $=id=>document.getElementById(id),p=new URLSearchParams(location.search);
 const requestedSlug=(p.get('slug')||'').trim();
 if(requestedSlug) localStorage.setItem('digiy_driver_owner_slug',requestedSlug);
-const slug=(requestedSlug||localStorage.getItem('digiy_driver_owner_slug')||'baptiste-driver-ambassador').trim();
-const target='./gestion.html?slug='+encodeURIComponent(slug)+'&v=20260930-whatsapp';
-const redirect=()=>location.origin+location.pathname;
+const redirect=()=>location.origin+location.pathname+(requestedSlug?('?slug='+encodeURIComponent(requestedSlug)):'');
 function msg(t,b=false){$('status').textContent=t||'';$('status').classList.toggle('bad',!!b)}
-async function openIfSession(){const {data}=await db.auth.getSession();if(data?.session)location.replace(target)}
+async function resolveAndOpen(session){
+ if(!session?.user)return;
+ const {data,error}=await db.from('digiy_driver_master_members').select('slug,display_name').eq('owner_id',session.user.id).eq('is_active',true).order('display_name');
+ if(error)return msg('⚠️ Impossible de retrouver votre espace DRIVER.',true);
+ const rows=data||[];
+ if(!rows.length)return msg('⚠️ Aucun accès DRIVER actif n’est rattaché à ce compte.',true);
+ let chosen=requestedSlug?rows.find(r=>r.slug===requestedSlug):null;
+ if(!chosen){
+   const saved=(localStorage.getItem('digiy_driver_owner_slug')||'').trim();
+   chosen=rows.find(r=>r.slug===saved)||rows[0];
+ }
+ localStorage.setItem('digiy_driver_owner_slug',chosen.slug);
+ location.replace('./gestion.html?slug='+encodeURIComponent(chosen.slug)+'&v=20260930-whatsapp');
+}
+async function openIfSession(){const {data}=await db.auth.getSession();if(data?.session)resolveAndOpen(data.session)}
 $('send').onclick=async()=>{const email=$('email').value.trim();if(!email)return msg('Indiquez votre email propriétaire.',true);$('send').disabled=true;const {error}=await db.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:redirect()}});$('send').disabled=false;if(error)return msg('⚠️ '+error.message,true);$('otpBox').classList.remove('hidden');msg('Email envoyé. Cliquez sur le lien reçu ou entrez le code.')};
-$('verify').onclick=async()=>{const email=$('email').value.trim(),token=$('otp').value.trim();const {data,error}=await db.auth.verifyOtp({email,token,type:'email'});if(error)return msg('⚠️ Code invalide ou expiré.',true);if(data?.session)location.replace(target)};
-db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session)setTimeout(()=>location.replace(target),0)});
+$('verify').onclick=async()=>{const email=$('email').value.trim(),token=$('otp').value.trim();const {data,error}=await db.auth.verifyOtp({email,token,type:'email'});if(error)return msg('⚠️ Code invalide ou expiré.',true);if(data?.session)resolveAndOpen(data.session)};
+db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session)setTimeout(()=>resolveAndOpen(session),0)});
 openIfSession();
 })();
 </script></body></html>
