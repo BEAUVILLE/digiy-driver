@@ -1111,6 +1111,8 @@
           if(master.error) throw master.error;
           const row = Array.isArray(master.data) ? master.data[0] : master.data;
           if(!row || !row.slug) throw new Error("not_found");
+          const contact = await sb.rpc("digiy_driver_master_public_contact_v1", { p_slug: slugForRpc });
+          const contactRow = !contact.error ? (Array.isArray(contact.data) ? contact.data[0] : contact.data) : null;
           masterMode = true;
           p = {
             display_name: row.display_name,
@@ -1121,7 +1123,7 @@
             zones_text: Array.isArray(row.service_zones) ? row.service_zones : [],
             bio: row.effective_status==="available" ? "Disponible actuellement via DIGIY DRIVER." : "Chauffeur DIGIY DRIVER.",
             contact_note: row.effective_status==="available" ? "Disponible · "+(row.current_sector||"secteur à confirmer") : "Indisponible actuellement",
-            whatsapp: "",
+            whatsapp: contactRow?.whatsapp_phone || "",
             services_master: Array.isArray(row.services) ? row.services : [],
             indicative_rates: row.indicative_rates || ""
           };
