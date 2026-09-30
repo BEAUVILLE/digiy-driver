@@ -1185,8 +1185,16 @@
         document.getElementById("comfort").textContent = comfort;
 
         renderZones(zones);
-        if(masterMode && p.indicative_rates){
-          document.getElementById("ratesList").innerHTML='<div class="empty">'+escapeHtml(p.indicative_rates)+'</div>';
+        if(masterMode){
+          const masterRates = await sb.rpc("digiy_driver_master_public_rates_v1", { p_slug: slugForRpc });
+          const rows = !masterRates.error ? (masterRates.data || []) : [];
+          if(rows.length){
+            document.getElementById("ratesList").innerHTML=rows.map(r=>'<div class="rate"><span class="rate-name">'+escapeHtml(r.route_label)+'</span><span class="rate-price">'+money(r.price_fcfa)+'</span></div>').join("");
+          } else if(p.indicative_rates){
+            document.getElementById("ratesList").innerHTML='<div class="empty">'+escapeHtml(p.indicative_rates)+'</div>';
+          } else {
+            document.getElementById("ratesList").innerHTML='<div class="empty">Aucun tarif publié</div>';
+          }
         } else {
           renderRatesGrouped(rates);
         }
