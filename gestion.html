@@ -16,7 +16,7 @@
 <section class="panel hidden" id="profilePanel">
 <h2>Profil public</h2>
 <div class="grid">
-<div class="field"><label>Zones desservies</label><input id="zones" placeholder="Saly, Mbour, AIBD"></div>
+<div class="field"><label>Secteur / zones desservies</label><input id="zones" placeholder="Ex : Saly, Mbour, AIBD, Petite Côte"></div>
 <div class="field"><label>Services</label><input id="services" placeholder="Transfert AIBD, Course locale, Mise à disposition"></div>
 <div class="field"><label>Nombre de places</label><input id="seats" type="number" min="1" max="60" inputmode="numeric"></div>
 <div class="field"><label>Capacité bagages</label><input id="luggage" placeholder="2 grandes valises + 2 cabines"></div>
@@ -38,13 +38,21 @@
 <button class="btn" id="saveProfile">Enregistrer mon profil</button><div class="status" id="profileStatus"></div>
 </section>
 <section class="panel hidden" id="ratesPanel">
-<h2>Mes trajets & prix</h2>
-<p class="muted">Indique tes trajets habituels et tes prix indicatifs. Ils seront visibles sur ta fiche publique.</p>
-<div class="grid">
-  <div class="field"><label>Trajet / prestation</label><input id="rateRoute" placeholder="Ex : Saly → AIBD"></div>
-  <div class="field"><label>Prix indicatif FCFA</label><input id="ratePrice" type="number" min="1" inputmode="numeric" placeholder="25000"></div>
+<h2>Mes courses, extras & prix</h2>
+<p class="muted">Choisis ou écris la prestation que tu proposes, puis saisis toi-même ton prix. DIGIY ne fixe aucun tarif.</p>
+<div class="chips" id="offerTemplates" style="margin:8px 0 12px">
+  <button class="btn ghost offerTemplate" type="button" data-label="Course locale">Course locale</button>
+  <button class="btn ghost offerTemplate" type="button" data-label="Saly → AIBD">Saly → AIBD</button>
+  <button class="btn ghost offerTemplate" type="button" data-label="AIBD sur rendez-vous">AIBD sur rendez-vous</button>
+  <button class="btn ghost offerTemplate" type="button" data-label="Excursion 1/2 journée">Excursion 1/2 journée</button>
+  <button class="btn ghost offerTemplate" type="button" data-label="Excursion journée">Excursion journée</button>
+  <button class="btn ghost offerTemplate" type="button" data-label="Mise à disposition">Mise à disposition</button>
 </div>
-<button class="btn gold" id="saveRate">Ajouter / modifier ce prix</button>
+<div class="grid">
+  <div class="field"><label>Course / trajet / extra</label><input id="rateRoute" placeholder="Ex : Saly → AIBD ou Excursion journée"></div>
+  <div class="field"><label>Ton prix indicatif FCFA</label><input id="ratePrice" type="number" min="1" inputmode="numeric" placeholder="Saisis ton prix"></div>
+</div>
+<button class="btn gold" id="saveRate">Publier / modifier mon prix</button>
 <div class="status" id="rateStatus"></div>
 <div id="ratesListOwner"></div>
 </section>
@@ -92,6 +100,7 @@ async function loadRates(){
  $('ratesListOwner').innerHTML=rows.length?rows.map(r=>'<div class="trip" data-rate-id="'+esc(r.id)+'"><strong>'+esc(r.route_label)+'</strong><div class="muted">'+Number(r.price_fcfa||0).toLocaleString('fr-FR')+' FCFA</div><div style="margin-top:8px"><button class="btn ghost removeRate" type="button" data-id="'+esc(r.id)+'">Retirer</button></div></div>').join(''):'<div class="muted">Aucun trajet tarifé pour le moment.</div>';
  document.querySelectorAll('.removeRate').forEach(b=>b.onclick=async()=>{const {error}=await db.rpc('digiy_driver_master_disable_rate_v1',{p_driver_id:driver.id,p_rate_id:b.dataset.id});if(error)return msg('rateStatus','⚠️ '+error.message);msg('rateStatus','✅ Prix retiré.');await loadRates();});
 }
+document.querySelectorAll('.offerTemplate').forEach(b=>b.onclick=()=>{$('rateRoute').value=b.dataset.label||'';$('ratePrice').focus();});
 $('saveRate').onclick=async()=>{
  const route=$('rateRoute').value.trim(),price=Number($('ratePrice').value||0);
  if(!route||!price)return msg('rateStatus','⚠️ Indique un trajet et un prix.');
