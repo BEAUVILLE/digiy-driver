@@ -1096,12 +1096,35 @@
       }
 
       try{
-        const { data, error } = await sb.rpc("driver_public_profile_by_slug", { p_slug: slugForRpc });
-        if(error) throw error;
-        if(!data?.ok) throw new Error(data?.error || "not_found");
+        let p = null;
+        let rates = [];
+        let masterMode = false;
 
-        const p = data.profile || {};
-        const rates = Array.isArray(data.rates) ? data.rates : [];
+        const legacy = await sb.rpc("driver_public_profile_by_slug", { p_slug: slugForRpc });
+        if(!legacy.error && legacy.data?.ok){
+          p = legacy.data.profile || {};
+          rates = Array.isArray(legacy.data.rates) ? legacy.data.rates : [];
+        } else {
+          const master = await sb.rpc("digiy_driver_master_public_profile_v1", { p_slug: slugForRpc });
+          if(master.error) throw master.error;
+          const row = Array.isArray(master.data) ? master.data[0] : master.data;
+          if(!row || !row.slug) throw new Error("not_found");
+          masterMode = true;
+          p = {
+            display_name: row.display_name,
+            city: row.current_sector,
+            vehicle_type: "Chauffeur ambassadeur",
+            seats: row.seats,
+            has_ac: row.has_ac,
+            zones_text: Array.isArray(row.service_zones) ? row.service_zones : [],
+            bio: row.effective_status==="available" ? "Disponible actuellement via DIGIY DRIVER." : "Chauffeur DIGIY DRIVER.",
+            contact_note: row.effective_status==="available" ? "Disponible · "+(row.current_sector||"secteur à confirmer") : "Indisponible actuellement",
+            whatsapp: "",
+            services_master: Array.isArray(row.services) ? row.services : [],
+            indicative_rates: row.indicative_rates || ""
+          };
+          rates = [];
+        }
 
         const name = safe(p.display_name, "Chauffeur DIGIY");
         const city = safe(p.city);
@@ -1115,11 +1138,13 @@
         const vehicleShort = [p.vehicle_type, p.vehicle_brand].filter(Boolean).join(" • ");
         const vehicleFull = vehicleBits.join(" • ");
 
-        const services = [
-          p.airport_ok ? "Transferts aéroport" : null,
-          p.long_distance_ok ? "Longues distances" : null,
-          "Réservation directe"
-        ].filter(Boolean).join(" • ");
+        const services = masterMode && Array.isArray(p.services_master) && p.services_master.length
+          ? p.services_master.join(" • ")
+          : [
+              p.airport_ok ? "Transferts aéroport" : null,
+              p.long_distance_ok ? "Longues distances" : null,
+              "Réservation directe"
+            ].filter(Boolean).join(" • ");
 
         const comfort = [
           p.has_ac ? "Climatisation disponible" : "Confort standard",
@@ -1150,7 +1175,11 @@
         document.getElementById("comfort").textContent = comfort;
 
         renderZones(zones);
-        renderRatesGrouped(rates);
+        if(masterMode && p.indicative_rates){
+          document.getElementById("ratesList").innerHTML='<div class="empty">'+escapeHtml(p.indicative_rates)+'</div>';
+        } else {
+          renderRatesGrouped(rates);
+        }
 
         const wa = document.getElementById("btnWhatsApp");
         const waHref = waLink(p.whatsapp, name);
