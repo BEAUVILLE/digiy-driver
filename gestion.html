@@ -37,7 +37,18 @@
 </div>
 <button class="btn" id="saveProfile">Enregistrer mon profil</button><div class="status" id="profileStatus"></div>
 </section>
-<section class="panel hidden" id="tripsPanel"><h2>Courses</h2><p class="muted">Liste issue du DRIVER MASTER.</p><div id="trips"></div></section>
+<section class="panel hidden" id="ratesPanel">
+<h2>Mes trajets & prix</h2>
+<p class="muted">Indique tes trajets habituels et tes prix indicatifs. Ils seront visibles sur ta fiche publique.</p>
+<div class="grid">
+  <div class="field"><label>Trajet / prestation</label><input id="rateRoute" placeholder="Ex : Saly → AIBD"></div>
+  <div class="field"><label>Prix indicatif FCFA</label><input id="ratePrice" type="number" min="1" inputmode="numeric" placeholder="25000"></div>
+</div>
+<button class="btn gold" id="saveRate">Ajouter / modifier ce prix</button>
+<div class="status" id="rateStatus"></div>
+<div id="ratesListOwner"></div>
+</section>
+<section class="panel hidden" id="tripsPanel"><h2>Courses reçues</h2><p class="muted">Demandes de course issues du DRIVER MASTER.</p><div id="trips"></div></section>
 <div class="status" id="pageStatus"></div>
 </div>
 <script>
@@ -53,7 +64,7 @@ async function boot(session){
  if(!session)return location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug));
  const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates,whatsapp_phone,bio,contact_note,vehicle_type,vehicle_brand,vehicle_model,vehicle_year,vehicle_color,photo_url,vehicle_photo_url').eq('slug',slug).maybeSingle();
  if(error||!data)return msg('pageStatus','⚠️ Ce chauffeur n’est pas rattaché à ce compte propriétaire.');
- driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('tripsPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
+ driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('ratesPanel').classList.remove('hidden');$('tripsPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
  $('zones').value=(driver.service_zones||[]).join(', ');
  $('services').value=(driver.services||[]).join(', ');
  $('seats').value=driver.seats??'';
@@ -72,8 +83,22 @@ async function boot(session){
  $('vehiclePhotoUrl').value=driver.vehicle_photo_url||'';
  $('rates').value=driver.indicative_rates||'';
  $('whatsapp').value=driver.whatsapp_phone||'';
- await loadTrips();
+ await loadRates();await loadTrips();
 }
+async function loadRates(){
+ const {data,error}=await db.rpc('digiy_driver_master_list_rates_v1',{p_driver_id:driver.id});
+ if(error)return msg('rateStatus','⚠️ '+error.message);
+ const rows=data||[];
+ $('ratesListOwner').innerHTML=rows.length?rows.map(r=>'<div class="trip" data-rate-id="'+esc(r.id)+'"><strong>'+esc(r.route_label)+'</strong><div class="muted">'+Number(r.price_fcfa||0).toLocaleString('fr-FR')+' FCFA</div><div style="margin-top:8px"><button class="btn ghost removeRate" type="button" data-id="'+esc(r.id)+'">Retirer</button></div></div>').join(''):'<div class="muted">Aucun trajet tarifé pour le moment.</div>';
+ document.querySelectorAll('.removeRate').forEach(b=>b.onclick=async()=>{const {error}=await db.rpc('digiy_driver_master_disable_rate_v1',{p_driver_id:driver.id,p_rate_id:b.dataset.id});if(error)return msg('rateStatus','⚠️ '+error.message);msg('rateStatus','✅ Prix retiré.');await loadRates();});
+}
+$('saveRate').onclick=async()=>{
+ const route=$('rateRoute').value.trim(),price=Number($('ratePrice').value||0);
+ if(!route||!price)return msg('rateStatus','⚠️ Indique un trajet et un prix.');
+ const {error}=await db.rpc('digiy_driver_master_upsert_rate_v1',{p_driver_id:driver.id,p_route_label:route,p_price_fcfa:price});
+ if(error)return msg('rateStatus','⚠️ '+error.message);
+ $('rateRoute').value='';$('ratePrice').value='';msg('rateStatus','✅ Trajet et prix enregistrés.');await loadRates();
+};
 async function loadTrips(){const {data,error}=await db.rpc('digiy_driver_master_list_trips_v1',{p_driver_id:driver.id});if(error)return msg('pageStatus','⚠️ '+error.message);$('trips').innerHTML=(data||[]).length?(data||[]).map(t=>'<div class="trip"><strong>'+esc(t.pickup)+' → '+esc(t.destination)+'</strong><div class="muted">'+esc(t.ride_day||'')+' '+esc(String(t.ride_time||'').slice(0,5))+' · '+esc(t.status||'')+'</div></div>').join(''):'<div class="muted">Aucune course enregistrée.</div>'}
 $('savePresence').onclick=async()=>{const {error}=await db.rpc('digiy_driver_master_set_presence_v1',{p_driver_id:driver.id,p_status:$('status').value,p_sector:$('sector').value.trim()||null});if(error)return msg('presenceStatus','⚠️ '+error.message);msg('presenceStatus','✅ Présence mise à jour.')};
 function listVal(id){return $(id).value.split(',').map(v=>v.trim()).filter(Boolean)}
