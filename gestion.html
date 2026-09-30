@@ -56,7 +56,7 @@
 <div class="status" id="rateStatus"></div>
 <div id="ratesListOwner"></div>
 </section>
-<section class="panel hidden" id="tripsPanel"><h2>Courses reçues</h2><p class="muted">Demandes de course issues du DRIVER MASTER.</p><div id="trips"></div></section>
+
 <div class="status" id="pageStatus"></div>
 </div>
 <script>
@@ -72,7 +72,7 @@ async function boot(session){
  if(!session)return location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug));
  const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates,whatsapp_phone,bio,contact_note,vehicle_type,vehicle_brand,vehicle_model,vehicle_year,vehicle_color,photo_url,vehicle_photo_url').eq('slug',slug).maybeSingle();
  if(error||!data)return msg('pageStatus','⚠️ Ce chauffeur n’est pas rattaché à ce compte propriétaire.');
- driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('ratesPanel').classList.remove('hidden');$('tripsPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
+ driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('ratesPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
  $('zones').value=(driver.service_zones||[]).join(', ');
  $('services').value=(driver.services||[]).join(', ');
  $('seats').value=driver.seats??'';
@@ -91,7 +91,7 @@ async function boot(session){
  $('vehiclePhotoUrl').value=driver.vehicle_photo_url||'';
  $('rates').value=driver.indicative_rates||'';
  $('whatsapp').value=driver.whatsapp_phone||'';
- await loadRates();await loadTrips();
+ await loadRates();
 }
 async function loadRates(){
  const {data,error}=await db.rpc('digiy_driver_master_list_rates_v1',{p_driver_id:driver.id});
@@ -108,7 +108,6 @@ $('saveRate').onclick=async()=>{
  if(error)return msg('rateStatus','⚠️ '+error.message);
  $('rateRoute').value='';$('ratePrice').value='';msg('rateStatus','✅ Trajet et prix enregistrés.');await loadRates();
 };
-async function loadTrips(){const {data,error}=await db.rpc('digiy_driver_master_list_trips_v1',{p_driver_id:driver.id});if(error)return msg('pageStatus','⚠️ '+error.message);$('trips').innerHTML=(data||[]).length?(data||[]).map(t=>'<div class="trip"><strong>'+esc(t.pickup)+' → '+esc(t.destination)+'</strong><div class="muted">'+esc(t.ride_day||'')+' '+esc(String(t.ride_time||'').slice(0,5))+' · '+esc(t.status||'')+'</div></div>').join(''):'<div class="muted">Aucune course enregistrée.</div>'}
 $('savePresence').onclick=async()=>{const {error}=await db.rpc('digiy_driver_master_set_presence_v1',{p_driver_id:driver.id,p_status:$('status').value,p_sector:$('sector').value.trim()||null});if(error)return msg('presenceStatus','⚠️ '+error.message);msg('presenceStatus','✅ Présence mise à jour.')};
 function listVal(id){return $(id).value.split(',').map(v=>v.trim()).filter(Boolean)}
 $('saveProfile').onclick=async()=>{const seatRaw=$('seats').value.trim();const profile=await db.rpc('digiy_driver_master_set_profile_v1',{p_driver_id:driver.id,p_service_zones:listVal('zones'),p_services:listVal('services'),p_seats:seatRaw?Number(seatRaw):null,p_luggage_capacity:$('luggage').value.trim()||null,p_has_ac:$('ac').value===''?null:$('ac').value==='true',p_languages:listVal('languages'),p_indicative_rates:$('rates').value.trim()||null});if(profile.error)return msg('profileStatus','⚠️ '+profile.error.message);const details=await db.rpc('digiy_driver_master_set_details_v1',{p_driver_id:driver.id,p_bio:$('bio').value.trim()||null,p_contact_note:$('contactNote').value.trim()||null,p_vehicle_type:$('vehicleType').value.trim()||null,p_vehicle_brand:$('vehicleBrand').value.trim()||null,p_vehicle_model:$('vehicleModel').value.trim()||null,p_vehicle_year:$('vehicleYear').value.trim()||null,p_vehicle_color:$('vehicleColor').value.trim()||null,p_photo_url:$('photoUrl').value.trim()||null,p_vehicle_photo_url:$('vehiclePhotoUrl').value.trim()||null});if(details.error)return msg('profileStatus','⚠️ Profil enregistré, détails non enregistrés : '+details.error.message);const contact=await db.rpc('digiy_driver_master_set_contact_v1',{p_driver_id:driver.id,p_whatsapp_phone:$('whatsapp').value.trim()||null});if(contact.error)return msg('profileStatus','⚠️ Profil enregistré, contact non enregistré : '+contact.error.message);msg('profileStatus','✅ Profil public, véhicule, photos et WhatsApp mis à jour.')};
