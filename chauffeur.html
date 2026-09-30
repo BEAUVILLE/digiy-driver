@@ -679,6 +679,7 @@
             <div class="hero-actions">
               <a class="btn primary" id="btnWhatsApp" href="#" target="_blank" rel="noopener">💬 WhatsApp direct</a>
               <a class="btn gold" id="btnCommander" href="./commander-course.html">🚖 Demander ce chauffeur</a>
+              <a class="btn" id="btnOwner" href="./acces-proprietaire.html">🔐 Accès propriétaire</a>
               <a class="btn" id="btnRetour" href="./index.html">🏠 Retour vitrine</a>
             </div>
           </div>
@@ -1084,6 +1085,7 @@
       document.getElementById("safePill").textContent = "fiche : publique";
       document.getElementById("btnRetour").href = digiyLocal("index.html");
       document.getElementById("brandBack").href = digiyLocal("index.html");
+      document.getElementById("btnOwner").href = digiyLocal("acces-proprietaire.html")+'?slug='+encodeURIComponent(slugForRpc);
 
       if(!slugForRpc){
         document.getElementById("name").textContent = "Lien incomplet";
