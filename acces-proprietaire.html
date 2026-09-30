@@ -21,9 +21,11 @@
 const URL='https://wesqmwjjtsefyjnluosj.supabase.co',KEY='sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3';
 const db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id),p=new URLSearchParams(location.search);
-const slug=(p.get('slug')||'baptiste-driver-ambassador').trim();
+const requestedSlug=(p.get('slug')||'').trim();
+if(requestedSlug) localStorage.setItem('digiy_driver_owner_slug',requestedSlug);
+const slug=(requestedSlug||localStorage.getItem('digiy_driver_owner_slug')||'baptiste-driver-ambassador').trim();
 const target='./gestion.html?slug='+encodeURIComponent(slug);
-const redirect=()=>location.origin+location.pathname+'?slug='+encodeURIComponent(slug);
+const redirect=()=>location.origin+location.pathname;
 function msg(t,b=false){$('status').textContent=t||'';$('status').classList.toggle('bad',!!b)}
 async function openIfSession(){const {data}=await db.auth.getSession();if(data?.session)location.replace(target)}
 $('send').onclick=async()=>{const email=$('email').value.trim();if(!email)return msg('Indiquez votre email propriétaire.',true);$('send').disabled=true;const {error}=await db.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:redirect()}});$('send').disabled=false;if(error)return msg('⚠️ '+error.message,true);$('otpBox').classList.remove('hidden');msg('Email envoyé. Cliquez sur le lien reçu ou entrez le code.')};
