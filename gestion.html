@@ -5,13 +5,27 @@
 <title>Gestion DRIVER — DIGIYLYFE</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#edf4ef,#dfeae3);font:15px system-ui,-apple-system,Segoe UI,sans-serif;color:#16342c;min-height:100vh}.wrap{width:min(940px,calc(100% - 22px));margin:auto;padding:16px 0 40px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.brand{font-weight:1000;color:#155f43}.back,.btn{border:0;border-radius:999px;min-height:42px;padding:9px 14px;font:inherit;font-weight:1000;text-decoration:none;cursor:pointer}.back{background:#fff;color:#155f43;border:1px solid #cbd9d1}.panel{margin-top:13px;background:#fff;border:1px solid #dfe7e2;border-radius:22px;padding:20px;box-shadow:0 14px 34px #073f3214}.session{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:#edf5ef;border-radius:14px;padding:11px 13px;margin-top:10px;font-size:12px;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:5px}.field label{font-size:10px;font-weight:1000;text-transform:uppercase;color:#6f7f79}input,select{width:100%;min-height:43px;border:1px solid #cbd9d1;border-radius:12px;padding:10px;font:inherit}.btn{background:#155f43;color:#fff}.gold{background:#facc15;color:#173f35}.ghost{background:#fff;color:#155f43;border:1px solid #b9cdc2}.status{min-height:18px;margin-top:8px;font-size:12px;font-weight:900}.trip{border:1px solid #dfe7e2;border-radius:14px;padding:12px;margin-top:8px;background:#fbfdfb}.muted{color:#6f7f79;font-weight:760}.hidden{display:none!important}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#edf4ef,#dfeae3);font:15px system-ui,-apple-system,Segoe UI,sans-serif;color:#16342c;min-height:100vh}.wrap{width:min(940px,calc(100% - 22px));margin:auto;padding:16px 0 40px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.brand{font-weight:1000;color:#155f43}.back,.btn{border:0;border-radius:999px;min-height:42px;padding:9px 14px;font:inherit;font-weight:1000;text-decoration:none;cursor:pointer}.back{background:#fff;color:#155f43;border:1px solid #cbd9d1}.panel{margin-top:13px;background:#fff;border:1px solid #dfe7e2;border-radius:22px;padding:20px;box-shadow:0 14px 34px #073f3214}.session{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:#edf5ef;border-radius:14px;padding:11px 13px;margin-top:10px;font-size:12px;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:5px}.field label{font-size:10px;font-weight:1000;text-transform:uppercase;color:#6f7f79}input,select,textarea{width:100%;min-height:43px;border:1px solid #cbd9d1;border-radius:12px;padding:10px;font:inherit}textarea{min-height:92px;resize:vertical}.check{display:flex;align-items:center;gap:8px;min-height:43px}.check input{width:auto;min-height:auto}.btn{background:#155f43;color:#fff}.gold{background:#facc15;color:#173f35}.ghost{background:#fff;color:#155f43;border:1px solid #b9cdc2}.status{min-height:18px;margin-top:8px;font-size:12px;font-weight:900}.trip{border:1px solid #dfe7e2;border-radius:14px;padding:12px;margin-top:8px;background:#fbfdfb}.muted{color:#6f7f79;font-weight:760}.hidden{display:none!important}@media(max-width:700px){.grid{grid-template-columns:1fr}}
 </style></head>
 <body><div class="wrap">
 <header class="top"><div class="brand" id="title">🚗 DRIVER MASTER</div><div><a class="back" id="publicLink" href="./chauffeur.html">← Vue publique</a></div></header>
 <section class="panel hidden" id="manager">
 <div class="session"><span id="who"></span><button class="btn ghost" id="logout">Déconnexion</button></div>
 <h2>Présence chauffeur</h2><div class="grid"><div class="field"><label>Disponibilité</label><select id="status"><option value="available">Disponible</option><option value="busy">Occupé</option><option value="unavailable">Indisponible</option></select></div><div class="field"><label>Secteur actuel</label><input id="sector" placeholder="Saly"></div></div><button class="btn" id="savePresence">Enregistrer ma présence</button><div class="status" id="presenceStatus"></div>
+</section>
+<section class="panel hidden" id="profilePanel">
+<h2>Profil public</h2>
+<div class="grid">
+<div class="field"><label>Zones desservies</label><input id="zones" placeholder="Saly, Mbour, AIBD"></div>
+<div class="field"><label>Services</label><input id="services" placeholder="Transfert AIBD, Course locale, Mise à disposition"></div>
+<div class="field"><label>Nombre de places</label><input id="seats" type="number" min="1" max="60" inputmode="numeric"></div>
+<div class="field"><label>Capacité bagages</label><input id="luggage" placeholder="2 grandes valises + 2 cabines"></div>
+<div class="field"><label>Langues</label><input id="languages" placeholder="Français, Wolof, Anglais"></div>
+<div class="field"><label>Climatisation</label><select id="ac"><option value="">Non renseigné</option><option value="true">Oui</option><option value="false">Non</option></select></div>
+<div class="field"><label>Réseau PRO</label><select id="network"><option value="true">Activé</option><option value="false">Désactivé</option></select></div>
+<div class="field"><label>Tarifs indicatifs</label><textarea id="rates" placeholder="Ex : Saly → AIBD : 25 000 FCFA"></textarea></div>
+</div>
+<button class="btn" id="saveProfile">Enregistrer mon profil</button><div class="status" id="profileStatus"></div>
 </section>
 <section class="panel hidden" id="tripsPanel"><h2>Courses</h2><p class="muted">Liste issue du DRIVER MASTER.</p><div id="trips"></div></section>
 <div class="status" id="pageStatus"></div>
@@ -27,13 +41,23 @@ function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function msg(id,t){$(id).textContent=t||''}
 async function boot(session){
  if(!session)return location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug));
- const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector').eq('slug',slug).maybeSingle();
+ const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates').eq('slug',slug).maybeSingle();
  if(error||!data)return msg('pageStatus','⚠️ Ce chauffeur n’est pas rattaché à ce compte propriétaire.');
- driver=data;$('manager').classList.remove('hidden');$('tripsPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
+ driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('tripsPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
+ $('zones').value=(driver.service_zones||[]).join(', ');
+ $('services').value=(driver.services||[]).join(', ');
+ $('seats').value=driver.seats??'';
+ $('luggage').value=driver.luggage_capacity||'';
+ $('languages').value=(driver.languages||[]).join(', ');
+ $('ac').value=driver.has_ac===true?'true':(driver.has_ac===false?'false':'');
+ $('network').value=driver.pro_network_enabled===false?'false':'true';
+ $('rates').value=driver.indicative_rates||'';
  await loadTrips();
 }
 async function loadTrips(){const {data,error}=await db.rpc('digiy_driver_master_list_trips_v1',{p_driver_id:driver.id});if(error)return msg('pageStatus','⚠️ '+error.message);$('trips').innerHTML=(data||[]).length?(data||[]).map(t=>'<div class="trip"><strong>'+esc(t.pickup)+' → '+esc(t.destination)+'</strong><div class="muted">'+esc(t.ride_day||'')+' '+esc(String(t.ride_time||'').slice(0,5))+' · '+esc(t.status||'')+'</div></div>').join(''):'<div class="muted">Aucune course enregistrée.</div>'}
 $('savePresence').onclick=async()=>{const {error}=await db.rpc('digiy_driver_master_set_presence_v1',{p_driver_id:driver.id,p_status:$('status').value,p_sector:$('sector').value.trim()||null});if(error)return msg('presenceStatus','⚠️ '+error.message);msg('presenceStatus','✅ Présence mise à jour.')};
+function listVal(id){return $(id).value.split(',').map(v=>v.trim()).filter(Boolean)}
+$('saveProfile').onclick=async()=>{const seatRaw=$('seats').value.trim();const {error}=await db.rpc('digiy_driver_master_set_profile_v1',{p_driver_id:driver.id,p_service_zones:listVal('zones'),p_services:listVal('services'),p_seats:seatRaw?Number(seatRaw):null,p_luggage_capacity:$('luggage').value.trim()||null,p_has_ac:$('ac').value===''?null:$('ac').value==='true',p_languages:listVal('languages'),p_pro_network_enabled:$('network').value==='true',p_indicative_rates:$('rates').value.trim()||null});if(error)return msg('profileStatus','⚠️ '+error.message);msg('profileStatus','✅ Profil public mis à jour.')};
 $('logout').onclick=async()=>{await db.auth.signOut();location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug))};
 db.auth.getSession().then(({data})=>boot(data.session));
 })();
