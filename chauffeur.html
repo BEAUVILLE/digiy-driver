@@ -1107,7 +1107,7 @@
           p = legacy.data.profile || {};
           rates = Array.isArray(legacy.data.rates) ? legacy.data.rates : [];
         } else {
-          const master = await sb.rpc("digiy_driver_master_public_profile_v1", { p_slug: slugForRpc });
+          const master = await sb.rpc("digiy_driver_master_public_profile_v2", { p_slug: slugForRpc });
           if(master.error) throw master.error;
           const row = Array.isArray(master.data) ? master.data[0] : master.data;
           if(!row || !row.slug) throw new Error("not_found");
@@ -1117,12 +1117,18 @@
           p = {
             display_name: row.display_name,
             city: row.current_sector,
-            vehicle_type: "Chauffeur ambassadeur",
+            vehicle_type: row.vehicle_type || "Chauffeur privé",
+            vehicle_brand: row.vehicle_brand || "",
+            vehicle_model: row.vehicle_model || "",
+            vehicle_year: row.vehicle_year || "",
+            vehicle_color: row.vehicle_color || "",
+            photo_url: row.photo_url || "",
+            vehicle_photo_url: row.vehicle_photo_url || "",
             seats: row.seats,
             has_ac: row.has_ac,
             zones_text: Array.isArray(row.service_zones) ? row.service_zones : [],
-            bio: row.effective_status==="available" ? "Disponible actuellement via DIGIY DRIVER." : "Chauffeur DIGIY DRIVER.",
-            contact_note: row.effective_status==="available" ? "Disponible · "+(row.current_sector||"secteur à confirmer") : "Indisponible actuellement",
+            bio: row.bio || (row.effective_status==="available" ? "Disponible actuellement via DIGIY DRIVER." : "Chauffeur DIGIY DRIVER."),
+            contact_note: row.contact_note || (row.effective_status==="available" ? "Disponible · "+(row.current_sector||"secteur à confirmer") : "Indisponible actuellement"),
             whatsapp: contactRow?.whatsapp_phone || "",
             services_master: Array.isArray(row.services) ? row.services : [],
             indicative_rates: row.indicative_rates || ""
