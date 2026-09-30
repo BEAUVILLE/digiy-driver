@@ -24,6 +24,7 @@
 <div class="field"><label>Climatisation</label><select id="ac"><option value="">Non renseigné</option><option value="true">Oui</option><option value="false">Non</option></select></div>
 <div class="field"><label>Réseau PRO</label><select id="network"><option value="true">Activé</option><option value="false">Désactivé</option></select></div>
 <div class="field"><label>Tarifs indicatifs</label><textarea id="rates" placeholder="Ex : Saly → AIBD : 25 000 FCFA"></textarea></div>
+<div class="field"><label>WhatsApp public</label><input id="whatsapp" inputmode="tel" autocomplete="tel" placeholder="+221 77 000 00 00"></div>
 </div>
 <button class="btn" id="saveProfile">Enregistrer mon profil</button><div class="status" id="profileStatus"></div>
 </section>
@@ -41,7 +42,7 @@ function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function msg(id,t){$(id).textContent=t||''}
 async function boot(session){
  if(!session)return location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug));
- const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates').eq('slug',slug).maybeSingle();
+ const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates,whatsapp_phone').eq('slug',slug).maybeSingle();
  if(error||!data)return msg('pageStatus','⚠️ Ce chauffeur n’est pas rattaché à ce compte propriétaire.');
  driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('tripsPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
  $('zones').value=(driver.service_zones||[]).join(', ');
@@ -52,12 +53,13 @@ async function boot(session){
  $('ac').value=driver.has_ac===true?'true':(driver.has_ac===false?'false':'');
  $('network').value=driver.pro_network_enabled===false?'false':'true';
  $('rates').value=driver.indicative_rates||'';
+ $('whatsapp').value=driver.whatsapp_phone||'';
  await loadTrips();
 }
 async function loadTrips(){const {data,error}=await db.rpc('digiy_driver_master_list_trips_v1',{p_driver_id:driver.id});if(error)return msg('pageStatus','⚠️ '+error.message);$('trips').innerHTML=(data||[]).length?(data||[]).map(t=>'<div class="trip"><strong>'+esc(t.pickup)+' → '+esc(t.destination)+'</strong><div class="muted">'+esc(t.ride_day||'')+' '+esc(String(t.ride_time||'').slice(0,5))+' · '+esc(t.status||'')+'</div></div>').join(''):'<div class="muted">Aucune course enregistrée.</div>'}
 $('savePresence').onclick=async()=>{const {error}=await db.rpc('digiy_driver_master_set_presence_v1',{p_driver_id:driver.id,p_status:$('status').value,p_sector:$('sector').value.trim()||null});if(error)return msg('presenceStatus','⚠️ '+error.message);msg('presenceStatus','✅ Présence mise à jour.')};
 function listVal(id){return $(id).value.split(',').map(v=>v.trim()).filter(Boolean)}
-$('saveProfile').onclick=async()=>{const seatRaw=$('seats').value.trim();const {error}=await db.rpc('digiy_driver_master_set_profile_v1',{p_driver_id:driver.id,p_service_zones:listVal('zones'),p_services:listVal('services'),p_seats:seatRaw?Number(seatRaw):null,p_luggage_capacity:$('luggage').value.trim()||null,p_has_ac:$('ac').value===''?null:$('ac').value==='true',p_languages:listVal('languages'),p_pro_network_enabled:$('network').value==='true',p_indicative_rates:$('rates').value.trim()||null});if(error)return msg('profileStatus','⚠️ '+error.message);msg('profileStatus','✅ Profil public mis à jour.')};
+$('saveProfile').onclick=async()=>{const seatRaw=$('seats').value.trim();const profile=await db.rpc('digiy_driver_master_set_profile_v1',{p_driver_id:driver.id,p_service_zones:listVal('zones'),p_services:listVal('services'),p_seats:seatRaw?Number(seatRaw):null,p_luggage_capacity:$('luggage').value.trim()||null,p_has_ac:$('ac').value===''?null:$('ac').value==='true',p_languages:listVal('languages'),p_pro_network_enabled:$('network').value==='true',p_indicative_rates:$('rates').value.trim()||null});if(profile.error)return msg('profileStatus','⚠️ '+profile.error.message);const contact=await db.rpc('digiy_driver_master_set_contact_v1',{p_driver_id:driver.id,p_whatsapp_phone:$('whatsapp').value.trim()||null});if(contact.error)return msg('profileStatus','⚠️ Profil enregistré, contact non enregistré : '+contact.error.message);msg('profileStatus','✅ Profil public et WhatsApp mis à jour.')};
 $('logout').onclick=async()=>{await db.auth.signOut();location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug))};
 db.auth.getSession().then(({data})=>boot(data.session));
 })();
