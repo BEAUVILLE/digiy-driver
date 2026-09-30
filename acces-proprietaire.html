@@ -24,7 +24,7 @@ const $=id=>document.getElementById(id),p=new URLSearchParams(location.search);
 const requestedSlug=(p.get('slug')||'').trim();
 if(requestedSlug) localStorage.setItem('digiy_driver_owner_slug',requestedSlug);
 const slug=(requestedSlug||localStorage.getItem('digiy_driver_owner_slug')||'baptiste-driver-ambassador').trim();
-const target='./gestion.html?slug='+encodeURIComponent(slug);
+const target='./gestion.html?slug='+encodeURIComponent(slug)+'&v=20260930-whatsapp';
 const redirect=()=>location.origin+location.pathname;
 function msg(t,b=false){$('status').textContent=t||'';$('status').classList.toggle('bad',!!b)}
 async function openIfSession(){const {data}=await db.auth.getSession();if(data?.session)location.replace(target)}
