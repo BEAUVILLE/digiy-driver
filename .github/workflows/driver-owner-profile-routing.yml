@@ -1,0 +1,32 @@
+name: DIGIY DRIVER · accès chauffeur lié au bon propriétaire
+
+on:
+  pull_request:
+    paths:
+      - 'acces-proprietaire.html'
+      - 'gestion.html'
+      - 'chauffeur.html'
+      - 'tests/test_driver_owner_profile_routing.py'
+      - 'tests/driver-owner-routing.test.cjs'
+      - '.github/workflows/driver-owner-profile-routing.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'acces-proprietaire.html'
+      - 'gestion.html'
+      - 'chauffeur.html'
+      - 'tests/test_driver_owner_profile_routing.py'
+      - 'tests/driver-owner-routing.test.cjs'
+      - '.github/workflows/driver-owner-profile-routing.yml'
+permissions:
+  contents: read
+jobs:
+  driver-owner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier les liens et la gestion propriétaire
+        run: python3 -m unittest discover -s tests -p 'test_driver_owner_profile_routing.py' -v
+      - name: Simuler Lamine et Baptiste sans accéder à Supabase
+        run: node --test tests/driver-owner-routing.test.cjs
