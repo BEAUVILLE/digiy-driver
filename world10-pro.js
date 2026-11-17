@@ -11,3 +11,129 @@
    if(r.length!==10||phrases.has(r[0]))throw Error("Driver WORLD10 invalid "+r[0]);
    phrases.set(r[0],r);
  }
+
+ let lang=new URLSearchParams(location.search).get("lang");
+ if(!langs.includes(lang)){try{lang=localStorage.getItem("digiy_driver_master_lang")}catch(_){}}
+ if(!langs.includes(lang))lang="fr";
+ const index=()=>langs.indexOf(lang);
+ const t=source=>phrases.has(source)?phrases.get(source)[index()]:source;
+ const originalText=new WeakMap();
+ const originalAttrs=new WeakMap();
+ let translating=false;
+ function isOwnerData(el){
+   // Keep editable values, driver name, custom prices and route labels unchanged.
+   if(el.closest("input,textarea,script,style,noscript,code"))return true;
+   if(el.closest("#title"))return true;
+   if(el.closest("#ratesListOwner .trip strong,#ratesListOwner .trip .muted"))return true;
+   return false;
+ }
+ function translateContent(source){
+   if(phrases.has(source))return t(source);
+   if(source.startsWith("Connecté : "))return t("Connecté : ")+source.slice("Connecté : ".length);
+   for(const prefix of ["⚠️ Profil enregistré, détails non enregistrés : ",
+                        "⚠️ Profil enregistré, contact non enregistré : "]){
+     if(source.startsWith(prefix))return t(prefix)+source.slice(prefix.length);
+   }
+   return source;
+ }
+ function translateNode(node){
+   const parent=node?.parentElement;
+   if(!parent||isOwnerData(parent))return;
+   let state=originalText.get(node);
+   if(!state||state.last!==node.nodeValue){
+     state={source:node.nodeValue,last:node.nodeValue};
+     originalText.set(node,state);
+   }
+   const raw=state.source, trimmed=raw.trim();
+   if(!trimmed)return;
+   const next=raw.slice(0,raw.indexOf(trimmed))+translateContent(trimmed)+raw.slice(raw.indexOf(trimmed)+trimmed.length);
+   if(node.nodeValue!==next){state.last=next;node.nodeValue=next;}
+ }
+ function translateAttributes(){
+   for(const attr of ["placeholder","aria-label","title"]){
+     document.querySelectorAll("["+attr+"]").forEach(el=>{
+       if(el.closest("[data-owned]"))return;
+       let state=originalAttrs.get(el);
+       if(!state){state={};originalAttrs.set(el,state);}
+       const current=el.getAttribute(attr);
+       if(!current)return;
+       let snap=state[attr];
+       if(!snap||snap.last!==current)snap=state[attr]={source:current,last:current};
+       if(!phrases.has(snap.source))return;
+       const next=t(snap.source);
+       if(current!==next){snap.last=next;el.setAttribute(attr,next);}
+     });
+   }
+ }
+ function translateNetwork(){
+   const el=document.getElementById("network");
+   if(!el||!el.readOnly)return;
+   for(const key of ["Activé","Désactivé"]){
+     const row=phrases.get(key);
+     if(row.includes(el.value)){el.value=t(key);return;}
+   }
+ }
+ function localizedLinks(){
+   document.querySelectorAll("a[href]").forEach(a=>{
+     const raw=a.getAttribute("href");
+     if(!raw||raw.startsWith("#")||raw.startsWith("mailto:")||raw.startsWith("tel:"))return;
+     let u;
+     try{u=new URL(raw,location.href);}catch(_){return}
+     if(u.origin!==location.origin)return;
+     if(u.searchParams.get("lang")===lang)return;
+     u.searchParams.set("lang",lang);
+     a.setAttribute("href",u.toString());
+   });
+ }
+ function translatePage(){
+   if(translating)return;
+   translating=true;
+   try{
+     document.documentElement.lang=lang;
+     document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+     while(walker.nextNode())translateNode(walker.currentNode);
+     translateAttributes();
+     translateNetwork();
+     localizedLinks();
+     const title=document.title;
+     for(const [french,translations] of phrases){
+       if(translations.includes(title)&&french.includes("— DIGIYLYFE")){
+         document.title=t(french);break;
+       }
+     }
+     const picker=document.getElementById("driverWorld10Pro");
+     if(picker)picker.value=lang;
+   }finally{translating=false}
+ }
+ function setLang(next){
+   if(!langs.includes(next))return;
+   lang=next;
+   try{localStorage.setItem("digiy_driver_master_lang",lang)}catch(_){}
+   const u=new URL(location.href);
+   u.searchParams.set("lang",lang);
+   history.replaceState(null,"",u.pathname+u.search+u.hash);
+   translatePage();
+ }
+ function boot(){
+   const header=document.querySelector("header.top");
+   if(header&&!document.getElementById("driverWorld10Pro")){
+     const picker=document.createElement("select");
+     picker.id="driverWorld10Pro";
+     picker.setAttribute("aria-label","Langue");
+     picker.style.cssText="flex-shrink:0;max-width:120px;min-height:38px;border:2px solid #d2ad4e;border-radius:11px;background:#fff;color:#154a32;padding:7px;font:900 12px system-ui;direction:ltr";
+     for(let i=0;i<langs.length;i++){
+       const option=document.createElement("option");
+       option.value=langs[i];option.textContent=names[i];picker.appendChild(option);
+     }
+     header.style.flexWrap="wrap";
+     header.appendChild(picker);
+     picker.addEventListener("change",()=>setLang(picker.value));
+   }
+   translatePage();
+   new MutationObserver(()=>translatePage()).observe(document.body,{childList:true,characterData:true,subtree:true});
+   window.DIGIY_DRIVER_WORLD10={locales:langs.slice(),getLang:()=>lang,setLang,t,translatePage};
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});
+ else boot();
+})();
