@@ -22,7 +22,7 @@ const URL='https://wesqmwjjtsefyjnluosj.supabase.co',KEY='sb_publishable_tGHItRg
 const db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id),p=new URLSearchParams(location.search);
 const requestedSlug=(p.get('slug')||'').trim();
-if(requestedSlug) localStorage.setItem('digiy_driver_owner_slug',requestedSlug);
+const validSlug=s=>/^[a-z0-9][a-z0-9_-]{0,79}$/.test(s);
 const redirect=()=>location.origin+location.pathname+(requestedSlug?('?slug='+encodeURIComponent(requestedSlug)):'');
 function msg(t,b=false){$('status').textContent=t||'';$('status').classList.toggle('bad',!!b)}
 async function resolveAndOpen(session){
@@ -31,10 +31,17 @@ async function resolveAndOpen(session){
  if(error)return msg('⚠️ Impossible de retrouver votre espace DRIVER.',true);
  const rows=data||[];
  if(!rows.length)return msg('⚠️ Aucun accès DRIVER actif n’est rattaché à ce compte.',true);
+ // Une fiche demandée explicitement ne doit jamais basculer vers un autre chauffeur.
+ if(requestedSlug && !validSlug(requestedSlug))
+   return msg('⚠️ Lien chauffeur invalide. Ouvrez votre fiche DRIVER officielle.',true);
  let chosen=requestedSlug?rows.find(r=>r.slug===requestedSlug):null;
+ if(requestedSlug && !chosen)
+   return msg('⚠️ Ce compte n’est pas propriétaire de cette fiche chauffeur. Aucun autre profil n’a été ouvert.',true);
  if(!chosen){
    const saved=(localStorage.getItem('digiy_driver_owner_slug')||'').trim();
-   chosen=rows.find(r=>r.slug===saved)||rows[0];
+   chosen=rows.find(r=>r.slug===saved)||null;
+   if(!chosen && rows.length===1) chosen=rows[0];
+   if(!chosen) return msg('⚠️ Plusieurs chauffeurs sont rattachés à ce compte. Ouvrez la fiche du chauffeur souhaité pour accéder à sa gestion.',true);
  }
  localStorage.setItem('digiy_driver_owner_slug',chosen.slug);
  location.replace('./gestion.html?slug='+encodeURIComponent(chosen.slug)+'&v=20260930-whatsapp');
