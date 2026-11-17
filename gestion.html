@@ -62,14 +62,15 @@
 (()=>{'use strict';
 const URL='https://wesqmwjjtsefyjnluosj.supabase.co',KEY='sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3';
 const db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionInUrl:true}});
-const $=id=>document.getElementById(id),params=new URLSearchParams(location.search),slug=(params.get('slug')||'baptiste-driver-ambassador').trim();
+const $=id=>document.getElementById(id),params=new URLSearchParams(location.search),slug=(params.get('slug')||'').trim(),validSlug=/^[a-z0-9][a-z0-9_-]{0,79}$/.test(slug);
 let driver=null;
 $('publicLink').href='./chauffeur.html?slug='+encodeURIComponent(slug);
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function msg(id,t){$(id).textContent=t||''}
 async function boot(session){
+ if(!validSlug) return msg('pageStatus','⚠️ Identifiant chauffeur absent ou invalide. Ouvrez votre fiche DRIVER officielle.');
  if(!session)return location.replace('./acces-proprietaire.html?slug='+encodeURIComponent(slug));
- const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates,whatsapp_phone,bio,contact_note,vehicle_type,vehicle_brand,vehicle_model,vehicle_year,vehicle_color,photo_url,vehicle_photo_url').eq('slug',slug).maybeSingle();
+ const {data,error}=await db.from('digiy_driver_master_members').select('id,slug,display_name,availability_status,current_sector,service_zones,services,seats,luggage_capacity,has_ac,languages,pro_network_enabled,indicative_rates,whatsapp_phone,bio,contact_note,vehicle_type,vehicle_brand,vehicle_model,vehicle_year,vehicle_color,photo_url,vehicle_photo_url').eq('slug',slug).eq('owner_id',session.user.id).eq('is_active',true).maybeSingle();
  if(error||!data)return msg('pageStatus','⚠️ Ce chauffeur n’est pas rattaché à ce compte propriétaire.');
  driver=data;$('manager').classList.remove('hidden');$('profilePanel').classList.remove('hidden');$('ratesPanel').classList.remove('hidden');$('who').textContent='Connecté : '+(session.user.email||'propriétaire');$('title').textContent='🚗 '+(driver.display_name||'DRIVER')+' · MASTER';$('status').value=driver.availability_status||'unavailable';$('sector').value=driver.current_sector||'';
  $('zones').value=(driver.service_zones||[]).join(', ');
