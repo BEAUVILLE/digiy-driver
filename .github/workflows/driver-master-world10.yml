@@ -1,0 +1,31 @@
+name: DIGIY DRIVER MASTER · WORLD10 Magic Link et gestion PRO
+on:
+  pull_request:
+    paths:
+      - 'world10-pro.js'
+      - 'acces-proprietaire.html'
+      - 'gestion.html'
+      - 'tests/test_driver_master_world10.py'
+      - 'tests/driver-master-world10.test.cjs'
+      - '.github/workflows/driver-master-world10.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'world10-pro.js'
+      - 'acces-proprietaire.html'
+      - 'gestion.html'
+      - 'tests/test_driver_master_world10.py'
+      - 'tests/driver-master-world10.test.cjs'
+      - '.github/workflows/driver-master-world10.yml'
+permissions:
+  contents: read
+jobs:
+  driver-master-world10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Auditer les dix langues et les fonctions métier du logiciel
+        run: python3 -m unittest discover -s tests -p 'test_driver_master_world10.py' -v
+      - name: Simuler les traductions en préservant les données chauffeur
+        run: node --test tests/driver-master-world10.test.cjs
