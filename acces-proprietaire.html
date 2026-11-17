@@ -4,6 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#061b14">
 <title>Accès propriétaire DRIVER — DIGIYLYFE</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./world10-pro.js" defer></script>
 <style>
 *{box-sizing:border-box}body{margin:0;min-height:100svh;background:linear-gradient(180deg,#07140f,#0d3f30 35%,#eef4ef 35%);font:15px system-ui,-apple-system,Segoe UI,sans-serif;color:#16342c}.wrap{width:min(620px,calc(100% - 22px));margin:auto;padding:18px 0 42px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#fff}.top a{color:#fff;text-decoration:none;border:1px solid #ffffff55;border-radius:999px;padding:8px 11px;font-weight:900;font-size:11px}.hero{color:#fff;padding:28px 2px 24px}.hero h1{font-size:clamp(36px,9vw,58px);line-height:.95;margin:8px 0}.hero p{color:#d9eee1;font-weight:760;line-height:1.5}.card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 20px 48px #061b1430}.field{display:grid;gap:6px;margin-top:12px}.field label{font-size:10px;font-weight:1000;text-transform:uppercase;color:#6f7f79}input{width:100%;min-height:50px;border:1px solid #cbd9d1;border-radius:13px;padding:11px 12px;font:inherit}.btn{width:100%;margin-top:12px;border:0;border-radius:999px;min-height:50px;padding:11px 16px;background:#155f43;color:#fff;font:inherit;font-weight:1000;cursor:pointer}.gold{background:#facc15;color:#173f35}.status{min-height:21px;margin-top:11px;font-size:12px;font-weight:900;white-space:pre-line}.bad{color:#a3231d}.hidden{display:none!important}.pill{display:inline-flex;padding:7px 10px;border-radius:999px;background:#e7f4eb;color:#155f43;font-size:11px;font-weight:1000}
 </style></head>
@@ -23,7 +24,8 @@ const db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionI
 const $=id=>document.getElementById(id),p=new URLSearchParams(location.search);
 const requestedSlug=(p.get('slug')||'').trim();
 const validSlug=s=>/^[a-z0-9][a-z0-9_-]{0,79}$/.test(s);
-const redirect=()=>location.origin+location.pathname+(requestedSlug?('?slug='+encodeURIComponent(requestedSlug)):'');
+const currentLang=()=>window.DIGIY_DRIVER_WORLD10?.getLang?.()||p.get('lang')||localStorage.getItem('digiy_driver_master_lang')||'fr';
+const redirect=()=>location.origin+location.pathname+'?'+(requestedSlug?'slug='+encodeURIComponent(requestedSlug)+'&':'')+'lang='+encodeURIComponent(currentLang());
 function msg(t,b=false){$('status').textContent=t||'';$('status').classList.toggle('bad',!!b)}
 async function resolveAndOpen(session){
  if(!session?.user)return;
@@ -44,7 +46,7 @@ async function resolveAndOpen(session){
    if(!chosen) return msg('⚠️ Plusieurs chauffeurs sont rattachés à ce compte. Ouvrez la fiche du chauffeur souhaité pour accéder à sa gestion.',true);
  }
  localStorage.setItem('digiy_driver_owner_slug',chosen.slug);
- location.replace('./gestion.html?slug='+encodeURIComponent(chosen.slug)+'&v=20260930-whatsapp');
+ location.replace('./gestion.html?slug='+encodeURIComponent(chosen.slug)+'&v=20260930-whatsapp&lang='+encodeURIComponent(currentLang()));
 }
 async function openIfSession(){const {data}=await db.auth.getSession();if(data?.session)resolveAndOpen(data.session)}
 $('send').onclick=async()=>{const email=$('email').value.trim();if(!email)return msg('Indiquez votre email propriétaire.',true);$('send').disabled=true;const {error}=await db.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:redirect()}});$('send').disabled=false;if(error)return msg('⚠️ '+error.message,true);$('otpBox').classList.remove('hidden');msg('Email envoyé. Cliquez sur le lien reçu ou entrez le code.')};
