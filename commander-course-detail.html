@@ -613,7 +613,7 @@
       </div>
 
       <div class="actions">
-        <a class="btn" href="./commander-course.html">← Choix course</a>
+        <a class="btn" id="backToRideChoices" href="./commander-course.html">← Choix course</a>
         <a class="btn gold" id="btnGalerie" href="#">🚗 Galerie chauffeurs</a>
         <a class="btn" href="https://wa.me/221771342889?text=Salut%20DIGIY%20DRIVER%2C%20j%27ai%20une%20question%20sur%20une%20course." target="_blank" rel="noopener">💬 Support</a>
       </div>
@@ -955,6 +955,15 @@
         setStatus("Copie manuelle OK ✅");
       }
     });
+
+    const back = document.getElementById("backToRideChoices");
+    const rideParams = new URLSearchParams(location.search);
+    const backUrl = new URL(back.href);
+    for(const key of ["driver","wa","profile","slug","lang"]){
+      const value = rideParams.get(key);
+      if(value) backUrl.searchParams.set(key,value);
+    }
+    back.href = backUrl.href;
 
     populateDrivers();
     updatePreview();
