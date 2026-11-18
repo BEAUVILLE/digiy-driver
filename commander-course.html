@@ -387,11 +387,282 @@
   </nav>
 
   <script>
+    const rideCopy={
+  "en": [
+    "Quick ride · driver · detailed request",
+    "Driver gallery",
+    "Looking for a driver?",
+    "Send a quick request, choose a driver, or provide more details. DIGIY opens WhatsApp for you.",
+    "Quick request",
+    "Open WhatsApp with a draft for your trip.",
+    "Start a request",
+    "Choose a driver",
+    "Browse driver profiles, service areas and contacts.",
+    "Browse drivers",
+    "Detailed ride",
+    "Add your pickup time, luggage, budget and special requirements.",
+    "Add ride details",
+    "Still choosing a driver?",
+    "Send DIGIY your pickup, destination, time, passengers, luggage and optional budget via WhatsApp.",
+    "Add details",
+    "0% commission · pay the driver directly · direct contact",
+    "Quick",
+    "Driver",
+    "Details",
+    "Hello DIGIY DRIVER, I’m looking for a driver.",
+    "Pickup",
+    "Destination",
+    "Date and time",
+    "Passengers and luggage",
+    "Budget"
+  ],
+  "es": [
+    "Viaje rápido · conductor · solicitud detallada",
+    "Galería de conductores",
+    "¿Buscas un conductor?",
+    "Envía una solicitud rápida, elige un conductor o añade detalles. DIGIY abre WhatsApp.",
+    "Solicitud rápida",
+    "Abre WhatsApp con un borrador del trayecto.",
+    "Iniciar solicitud",
+    "Elegir conductor",
+    "Consulta perfiles, zonas y contactos.",
+    "Ver conductores",
+    "Viaje detallado",
+    "Añade la hora, el equipaje, el presupuesto y las necesidades especiales.",
+    "Detallar viaje",
+    "¿Aún no sabes qué conductor elegir?",
+    "Envía a DIGIY por WhatsApp origen, destino, hora, pasajeros, equipaje y presupuesto opcional.",
+    "Añadir detalles",
+    "0 % de comisión · pago directo al conductor · contacto directo",
+    "Rápido",
+    "Conductor",
+    "Detalles",
+    "Hola DIGIY DRIVER, busco un conductor.",
+    "Origen",
+    "Destino",
+    "Fecha y hora",
+    "Pasajeros y equipaje",
+    "Presupuesto"
+  ],
+  "pt": [
+    "Viagem rápida · motorista · pedido detalhado",
+    "Galeria de motoristas",
+    "Procura um motorista?",
+    "Faça um pedido rápido, escolha um motorista ou acrescente detalhes. A DIGIY abre o WhatsApp.",
+    "Pedido rápido",
+    "Abra o WhatsApp com um rascunho da viagem.",
+    "Iniciar pedido",
+    "Escolher motorista",
+    "Consulte perfis, zonas e contactos.",
+    "Ver motoristas",
+    "Viagem detalhada",
+    "Indique hora, bagagem, orçamento e necessidades especiais.",
+    "Detalhar viagem",
+    "Ainda está a escolher o motorista?",
+    "Envie à DIGIY por WhatsApp partida, destino, hora, passageiros, bagagem e orçamento opcional.",
+    "Acrescentar detalhes",
+    "0 % de comissão · pagamento direto ao motorista · contacto direto",
+    "Rápido",
+    "Motorista",
+    "Detalhes",
+    "Olá DIGIY DRIVER, procuro um motorista.",
+    "Partida",
+    "Destino",
+    "Data e hora",
+    "Passageiros e bagagem",
+    "Orçamento"
+  ],
+  "it": [
+    "Corsa rapida · autista · richiesta dettagliata",
+    "Galleria autisti",
+    "Cerchi un autista?",
+    "Invia una richiesta rapida, scegli un autista o aggiungi dettagli. DIGIY apre WhatsApp.",
+    "Richiesta rapida",
+    "Apri WhatsApp con una bozza del tragitto.",
+    "Avvia richiesta",
+    "Scegli un autista",
+    "Consulta profili, zone e contatti.",
+    "Vedi gli autisti",
+    "Corsa dettagliata",
+    "Indica orario, bagagli, budget ed esigenze particolari.",
+    "Dettaglia la corsa",
+    "Stai ancora scegliendo un autista?",
+    "Invia a DIGIY su WhatsApp partenza, destinazione, orario, passeggeri, bagagli e budget facoltativo.",
+    "Aggiungi dettagli",
+    "0% commissioni · pagamento diretto all’autista · contatto diretto",
+    "Rapido",
+    "Autista",
+    "Dettagli",
+    "Ciao DIGIY DRIVER, cerco un autista.",
+    "Partenza",
+    "Destinazione",
+    "Data e ora",
+    "Passeggeri e bagagli",
+    "Budget"
+  ],
+  "de": [
+    "Schnelle Fahrt · Fahrer · detaillierte Anfrage",
+    "Fahrerübersicht",
+    "Suchst du einen Fahrer?",
+    "Sende eine kurze Anfrage, wähle einen Fahrer oder ergänze Details. DIGIY öffnet WhatsApp.",
+    "Kurzanfrage",
+    "Öffne WhatsApp mit einem Entwurf für deine Fahrt.",
+    "Anfrage starten",
+    "Fahrer wählen",
+    "Sieh dir Profile, Einsatzgebiete und Kontakte an.",
+    "Fahrer ansehen",
+    "Detaillierte Fahrt",
+    "Ergänze Uhrzeit, Gepäck, Budget und besondere Wünsche.",
+    "Fahrtdetails eingeben",
+    "Noch auf der Suche nach einem Fahrer?",
+    "Sende DIGIY per WhatsApp Start, Ziel, Uhrzeit, Fahrgäste, Gepäck und optional dein Budget.",
+    "Details ergänzen",
+    "0 % Provision · direkt an den Fahrer zahlen · direkter Kontakt",
+    "Schnell",
+    "Fahrer",
+    "Details",
+    "Hallo DIGIY DRIVER, ich suche einen Fahrer.",
+    "Start",
+    "Ziel",
+    "Datum und Uhrzeit",
+    "Fahrgäste und Gepäck",
+    "Budget"
+  ],
+  "nl": [
+    "Snelle rit · chauffeur · uitgebreide aanvraag",
+    "Chauffeursoverzicht",
+    "Zoek je een chauffeur?",
+    "Stuur een korte aanvraag, kies een chauffeur of voeg details toe. DIGIY opent WhatsApp.",
+    "Snelle aanvraag",
+    "Open WhatsApp met een concept voor je rit.",
+    "Aanvraag starten",
+    "Chauffeur kiezen",
+    "Bekijk profielen, werkgebieden en contactgegevens.",
+    "Bekijk chauffeurs",
+    "Uitgebreide rit",
+    "Vermeld tijd, bagage, budget en speciale wensen.",
+    "Ritdetails invullen",
+    "Nog geen chauffeur gekozen?",
+    "Stuur DIGIY via WhatsApp vertrekpunt, bestemming, tijd, passagiers, bagage en eventueel je budget.",
+    "Details toevoegen",
+    "0% commissie · betaal rechtstreeks aan de chauffeur · rechtstreeks contact",
+    "Snel",
+    "Chauffeur",
+    "Details",
+    "Hallo DIGIY DRIVER, ik zoek een chauffeur.",
+    "Vertrekpunt",
+    "Bestemming",
+    "Datum en tijd",
+    "Passagiers en bagage",
+    "Budget"
+  ],
+  "ar": [
+    "رحلة سريعة · سائق · طلب مفصل",
+    "دليل السائقين",
+    "هل تبحث عن سائق؟",
+    "أرسل طلباً سريعاً أو اختر سائقاً أو أضف تفاصيل الرحلة. تفتح DIGIY تطبيق واتساب.",
+    "طلب سريع",
+    "افتح واتساب مع مسودة لرحلتك.",
+    "ابدأ الطلب",
+    "اختر سائقاً",
+    "تصفح ملفات السائقين ومناطق عملهم وبيانات الاتصال.",
+    "عرض السائقين",
+    "رحلة مفصلة",
+    "أضف الوقت والأمتعة والميزانية والاحتياجات الخاصة.",
+    "إدخال تفاصيل الرحلة",
+    "لم تختر سائقاً بعد؟",
+    "أرسل إلى DIGIY عبر واتساب نقطة الانطلاق والوجهة والوقت والركاب والأمتعة والميزانية إن وجدت.",
+    "إضافة تفاصيل",
+    "عمولة 0٪ · الدفع مباشرة للسائق · تواصل مباشر",
+    "سريع",
+    "سائق",
+    "تفاصيل",
+    "مرحباً DIGIY DRIVER، أبحث عن سائق.",
+    "الانطلاق",
+    "الوجهة",
+    "التاريخ والوقت",
+    "الركاب والأمتعة",
+    "الميزانية"
+  ],
+  "wo": [
+    "Tukki bu gaaw · dawalkat · laaj bu leer",
+    "Galerii dawalkat yi",
+    "Dangay seet dawalkat?",
+    "Mën nga yónnee laaj bu gaaw, tànn dawalkat walla bind yeneen leeral. DIGIY day ubbi WhatsApp.",
+    "Laaj bu gaaw",
+    "Ubbi WhatsApp ak bataaxal bu ñu waajal ngir sa tukki.",
+    "Tambali laaj bi",
+    "Tànn dawalkat",
+    "Xoolal fiche yi, gox yi ak jokkoo yi.",
+    "Xool dawalkat yi",
+    "Tukki bu am leeral",
+    "Bindal waxtu wi, bagas yi, sa budget ak sa soxla.",
+    "Leeral sama tukki",
+    "Tànnagoo dawalkat?",
+    "Yónneel ci WhatsApp fi nga jóge, fa ngay dem, waxtu, nit ñi, bagas yi ak budget bu fekkee am nga ko.",
+    "Yokk leeral",
+    "0 % komisioŋ · fay dawalkat bi ci sa bopp · jokkoo jub",
+    "Gaaw",
+    "Dawalkat",
+    "Leeral",
+    "Nanga def DIGIY DRIVER, damay seet dawalkat.",
+    "Fi ma jóge",
+    "Fa may dem",
+    "Bés ak waxtu",
+    "Nit ñi ak bagas yi",
+    "Budget"
+  ],
+  "zh": [
+    "快速行程 · 司机 · 详细需求",
+    "司机名录",
+    "正在找司机？",
+    "可以发起快速请求、选择司机或补充行程详情。DIGIY 会打开 WhatsApp。",
+    "快速请求",
+    "打开 WhatsApp 并生成行程草稿。",
+    "发起请求",
+    "选择司机",
+    "浏览司机资料、服务区域和联系方式。",
+    "查看司机",
+    "详细行程",
+    "填写时间、行李、预算和特殊需求。",
+    "填写行程详情",
+    "还没选好司机？",
+    "通过 WhatsApp 向 DIGIY 提供出发地、目的地、时间、乘客、行李和可选预算。",
+    "补充详情",
+    "零佣金 · 直接向司机付款 · 直接联系",
+    "快速",
+    "司机",
+    "详情",
+    "您好 DIGIY DRIVER，我正在找司机。",
+    "出发地",
+    "目的地",
+    "日期和时间",
+    "乘客与行李",
+    "预算"
+  ]
+};
+    const rideLang=new URLSearchParams(location.search).get("lang");
+    const translatedRide=Object.hasOwn(rideCopy,rideLang)?rideCopy[rideLang]:null;
+    const whatsappBase="https://wa.me/221771342889?text=";
+    let translatedMessage;
+    if(translatedRide){
+      document.documentElement.lang=rideLang;
+      document.documentElement.dir=rideLang==="ar"?"rtl":"ltr";
+      document.title="DIGIY DRIVER — "+translatedRide[4];
+      const selectors=[".btxt small","#btnGalerieTop",".hero .h1",".hero .sub",".choice.green h2",".choice.green p","#btnQuick",".choice.blue h2",".choice.blue p","#btnGallery",".choice:last-child h2",".choice:last-child p","#btnDetail",".quick-title",".quick p",".quick-actions a:last-child",".footer",".bottom a:nth-child(1) span",".bottom a:nth-child(2) span",".bottom a:nth-child(3) span"];
+      selectors.forEach((selector,index)=>{
+        document.querySelector(selector).textContent=(index===16?"DIGIY DRIVER · ":"")+translatedRide[index];
+      });
+      document.querySelector(".bottom").setAttribute("aria-label",translatedRide[4]);
+      translatedMessage=[translatedRide[20],"",...translatedRide.slice(21).map(label=>label+": ")].join("\n");
+      document.querySelector(".quick-actions a:first-child").href=whatsappBase+encodeURIComponent(translatedMessage);
+    }
+
     function keepQuery(path){
       try{
         const target = new URL(path, location.href);
         const current = new URL(location.href);
-        ["driver","wa","profile"].forEach(k => {
+        ["driver","wa","profile","slug","lang"].forEach(k => {
           const v = current.searchParams.get(k);
           if(v) target.searchParams.set(k, v);
         });
@@ -422,7 +693,7 @@
         "",
         "Merci de m'aider à trouver un contact disponible."
       ].join("\n");
-      window.open("https://wa.me/221771342889?text=" + encodeURIComponent(msg), "_blank", "noopener,noreferrer");
+      window.open(whatsappBase + encodeURIComponent(translatedMessage || msg), "_blank", "noopener,noreferrer");
     });
   </script>
 </body>
