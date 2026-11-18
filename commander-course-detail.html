@@ -1038,12 +1038,246 @@
 };
     const detailLang=new URLSearchParams(location.search).get("lang");
     const detailCopy=Object.hasOwn(detailCopies,detailLang)?detailCopies[detailLang]:null;
+    const detailHelpCopies={
+  "en": [
+    "Direct WhatsApp · direct payment · 0% commission",
+    "Driver gallery",
+    "Support",
+    "Add the time, passengers, luggage, budget and any notes. DIGIY drafts a WhatsApp message.",
+    "Pay the driver directly. DIGIY does not collect your payment.",
+    "0% commission",
+    "WhatsApp in one tap",
+    "AIBD transfer · local rides · day trips",
+    "Ride tips",
+    "Choose a driver or contact DIGIY if you’re still looking.",
+    "A driver can be preselected with a link.",
+    "Usual area",
+    "Saly → AIBD tomorrow at 7 am",
+    "Day driver Saly / Somone",
+    "Local Jakarta ride",
+    "WhatsApp opens the conversation.",
+    "Pay the driver directly.",
+    "Route, time, passengers and budget.",
+    "Driver selected via link",
+    "Default driver ready.",
+    "WhatsApp opened with the draft.",
+    "Link ready to copy.",
+    "Copy the link:"
+  ],
+  "es": [
+    "WhatsApp directo · pago directo · 0 % de comisión",
+    "Galería de conductores",
+    "Ayuda",
+    "Añade hora, pasajeros, equipaje, presupuesto y notas. DIGIY prepara un mensaje de WhatsApp.",
+    "Paga directamente al conductor. DIGIY no cobra el pago.",
+    "0 % de comisión",
+    "WhatsApp con un toque",
+    "Traslado AIBD · viajes locales · excursiones",
+    "Consejos de viaje",
+    "Elige un conductor o contacta con DIGIY si aún estás buscando.",
+    "Puedes preseleccionar un conductor mediante un enlace.",
+    "Zona habitual",
+    "Saly → AIBD mañana a las 7",
+    "Conductor de día Saly / Somone",
+    "Viaje local en Jakarta",
+    "WhatsApp abre la conversación.",
+    "Paga directamente al conductor.",
+    "Trayecto, hora, pasajeros y presupuesto.",
+    "Conductor seleccionado mediante enlace",
+    "Conductor por defecto listo.",
+    "WhatsApp abierto con el borrador.",
+    "Enlace listo para copiar.",
+    "Copia el enlace:"
+  ],
+  "pt": [
+    "WhatsApp direto · pagamento direto · 0 % de comissão",
+    "Galeria de motoristas",
+    "Apoio",
+    "Indique hora, passageiros, bagagem, orçamento e notas. A DIGIY prepara uma mensagem de WhatsApp.",
+    "Pague diretamente ao motorista. A DIGIY não recebe o pagamento.",
+    "0 % de comissão",
+    "WhatsApp com um toque",
+    "Transfer AIBD · viagens locais · passeios",
+    "Dicas de viagem",
+    "Escolha um motorista ou contacte a DIGIY se ainda estiver à procura.",
+    "Pode pré-selecionar um motorista através de uma ligação.",
+    "Zona habitual",
+    "Saly → AIBD amanhã às 7h",
+    "Motorista de dia Saly / Somone",
+    "Viagem local de Jakarta",
+    "O WhatsApp abre a conversa.",
+    "Pague diretamente ao motorista.",
+    "Trajeto, hora, passageiros e orçamento.",
+    "Motorista selecionado pela ligação",
+    "Motorista predefinido pronto.",
+    "WhatsApp aberto com o rascunho.",
+    "Ligação pronta a copiar.",
+    "Copie a ligação:"
+  ],
+  "it": [
+    "WhatsApp diretto · pagamento diretto · 0% commissioni",
+    "Galleria autisti",
+    "Assistenza",
+    "Indica orario, passeggeri, bagagli, budget e note. DIGIY prepara un messaggio WhatsApp.",
+    "Paga direttamente l’autista. DIGIY non incassa il pagamento.",
+    "0% commissioni",
+    "WhatsApp con un tocco",
+    "Transfer AIBD · corse locali · gite",
+    "Consigli per la corsa",
+    "Scegli un autista o contatta DIGIY se lo stai ancora cercando.",
+    "Puoi preselezionare un autista tramite un link.",
+    "Zona abituale",
+    "Saly → AIBD domani alle 7",
+    "Autista per la giornata Saly / Somone",
+    "Corsa locale in Jakarta",
+    "WhatsApp apre la conversazione.",
+    "Paga direttamente l’autista.",
+    "Tragitto, orario, passeggeri e budget.",
+    "Autista scelto tramite link",
+    "Autista predefinito pronto.",
+    "WhatsApp aperto con la bozza.",
+    "Link pronto da copiare.",
+    "Copia il link:"
+  ],
+  "de": [
+    "Direkt per WhatsApp · Direktzahlung · 0 % Provision",
+    "Fahrerübersicht",
+    "Hilfe",
+    "Gib Uhrzeit, Fahrgäste, Gepäck, Budget und Hinweise an. DIGIY erstellt einen WhatsApp-Entwurf.",
+    "Zahle direkt an den Fahrer. DIGIY nimmt kein Geld entgegen.",
+    "0 % Provision",
+    "WhatsApp mit einem Tippen",
+    "AIBD-Transfer · lokale Fahrten · Tagesfahrten",
+    "Tipps zur Fahrt",
+    "Wähle einen Fahrer oder kontaktiere DIGIY, wenn du noch suchst.",
+    "Ein Fahrer kann per Link vorausgewählt werden.",
+    "Übliches Gebiet",
+    "Saly → AIBD morgen um 7 Uhr",
+    "Tagesfahrer Saly / Somone",
+    "Lokale Fahrt mit Jakarta",
+    "WhatsApp öffnet das Gespräch.",
+    "Zahle direkt an den Fahrer.",
+    "Strecke, Uhrzeit, Fahrgäste und Budget.",
+    "Fahrer per Link ausgewählt",
+    "Standardfahrer bereit.",
+    "WhatsApp mit Entwurf geöffnet.",
+    "Link bereit zum Kopieren.",
+    "Link kopieren:"
+  ],
+  "nl": [
+    "Direct via WhatsApp · rechtstreeks betalen · 0% commissie",
+    "Chauffeursoverzicht",
+    "Hulp",
+    "Vul tijd, passagiers, bagage, budget en opmerkingen in. DIGIY maakt een WhatsApp-concept.",
+    "Betaal rechtstreeks aan de chauffeur. DIGIY ontvangt de betaling niet.",
+    "0% commissie",
+    "WhatsApp met één tik",
+    "AIBD-transfer · lokale ritten · dagtochten",
+    "Rittips",
+    "Kies een chauffeur of neem contact op met DIGIY als je nog zoekt.",
+    "Via een link kan een chauffeur vooraf zijn geselecteerd.",
+    "Gebruikelijk gebied",
+    "Saly → AIBD morgen om 7 uur",
+    "Dagchauffeur Saly / Somone",
+    "Lokale Jakarta-rit",
+    "WhatsApp opent het gesprek.",
+    "Betaal rechtstreeks aan de chauffeur.",
+    "Route, tijd, passagiers en budget.",
+    "Chauffeur gekozen via link",
+    "Standaardchauffeur staat klaar.",
+    "WhatsApp geopend met het concept.",
+    "Link klaar om te kopiëren.",
+    "Kopieer de link:"
+  ],
+  "ar": [
+    "واتساب مباشر · دفع مباشر · عمولة 0٪",
+    "دليل السائقين",
+    "الدعم",
+    "أضف الوقت والركاب والأمتعة والميزانية والملاحظات. تجهز DIGIY رسالة واتساب.",
+    "ادفع للسائق مباشرة. DIGIY لا تستلم الدفع.",
+    "عمولة 0٪",
+    "واتساب بلمسة واحدة",
+    "نقل AIBD · رحلات محلية · رحلات يومية",
+    "نصائح للرحلة",
+    "اختر سائقاً أو تواصل مع DIGIY إذا كنت لا تزال تبحث.",
+    "يمكن اختيار سائق مسبقاً عبر رابط.",
+    "المنطقة المعتادة",
+    "سالي ← AIBD غداً الساعة 7",
+    "سائق ليوم كامل سالي / سومون",
+    "رحلة جاكرتا محلية",
+    "يفتح واتساب المحادثة.",
+    "ادفع للسائق مباشرة.",
+    "المسار والوقت والركاب والميزانية.",
+    "تم اختيار السائق عبر الرابط",
+    "السائق الافتراضي جاهز.",
+    "تم فتح واتساب مع المسودة.",
+    "الرابط جاهز للنسخ.",
+    "انسخ الرابط:"
+  ],
+  "wo": [
+    "WhatsApp jub · fay ci sa bopp · 0 % komisioŋ",
+    "Galerii dawalkat yi",
+    "Ndimbal",
+    "Bindal waxtu wi, nit ñi, bagas yi, budget bi ak leeral yi. DIGIY day waajal bataaxalu WhatsApp.",
+    "Fayal dawalkat bi ci sa bopp. DIGIY du jot fay bi.",
+    "0 % komisioŋ",
+    "Ubbi WhatsApp benn yoon",
+    "Yóbbu AIBD · tukki ci gox bi · bés bépp",
+    "Ndimbal ci tukki bi",
+    "Tànnal dawalkat walla jokkoo ak DIGIY su fekkee da ngay seet ba tey.",
+    "Mën nañu tànnal la dawalkat ci lëkkalekaay.",
+    "Gox bi ñu faral di liggéeye",
+    "Saly → AIBD ëllëg 7w",
+    "Dawalkat bés bépp Saly / Somone",
+    "Tukki Jakarta ci gox bi",
+    "WhatsApp day ubbi waxtaan wi.",
+    "Fayal dawalkat bi ci sa bopp.",
+    "Yoon wi, waxtu wi, nit ñi ak budget bi.",
+    "Tànn nañu dawalkat bi ci lëkkalekaay",
+    "Dawalkat bi ñu jëkk a tànn pare na.",
+    "Ubbi nañu WhatsApp ak bataaxal bi.",
+    "Lëkkalekaay bi pare na ngir duplike.",
+    "Duplike lëkkalekaay bi:"
+  ],
+  "zh": [
+    "直接通过 WhatsApp 联系 · 直接付款 · 零佣金",
+    "司机名录",
+    "帮助",
+    "填写时间、乘客、行李、预算和备注。DIGIY 会生成 WhatsApp 草稿。",
+    "请直接向司机付款。DIGIY 不收取款项。",
+    "零佣金",
+    "一键打开 WhatsApp",
+    "AIBD 接送 · 本地行程 · 一日出行",
+    "行程提示",
+    "请选择司机，或在尚未找到司机时联系 DIGIY。",
+    "可通过链接预先选定司机。",
+    "常用服务区",
+    "萨利 → AIBD，明早 7 点",
+    "萨利／索莫讷全天用车",
+    "本地 Jakarta 摩托车行程",
+    "WhatsApp 会打开对话。",
+    "请直接向司机付款。",
+    "路线、时间、乘客和预算。",
+    "已通过链接选定司机",
+    "默认司机已就绪。",
+    "已打开 WhatsApp 草稿。",
+    "链接可供复制。",
+    "请复制链接："
+  ]
+};
+    const detailHelp=Object.hasOwn(detailHelpCopies,detailLang)?detailHelpCopies[detailLang]:null;
     const detailFields=["driverSelect","courseType","date","time","pickup","dropoff","people","bags","budget","clientPhone","notes"];
     if(detailCopy){
       document.documentElement.lang=detailLang;
       document.documentElement.dir=detailLang==="ar"?"rtl":"ltr";
       document.title="DIGIY DRIVER — "+detailCopy[0];
       document.querySelector(".h1").textContent=detailCopy[0]+" · DIGIY DRIVER";
+      const helpTargets=[".btxt small","#btnGalerie",".top .actions a:last-child",".hero .sub",".hero .pill",".hero .chip:nth-child(1)",".hero .chip:nth-child(2)",".hero .chip:nth-child(3)",".quick-title",".quick-sub","#driverHint",".row .hint:not(#driverHint)","[data-course=\"aibd\"]","[data-course=\"journee\"]","[data-course=\"jakarta\"]",".trust-item:nth-child(1)",".trust-item:nth-child(2)",".trust-item:nth-child(3)"];
+      helpTargets.forEach((selector,index)=>{
+        const el=document.querySelector(selector);
+        if(el)el.textContent=detailHelp[index]+(index===11?": Saly · Mbour · AIBD":"");
+      });
+      document.querySelector(".footer").textContent="DIGIY DRIVER · "+detailHelp[5]+" · "+detailHelp[16]+" · Sénégal → Afrique ∞";
       document.getElementById("backToRideChoices").textContent="← "+detailCopy[1];
       detailFields.forEach((id,index)=>{
         document.querySelector('label[for="'+id+'"]').textContent=detailCopy[index+2];
@@ -1093,11 +1327,11 @@
       if(preName && preWa){
         addOption(preName, preWa, preUrl);
         driverSelect.selectedIndex = driverSelect.options.length - 1;
-        setStatus(`Chauffeur pré-sélectionné : ${preName}`);
-        driverHint.innerHTML = `Chauffeur reçu par lien direct : <b style="color:#fde68a">${escapeHtml(preName)}</b>`;
+        setStatus(detailHelp ? `${detailHelp[18]} : ${preName}` : `Chauffeur pré-sélectionné : ${preName}`);
+        driverHint.innerHTML = `${detailHelp?.[18] || "Chauffeur reçu par lien direct"} : <b style="color:#fde68a">${escapeHtml(preName)}</b>`;
       } else if (driverSelect.options.length > 1) {
         driverSelect.selectedIndex = 1;
-        setStatus("Chauffeur par défaut prêt.");
+        setStatus((detailHelp?.[19] || "Chauffeur par défaut prêt."));
       }
     }
 
@@ -1233,7 +1467,7 @@
 
       const msg = buildMessage(d.name || "Chauffeur");
       openWa(d.wa, msg);
-      setStatus("WhatsApp ouvert avec commande complète ✅");
+      setStatus((detailHelp?.[20] || "WhatsApp ouvert avec commande complète ✅"));
     });
 
     document.getElementById("btnCopy").addEventListener("click", async ()=>{
@@ -1252,8 +1486,8 @@
         await navigator.clipboard.writeText(url.toString());
         setStatus(detailCopy?.[22] || "Lien copié ✅ (chauffeur pré-sélectionné)");
       }catch(_){
-        window.prompt("Copie le lien :", url.toString());
-        setStatus("Copie manuelle OK ✅");
+        window.prompt((detailHelp?.[22] || "Copie le lien :"), url.toString());
+        setStatus((detailHelp?.[21] || "Copie manuelle OK ✅"));
       }
     });
 
