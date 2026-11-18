@@ -764,6 +764,298 @@
   (function(){
     "use strict";
 
+    const detailCopies={
+  "en": [
+    "Detailed ride",
+    "Ride options",
+    "Driver",
+    "Ride type",
+    "Date",
+    "Time",
+    "Pickup",
+    "Destination",
+    "Passengers",
+    "Luggage",
+    "Estimated budget",
+    "My WhatsApp",
+    "Message",
+    "Choose a driver…",
+    "Select…",
+    "Light",
+    "Medium",
+    "Heavy",
+    "Send my request",
+    "Copy driver link",
+    "Select a driver first.",
+    "Enter pickup and destination.",
+    "Driver link copied.",
+    "AIBD transfer",
+    "Local ride (Saly / Mbour)",
+    "Day trip / Long distance",
+    "Hello, I’m contacting you through DIGIY DRIVER.",
+    "Please confirm the fare with me. I’ll pay you directly."
+  ],
+  "es": [
+    "Viaje detallado",
+    "Opciones de viaje",
+    "Conductor",
+    "Tipo de viaje",
+    "Fecha",
+    "Hora",
+    "Origen",
+    "Destino",
+    "Pasajeros",
+    "Equipaje",
+    "Presupuesto estimado",
+    "Mi WhatsApp",
+    "Mensaje",
+    "Elige un conductor…",
+    "Seleccionar…",
+    "Ligero",
+    "Medio",
+    "Pesado",
+    "Enviar mi solicitud",
+    "Copiar enlace del conductor",
+    "Elige primero un conductor.",
+    "Indica el origen y el destino.",
+    "Enlace del conductor copiado.",
+    "Traslado AIBD",
+    "Viaje local (Saly / Mbour)",
+    "Excursión / Larga distancia",
+    "Hola, te contacto a través de DIGIY DRIVER.",
+    "Confírmame el precio. Te pagaré directamente."
+  ],
+  "pt": [
+    "Viagem detalhada",
+    "Opções de viagem",
+    "Motorista",
+    "Tipo de viagem",
+    "Data",
+    "Hora",
+    "Partida",
+    "Destino",
+    "Passageiros",
+    "Bagagem",
+    "Orçamento estimado",
+    "O meu WhatsApp",
+    "Mensagem",
+    "Escolha um motorista…",
+    "Selecionar…",
+    "Leve",
+    "Média",
+    "Pesada",
+    "Enviar pedido",
+    "Copiar ligação do motorista",
+    "Escolha primeiro um motorista.",
+    "Indique partida e destino.",
+    "Ligação do motorista copiada.",
+    "Transfer AIBD",
+    "Viagem local (Saly / Mbour)",
+    "Passeio / Longa distância",
+    "Olá, estou a contactar através da DIGIY DRIVER.",
+    "Confirme o preço comigo. Pagarei diretamente ao motorista."
+  ],
+  "it": [
+    "Corsa dettagliata",
+    "Opzioni della corsa",
+    "Autista",
+    "Tipo di corsa",
+    "Data",
+    "Ora",
+    "Partenza",
+    "Destinazione",
+    "Passeggeri",
+    "Bagagli",
+    "Budget indicativo",
+    "Il mio WhatsApp",
+    "Messaggio",
+    "Scegli un autista…",
+    "Seleziona…",
+    "Leggero",
+    "Medio",
+    "Pesante",
+    "Invia la richiesta",
+    "Copia il link dell’autista",
+    "Scegli prima un autista.",
+    "Indica partenza e destinazione.",
+    "Link dell’autista copiato.",
+    "Transfer AIBD",
+    "Corsa locale (Saly / Mbour)",
+    "Giornata / Lunga distanza",
+    "Ciao, ti contatto tramite DIGIY DRIVER.",
+    "Conferma il prezzo con me. Ti pagherò direttamente."
+  ],
+  "de": [
+    "Detaillierte Fahrt",
+    "Fahrtoptionen",
+    "Fahrer",
+    "Fahrtart",
+    "Datum",
+    "Uhrzeit",
+    "Abholung",
+    "Ziel",
+    "Fahrgäste",
+    "Gepäck",
+    "Ungefähres Budget",
+    "Mein WhatsApp",
+    "Nachricht",
+    "Fahrer wählen…",
+    "Auswählen…",
+    "Leicht",
+    "Mittel",
+    "Schwer",
+    "Anfrage senden",
+    "Fahrerlink kopieren",
+    "Wähle zuerst einen Fahrer.",
+    "Gib Abholort und Ziel ein.",
+    "Fahrerlink kopiert.",
+    "AIBD-Transfer",
+    "Lokale Fahrt (Saly / Mbour)",
+    "Tagesfahrt / Fernstrecke",
+    "Hallo, ich kontaktiere dich über DIGIY DRIVER.",
+    "Bitte bestätige mir den Preis. Ich bezahle dich direkt."
+  ],
+  "nl": [
+    "Uitgebreide rit",
+    "Ritopties",
+    "Chauffeur",
+    "Rittype",
+    "Datum",
+    "Tijd",
+    "Vertrekpunt",
+    "Bestemming",
+    "Passagiers",
+    "Bagage",
+    "Geschat budget",
+    "Mijn WhatsApp",
+    "Bericht",
+    "Kies een chauffeur…",
+    "Selecteer…",
+    "Licht",
+    "Gemiddeld",
+    "Zwaar",
+    "Aanvraag versturen",
+    "Chauffeurslink kopiëren",
+    "Kies eerst een chauffeur.",
+    "Vul vertrekpunt en bestemming in.",
+    "Chauffeurslink gekopieerd.",
+    "AIBD-transfer",
+    "Lokale rit (Saly / Mbour)",
+    "Dagtocht / Lange afstand",
+    "Hallo, ik neem contact op via DIGIY DRIVER.",
+    "Bevestig de prijs met mij. Ik betaal je rechtstreeks."
+  ],
+  "ar": [
+    "رحلة مفصلة",
+    "خيارات الرحلة",
+    "السائق",
+    "نوع الرحلة",
+    "التاريخ",
+    "الوقت",
+    "الانطلاق",
+    "الوجهة",
+    "الركاب",
+    "الأمتعة",
+    "الميزانية التقريبية",
+    "رقمي على واتساب",
+    "الرسالة",
+    "اختر سائقاً…",
+    "اختر…",
+    "خفيفة",
+    "متوسطة",
+    "ثقيلة",
+    "إرسال طلبي",
+    "نسخ رابط السائق",
+    "اختر سائقاً أولاً.",
+    "أدخل نقطة الانطلاق والوجهة.",
+    "تم نسخ رابط السائق.",
+    "نقل مطار AIBD",
+    "رحلة محلية (سالي / مبور)",
+    "رحلة يومية / مسافة طويلة",
+    "مرحباً، أتواصل معك عبر DIGIY DRIVER.",
+    "يرجى تأكيد السعر معي. سأدفع لك مباشرة."
+  ],
+  "wo": [
+    "Tukki bu am leeral",
+    "Tànneefi tukki",
+    "Dawalkat",
+    "Xeetu tukki",
+    "Bés",
+    "Waxtu",
+    "Fi ma jóge",
+    "Fa may dem",
+    "Nit ñi",
+    "Bagas",
+    "Budget bu ñu xalaat",
+    "Sama WhatsApp",
+    "Bataaxal",
+    "Tànnal dawalkat…",
+    "Tànnal…",
+    "Woyof",
+    "Digg-dóomu",
+    "Diis",
+    "Yónnee sama laaj",
+    "Duplike lëkkalekaayu dawalkat bi",
+    "Tànnal dawalkat ba mu jëkk.",
+    "Bindal fa nga jóge ak fa ngay dem.",
+    "Duplike nañu lëkkalekaayu dawalkat bi.",
+    "Yóbbu AIBD",
+    "Tukki ci gox bi (Saly / Mbour)",
+    "Bés bépp / Yoon wu gudd",
+    "Salam, ci DIGIY DRIVER laa la jokkoo.",
+    "Dëggalal ma njëg bi. Dinaala fay ci sama bopp."
+  ],
+  "zh": [
+    "详细行程",
+    "行程选项",
+    "司机",
+    "行程类型",
+    "日期",
+    "时间",
+    "出发地",
+    "目的地",
+    "乘客人数",
+    "行李",
+    "预估预算",
+    "我的 WhatsApp",
+    "留言",
+    "请选择司机…",
+    "请选择…",
+    "少量",
+    "中等",
+    "较多",
+    "发送请求",
+    "复制司机链接",
+    "请先选择司机。",
+    "请填写出发地和目的地。",
+    "司机链接已复制。",
+    "AIBD 机场接送",
+    "本地行程（萨利／姆布尔）",
+    "一日行程／长途",
+    "您好，我通过 DIGIY DRIVER 联系您。",
+    "请与我确认价格。我会直接向您付款。"
+  ]
+};
+    const detailLang=new URLSearchParams(location.search).get("lang");
+    const detailCopy=Object.hasOwn(detailCopies,detailLang)?detailCopies[detailLang]:null;
+    const detailFields=["driverSelect","courseType","date","time","pickup","dropoff","people","bags","budget","clientPhone","notes"];
+    if(detailCopy){
+      document.documentElement.lang=detailLang;
+      document.documentElement.dir=detailLang==="ar"?"rtl":"ltr";
+      document.title="DIGIY DRIVER — "+detailCopy[0];
+      document.querySelector(".h1").textContent=detailCopy[0]+" · DIGIY DRIVER";
+      document.getElementById("backToRideChoices").textContent="← "+detailCopy[1];
+      detailFields.forEach((id,index)=>{
+        document.querySelector('label[for="'+id+'"]').textContent=detailCopy[index+2];
+        const field=document.getElementById(id);
+        if(field.hasAttribute("placeholder"))field.placeholder=detailCopy[index+2];
+      });
+      document.getElementById("btnSend").textContent="📲 "+detailCopy[18];
+      document.getElementById("btnCopy").textContent="🔗 "+detailCopy[19];
+      document.querySelector("#driverSelect option").textContent=detailCopy[13];
+      document.querySelectorAll("#bags option").forEach((option,index)=>option.textContent=detailCopy[14+index]);
+      document.querySelectorAll("#courseType option").forEach((option,index)=>option.textContent=detailCopy[23+index]);
+    }
     const driverSelect = document.getElementById("driverSelect");
     const status = document.getElementById("status");
     const driverHint = document.getElementById("driverHint");
@@ -810,6 +1102,15 @@
     }
 
     function buildMessage(driverName){
+      if(detailCopy){
+        const lines=[detailCopy[26],"",detailCopy[2]+": "+driverName];
+        detailFields.slice(1).forEach((id,index)=>{
+          const field=document.getElementById(id);
+          const value=field.tagName==="SELECT"?field.value&&field.selectedOptions[0]?.textContent:field.value.trim();
+          if(value)lines.push(detailCopy[index+3]+": "+value);
+        });
+        return [...lines,"",detailCopy[27]].join("\n");
+      }
       const type = (document.getElementById("courseType").value || "").trim();
       const date = (document.getElementById("date").value || "").trim();
       const time = (document.getElementById("time").value || "").trim();
@@ -918,7 +1219,7 @@
     document.getElementById("btnSend").addEventListener("click", ()=>{
       const d = getSelected();
       if(!d || !d.wa){
-        setStatus("Choisis un chauffeur valide avant d’ouvrir WhatsApp.", false);
+        setStatus(detailCopy?.[20] || "Choisis un chauffeur valide avant d’ouvrir WhatsApp.", false);
         return;
       }
 
@@ -926,7 +1227,7 @@
       const dropoff = (document.getElementById("dropoff").value || "").trim();
 
       if(!pickup || !dropoff){
-        setStatus("Ajoute au moins Départ + Arrivée.", false);
+        setStatus(detailCopy?.[21] || "Ajoute au moins Départ + Arrivée.", false);
         return;
       }
 
@@ -938,7 +1239,7 @@
     document.getElementById("btnCopy").addEventListener("click", async ()=>{
       const d = getSelected();
       if(!d || !d.wa){
-        setStatus("Choisis un chauffeur avant de copier le lien.", false);
+        setStatus(detailCopy?.[20] || "Choisis un chauffeur avant de copier le lien.", false);
         return;
       }
 
@@ -949,7 +1250,7 @@
 
       try{
         await navigator.clipboard.writeText(url.toString());
-        setStatus("Lien copié ✅ (chauffeur pré-sélectionné)");
+        setStatus(detailCopy?.[22] || "Lien copié ✅ (chauffeur pré-sélectionné)");
       }catch(_){
         window.prompt("Copie le lien :", url.toString());
         setStatus("Copie manuelle OK ✅");
