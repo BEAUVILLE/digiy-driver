@@ -8,7 +8,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
   <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
   <meta name="theme-color" content="#155f43">
-  <meta http-equiv="refresh" content="0;url=https://driver-client.digiylyfe.com/">
+  <noscript><meta http-equiv="refresh" content="0;url=https://driver-client.digiylyfe.com/"></noscript>
   <link rel="canonical" href="https://driver-client.digiylyfe.com/">
   <style>
     *{box-sizing:border-box}
@@ -39,6 +39,11 @@
     <p>La porte publique chauffeur a été transférée vers DIGIY DRIVER CLIENT.</p>
     <a href="https://driver-client.digiylyfe.com/">Ouvrir la nouvelle porte</a>
   </main>
-  <script>window.location.replace("https://driver-client.digiylyfe.com/");</script>
+  <script>
+    const target = new URL("https://driver-client.digiylyfe.com/");
+    const lang = new URLSearchParams(location.search).get("lang");
+    if (/^(fr|en|es|pt|it|de|nl|ar|wo|zh)$/.test(lang)) target.searchParams.set("lang", lang);
+    location.replace(target.href);
+  </script>
 </body>
 </html>
