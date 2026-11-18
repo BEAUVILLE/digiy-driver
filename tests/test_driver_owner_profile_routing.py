@@ -41,7 +41,7 @@ class DriverOwnerRouting(unittest.TestCase):
 
     def test_public_driver_fiche_passes_slug_to_owner_access(self):
         self.assertIn('id="btnOwner" href="./acces-proprietaire.html"',FICHE)
-        self.assertIn('getElementById("btnOwner").href = digiyLocal("acces-proprietaire.html")',FICHE)
+        self.assertIn('getElementById("btnOwner").href = withDriverLang(digiyLocal("acces-proprietaire.html")',FICHE)
         self.assertIn("encodeURIComponent(slugForRpc)",FICHE)
         self.assertIn("if(!slugForRpc)",FICHE)
         self.assertIn('name="robots" content="noindex,nofollow,noarchive"',ACCESS)
