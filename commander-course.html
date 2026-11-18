@@ -391,7 +391,7 @@
       try{
         const target = new URL(path, location.href);
         const current = new URL(location.href);
-        ["driver","wa","profile"].forEach(k => {
+        ["driver","wa","profile","slug","lang"].forEach(k => {
           const v = current.searchParams.get(k);
           if(v) target.searchParams.set(k, v);
         });
