@@ -862,6 +862,12 @@
     }
 
     const qs = new URLSearchParams(location.search);
+    const lang = qs.get("lang");
+    function withDriverLang(path) {
+      const url = new URL(path, location.origin);
+      if (/^(fr|en|es|pt|it|de|nl|ar|wo|zh)$/.test(lang)) url.searchParams.set("lang", lang);
+      return url.pathname + url.search + url.hash;
+    }
     const rawSlug = normalizeSlug(qs.get("slug") || qs.get("identifiant") || "");
     const slugForRpc = rawSlug;
     cleanVisibleUrl();
@@ -914,6 +920,7 @@
       }
 
       u.searchParams.set("profile", visibleProfileUrl());
+      if (/^(fr|en|es|pt|it|de|nl|ar|wo|zh)$/.test(lang)) u.searchParams.set("lang", lang);
       return u.toString();
     }
 
@@ -1083,9 +1090,9 @@
 
     async function boot(){
       document.getElementById("safePill").textContent = "fiche : publique";
-      document.getElementById("btnRetour").href = digiyLocal("index.html");
-      document.getElementById("brandBack").href = digiyLocal("index.html");
-      document.getElementById("btnOwner").href = digiyLocal("acces-proprietaire.html")+'?slug='+encodeURIComponent(slugForRpc)+'&v=20260930-whatsapp';
+      document.getElementById("btnRetour").href = withDriverLang(digiyLocal("index.html"));
+      document.getElementById("brandBack").href = withDriverLang(digiyLocal("index.html"));
+      document.getElementById("btnOwner").href = withDriverLang(digiyLocal("acces-proprietaire.html")+'?slug='+encodeURIComponent(slugForRpc)+'&v=20260930-whatsapp');
 
       if(!slugForRpc){
         document.getElementById("name").textContent = "Lien incomplet";
